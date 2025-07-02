@@ -1,0 +1,17 @@
+<tr>
+    <td><%= serial_number; %></td>
+    <td><%= result.name; %></td>
+    <td><%= result.email; %></td>
+    <td><%= result.roles[0]; %></td>
+    <td>
+        <%=  result.isActive
+            ? __append(`<span class="badge badge-success">Active</span>`)
+            : __append(`<span class="badge badge-danger">Inactive</span>`)
+        %>
+    </td>
+    <td><%= new Date(result.createdAt).toLocaleString(); %></td>
+    
+    <td>
+        <a class="btn btn-danger" href="/admin/portal/admins/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
+    </td>
+</tr>

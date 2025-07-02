@@ -1,0 +1,11 @@
+<tr>
+  <td><%= serial_number; %></td>
+  <td><%= result.name; %></td>
+  <td><%= result.email; %></td>
+  <td><%= result.phone; %></td>
+  <td><%= result.subject; %></td>
+  <td><%= new Date(result.createdAt).toLocaleString(); %></td>
+  <td>
+        <button type="button" class="btn btn-danger" onclick="removeData(this, '/admin/portal/contacts?id=<%= result._id; %>')"><i class="bi bi-trash"></i></button>
+    </td>
+</tr>

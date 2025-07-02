@@ -1,0 +1,87 @@
+:root {
+    --primary-color: #043353;
+    --primary-hover-color: #043353;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}
+.btn-primary.focus, .btn-primary:focus{
+    color: #fff;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active{
+    background-color: var(--primary-color);
+}
+
+a{
+    color: var(--primary-color);
+}
+a:hover {
+    color: var(--primary-hover-color);
+}
+.text-primary {
+    color: var(--primary-color) !important;
+}
+.nav-sidebar>.nav-item .nav-icon.fa, .nav-sidebar>.nav-item .nav-icon.fab, .nav-sidebar>.nav-item .nav-icon.fad, .nav-sidebar>.nav-item .nav-icon.fal, .nav-sidebar>.nav-item .nav-icon.far, .nav-sidebar>.nav-item .nav-icon.fas, .nav-sidebar>.nav-item .nav-icon.ion, .nav-sidebar>.nav-item .nav-icon.svg-inline--fa{
+    font-size: 1.2rem;
+}
+
+.card-primary.card-outline {
+    border-top: 3px solid var(--primary-color);
+}
+
+.page-item.active .page-link{
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.badge-primary{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.pagination-loading {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-notfound {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-notfound span {
+    font-size: 24px;
+    color: gray;
+}
+
+.thumbnail-upload-section{
+    border: 1px solid #ddd9d9;
+    width: max-content;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}

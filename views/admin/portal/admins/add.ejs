@@ -1,0 +1,80 @@
+<%- include('../../layouts/header'); %>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item">Admins</li>
+                    <li class="breadcrumb-item active"><%= title; %></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card card-outline card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title"><%= title; %></h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" data-form="true" data-url="/admin/portal/admins/add">
+                            <% if(is_update == true){ %>
+                                <input type="hidden" name="action_id" value="<%= action_data._id; %>">
+                            <% } %>
+                            <input type="hidden" name="roles" value="<% if(is_update == true){ %><%= JSON.stringify(action_data.roles); %><% } else { %>[]<% } %>">
+
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" placeholder="Name" value="<% if(is_update == true){ %><%= action_data.name; %><% } %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email" placeholder="Email" <%= is_update ? 'readonly' : 'required'; %> value="<% if(is_update == true){ %><%= action_data.email; %><% } %>">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password" <%= is_update ? '' : 'required'; %>>
+                            </div>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select id="select-roles" multiple required>
+                                    <option value="admin" <% if(is_update == true){ %><% if(action_data.roles.includes('admin')){__append('selected=""')}  %><% } %>>Admin</option>
+                                    <option value="moderator" <% if(is_update == true){ %><% if(action_data.roles.includes('moderator')){__append('selected=""')}  %><% } %>>Moderator</option>
+                                    <option value="admin:read" <% if(is_update == true){ %><% if(action_data.roles.includes('admin:read')){__append('selected=""')}  %><% } %>>Admin Read</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Is Active</label>
+                                <select class="form-control" name="isActive" required>
+                                    <option value="true" <% if(is_update == true){ %><% if(action_data.isActive == true){__append('selected=""')}  %><% } %>>Yes</option>
+                                    <option value="false" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary"><%= title; %></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include('../../layouts/footer'); %>
+<script>
+    new TomSelect("#select-roles", {
+        create: false,
+        placeholder: "Select Roles",
+        plugins: ['remove_button'],
+        onChange: function(values) {
+            document.querySelector('input[name="roles"]').value = JSON.stringify(values);
+        }
+    });
+</script>

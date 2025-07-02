@@ -1,0 +1,104 @@
+<%- include('../../layouts/header'); %>
+<script src="/lib/tinymce/js/tinymce/tinymce.min.js"></script>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Blogs</li>
+          <li class="breadcrumb-item active"><%= title; %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card card-outline card-primary">
+          <div class="card-header">
+            <h4 class="card-title"><%= title; %></h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" data-form="true" data-url="/admin/portal/blogs/add">
+              <% if(is_update == true){ %>
+              <input type="hidden" name="action_id" value="<%= action_data._id; %>">
+              <% } %>
+              <input type="hidden" name="thumbnail" id="thumbnail" value="<%= is_update ? action_data?.thumbnail : ''; %>">
+
+              <div class="form-group">
+                <div class="thumbnail-upload-section" data-input="#thumbnail" data-path="/blog" onclick="uploadThumbnail(this)" style="margin: 0 auto;">
+                  <img src="<%= (is_update && action_data?.thumbnail) ? `${process.env.CDN_URL}/blog/${action_data.thumbnail}` : '/images/thumbnail.png'; %>" width="120" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" oninput="changeSlug(this)" placeholder="Title" value="<% if(is_update == true){ %><%= action_data.title; %><% } %>" required>
+              </div>
+              <div class="form-group">
+                <label>Slug</label>
+                <input type="text" class="form-control" name="slug" placeholder="Slug" value="<% if(is_update == true){ %><%= action_data.slug; %><% } %>" required>
+              </div>
+              <div class="form-group">
+                <label>Summary</label>
+                <textarea class="form-control" name="summary" placeholder="Summary" required><% if(is_update == true){ %><%= action_data.summary; %><% } %></textarea>
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" id="description" rows="5" name="description" placeholder="Description" required><% if(is_update == true){ %><%= action_data.description; %><% } %></textarea>
+              </div>
+              <div class="form-group">
+                <label>Is Active</label>
+                <select class="form-control" name="isActive" required>
+                  <option value="true" <% if(is_update == true){ %><% if(action_data.isActive == true){__append('selected=""')}  %><% } %>>Yes</option>
+                  <option value="false" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary"><%= title; %></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../../layouts/footer'); %>
+<script>
+  tinymce.init({
+    selector: '#description',
+      setup: function (editor) {
+        editor.on('change keyup', function (e) {
+            editor.save();
+            $(editor.getElement()).trigger('change');
+      });
+    },
+    height: 480,
+    entity_encoding: 'raw',
+    paste_data_images: true,
+    image_advtab: true,
+    toolbar1:
+        'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor addCodeClass exporttoc',
+    plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table toc contextmenu directionality',
+        'template paste textcolor colorpicker textpattern',
+    ],
+    rel_list: [{ title: 'External Link', value: 'external' }],
+    images_upload_handler: (blobInfo, success, failure, progress) => {
+        uploadHandleFile(blobInfo, progress, '/blog').then((result) => {
+            success(result);
+        }).catch((err) => {
+            failure(err);
+        });
+    },
+});
+</script>

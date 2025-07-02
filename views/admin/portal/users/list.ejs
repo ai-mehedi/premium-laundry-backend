@@ -1,0 +1,70 @@
+<%- include('../../layouts/header'); %>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active"><%= title; %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <form class="card card-primary card-outline" method="POST" data-paginate-form="true" data-page="1" data-url="/admin/portal/users/list">
+          <div class="card-header">
+            <h4 class="card-title">Users <span class="badge badge-primary" id="total_data">0</span></h4>
+            <div class="card-tools">
+              <div class="input-group input-group-md hidden-xs">
+                <input type="text" name="keyword" value="" class="form-control pull-right" placeholder="Search">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="overflow: auto;" class="card-body">
+            <div id="table_loading" class="pagination-loading">
+              <img width="100" src="/images/loading.gif" />
+            </div>
+            <div id="table_not_found" class="pagination-notfound d-none">
+              <span>Not Data To Show</span>
+            </div>
+            <table id="main_table" class="table table-bordered d-none">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>firstName</th>
+                  <th>lastName</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Account Verified</th>
+                  <th>Profile Status</th>
+                  <th>Listing Status</th>
+                  <th>Joined Date</th>
+                  <th>Option</th>
+                </tr>
+              </thead>
+              <tbody id="table_body"></tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <ul id="table_pagination_row" class="pagination"></ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../../layouts/footer'); %>
+<script>
+  document.querySelector('form[data-paginate-form="true"]').querySelector('button[type="submit"]').click();
+</script>
