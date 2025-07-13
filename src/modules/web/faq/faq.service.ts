@@ -8,7 +8,7 @@ export class FaqService {
     @InjectModel(Faq.name)
     private readonly faqModel: FaqModel,
     private readonly i18n: I18nService,
-  ) {}
+  ) { }
 
   async findAll() {
     const faqs = await this.faqModel

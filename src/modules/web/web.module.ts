@@ -7,6 +7,8 @@ import { FaqModule } from './faq/faq.module';
 import { FaceModule } from './face/face.module';
 import { SpaceModule } from './space/space.module';
 import { BlogModule } from './blog/blog.module';
+import { CategoryModule } from './category/category.module';
+import { TestimonialModule } from './testimonial/testimonial.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { BlogModule } from './blog/blog.module';
     FaceModule,
     SpaceModule,
     BlogModule,
+    CategoryModule,
+    TestimonialModule,
   ],
 })
 export class WebModule {}

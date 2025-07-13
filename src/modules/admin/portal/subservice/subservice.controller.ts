@@ -19,6 +19,7 @@ export class SubserviceController {
   @Post('list')
   async subserviceListPaginated(@Query() queryDto: PaginationQuery) {
     const result = await this.subserviceService.getPaginatedList(queryDto);
+    console.log('Subservices route hit', result);
     return result;
   }
 

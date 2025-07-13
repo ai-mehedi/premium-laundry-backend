@@ -5,7 +5,7 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('FAQs')
 @Controller('web/faq')
 export class FaqController {
-  constructor(private readonly faqService: FaqService) {}
+  constructor(private readonly faqService: FaqService) { }
   @Get()
   findAllFAQs() {
     return this.faqService.findAll();

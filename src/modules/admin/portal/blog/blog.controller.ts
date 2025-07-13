@@ -14,11 +14,12 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/blogs')
 export class BlogController {
-  constructor(private readonly blogService: BlogService) {}
+  constructor(private readonly blogService: BlogService) { }
 
   @Get('list')
   @Render('admin/portal/blogs/list')
   blogsList() {
+
     return {
       title: 'Blogs',
     };
@@ -36,6 +37,7 @@ export class BlogController {
     let title = 'Add Blog';
     let is_update = false;
     let action_data = {};
+    const categories = await this.blogService.getCategories();
     if (id) {
       const checkAdmin = await this.blogService.findBlogById(id);
       if (!checkAdmin) {
@@ -49,6 +51,7 @@ export class BlogController {
     }
 
     return {
+      categories: categories,
       title: title,
       is_update: is_update,
       action_data: action_data,

@@ -11,16 +11,23 @@ import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination
 import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
+import { Category, CategoryModel } from 'src/models/category-schema';
 
 @Injectable()
 export class BlogService {
   constructor(
     @InjectModel(Blog.name)
     private readonly blogModel: BlogModel,
-  ) {}
+    @InjectModel(Category.name)
+    private readonly categoryModel: CategoryModel,
+  ) { }
 
   async findBlogById(_id: string) {
     return this.blogModel.findById(_id);
+  }
+
+  async getCategories() {
+    return this.categoryModel.find({ isActive: true });
   }
 
   async addUpdateBlog(data: CreateBlogDto) {

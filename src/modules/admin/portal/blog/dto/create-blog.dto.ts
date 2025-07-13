@@ -21,6 +21,11 @@ export class CreateBlogDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
+  categoryId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
   summary: string;
 
   @ApiProperty()

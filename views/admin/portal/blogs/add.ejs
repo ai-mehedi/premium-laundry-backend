@@ -52,6 +52,16 @@
                 <label>Description</label>
                 <textarea class="form-control" id="description" rows="5" name="description" placeholder="Description" required><% if(is_update == true){ %><%= action_data.description; %><% } %></textarea>
               </div>
+               <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" name="categoryId" required>
+                  <option value="">Select Category</option>
+<% for(var category of categories){ %>
+                  <option value="<%= category._id %>" <% if(is_update == true){ %><% if(action_data.categoryId == category._id){__append('selected=""')}  %><% } %>><%= category.title %></option>
+                <% }
+                 %>
+                </select>
+              </div>
               <div class="form-group">
                 <label>Is Active</label>
                 <select class="form-control" name="isActive" required>
@@ -92,9 +102,19 @@
         'insertdatetime media nonbreaking save table toc contextmenu directionality',
         'template paste textcolor colorpicker textpattern',
     ],
+    relative_urls: false,
+  remove_script_host: false,
+ content_style: `
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  `,
     rel_list: [{ title: 'External Link', value: 'external' }],
     images_upload_handler: (blobInfo, success, failure, progress) => {
         uploadHandleFile(blobInfo, progress, '/blog').then((result) => {
+          console.log(result);
+          
             success(result);
         }).catch((err) => {
             failure(err);

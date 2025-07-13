@@ -85,9 +85,11 @@ function postForm() {
 
             form.querySelectorAll('input[type="checkbox"][name]').forEach((input) => {
                 body[input.name] = formData.getAll(input.name);
+            
             });
 
             try {
+                console.log('Submitting form with data:', body);
                 const response = await fetch(url.toString(), {
                     method,
                     headers: {

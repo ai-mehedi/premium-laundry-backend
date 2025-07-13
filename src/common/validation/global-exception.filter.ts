@@ -13,6 +13,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+
+    console.error('Exception caught by GlobalExceptionFilter:', exception);
     if (!(exception instanceof HttpException)) {
       console.error('Unhandled exception:', exception);
       if (request.headers['content-type'] !== 'application/json') {

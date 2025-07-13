@@ -7,12 +7,18 @@ import { setupSwagger } from './shared/services/swagger';
 import * as cookieParser from 'cookie-parser';
 import { GlobalExceptionFilter } from './common/validation/global-exception.filter';
 import { GlobalValidationPipe } from './common/pipes/global-validation.pipe';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
     rawBody: true,
   });
+    app.useGlobalPipes(new ValidationPipe({
+    transform: true,          // Enable auto transformation
+    whitelist: true,          // Strip properties not in DTO
+     forbidNonWhitelisted: true,
+  }));
   global.ROOT_DIR = join(process.cwd());
   const appConfigService: AppConfigService = app.get(AppConfigService);
   const port = appConfigService.http.port;

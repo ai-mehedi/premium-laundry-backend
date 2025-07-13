@@ -1,0 +1,154 @@
+<%- include('../../layouts/header'); %>
+<script src="/lib/tinymce/js/tinymce/tinymce.min.js"></script>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">product</li>
+          <li class="breadcrumb-item active"><%= title; %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card card-outline card-primary">
+          <div class="card-header">
+            <h4 class="card-title"><%= title; %></h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" data-form="true" data-url="/admin/portal/productitems/add">
+              <% if(is_update == true){ %>
+              <input type="hidden" name="action_id" value="<%= action_data._id; %>">
+              <% } %>
+              <input type="hidden" name="thumbnail" id="thumbnail" value="<%= is_update ? action_data?.thumbnail : ''; %>">
+
+              <div class="form-group">
+                <div class="thumbnail-upload-section" data-input="#thumbnail" data-path="/productitems" onclick="uploadThumbnail(this)" style="margin: 0 auto;">
+                  <img src="<%= (is_update && action_data?.thumbnail) ? `${process.env.CDN_URL}/productitems/${action_data.thumbnail}` : '/images/thumbnail.png'; %>" width="120" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title"  placeholder="Title" value="<% if(is_update == true){ %><%= action_data.title; %><% } %>" required>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>service</label>
+                    <select class="form-control" name="serviceId" required>
+
+                      <% services.forEach(service => { %>
+                      <option value="<%= service._id %>" <% if(is_update == true){ %><% if(action_data.serviceId.toString() == service._id.toString()){__append('selected=""')}  %><% } %>>
+                        <%= service.title %>
+                      </option>
+                      <% }) %>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Sub service</label>
+                    <select class="form-control" name="subserviceId" required>
+
+                      <% subservices.forEach(subservice => { %>
+                      <option value="<%= subservice._id %>" <% if(is_update == true){ %><% if(action_data.subserviceId.toString() == subservice._id.toString()){__append('selected=""')}  %><% } %>>
+                        <%= subservice.title %>
+                      </option>
+                      <% }) %>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Customer Price</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>Wash & Iron </label>
+                        <input type="number" class="form-control" name="pwashAndIron"  placeholder="Wash & Iron Price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>Dry Clean
+                        </label>
+                        <input type="number" class="form-control" name="pedrycleaning"  placeholder="drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label>Iron </label>
+                        <input type="number" class="form-control" name="piron"  placeholder="Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Vendor Price</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>Wash & Iron
+                        </label>
+                        <input type="number" class="form-control" name="vwashAndIron"  placeholder="Vendor washAndIron price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>Dry Clean </label>
+                        <input type="number" class="form-control" name="vdrycleaning"  placeholder="Vendor Drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label>Iron </label>
+                        <input type="number" class="form-control" name="viron"  placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+
+              <div class="form-group">
+                <label>Is Active</label>
+                <select class="form-control" name="isActive" required>
+                  <option value="true" <% if(is_update == true){ %><% if(action_data.isActive == true){__append('selected=""')}  %><% } %>>Yes</option>
+                  <option value="false" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>No</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary"><%= title; %></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<%- include('../../layouts/footer'); %>

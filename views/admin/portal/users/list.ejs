@@ -19,19 +19,35 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <form class="card card-primary card-outline" method="POST" data-paginate-form="true" data-page="1" data-url="/admin/portal/users/list">
+        <form
+          class="card card-primary card-outline"
+          method="POST"
+          data-paginate-form="true"
+          data-page="1"
+          data-url="/admin/portal/users/list"
+        >
           <div class="card-header">
-            <h4 class="card-title">Users <span class="badge badge-primary" id="total_data">0</span></h4>
+            <h4 class="card-title">
+              Users <span class="badge badge-primary" id="total_data">0</span>
+            </h4>
             <div class="card-tools">
               <div class="input-group input-group-md hidden-xs">
-                <input type="text" name="keyword" value="" class="form-control pull-right" placeholder="Search">
+                <input
+                  type="text"
+                  name="keyword"
+                  value=""
+                  class="form-control pull-right"
+                  placeholder="Search"
+                />
                 <div class="input-group-btn">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div style="overflow: auto;" class="card-body">
+          <div style="overflow: auto" class="card-body">
             <div id="table_loading" class="pagination-loading">
               <img width="100" src="/images/loading.gif" />
             </div>
@@ -66,5 +82,8 @@
 </section>
 <%- include('../../layouts/footer'); %>
 <script>
-  document.querySelector('form[data-paginate-form="true"]').querySelector('button[type="submit"]').click();
+  document
+    .querySelector('form[data-paginate-form="true"]')
+    .querySelector('button[type="submit"]')
+    .click();
 </script>

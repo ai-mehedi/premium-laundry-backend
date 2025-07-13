@@ -14,6 +14,9 @@ import { BlogModule } from './blog/blog.module';
 import { UserModule } from './user/user.module';
 import { ServiceModule } from './service/service.module';
 import { SubserviceModule } from './subservice/subservice.module';
+import { CategoryModule } from './category/category.module';
+import { ProductitemModule } from './productitem/productitem.module';
+import { TestimonialModule } from './testimonial/testimonial.module';
 
 @Module({
   imports: [
@@ -29,6 +32,10 @@ import { SubserviceModule } from './subservice/subservice.module';
     UserModule,
     ServiceModule,
     SubserviceModule,
+    CategoryModule,
+    ProductitemModule,
+    TestimonialModule,
+
   ],
   providers: [CookieService],
 })

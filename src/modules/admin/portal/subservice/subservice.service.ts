@@ -135,7 +135,7 @@ export class SubserviceService {
     let serial_number = offset;
 
     for (const result of results.records) {
-      console.log(result);
+
       serial_number++;
       html_data += await RenderEjsFile(join(global.ROOT_DIR, renderPath), {
         result,

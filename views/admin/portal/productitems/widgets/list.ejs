@@ -1,0 +1,20 @@
+<tr>
+  <td><%= serial_number; %></td>
+  <td><%= result.title; %></td>
+  <td>
+    <% if (result.isActive) { %>
+    <span class="badge badge-success">Active</span>
+    <% } else { %>
+    <span class="badge badge-danger">Inactive</span>
+    <% } %>
+  </td>
+  <td><%= new Date(result.createdAt).toLocaleString(); %></td>
+
+  <td>
+    <div class="d-flex align-items-center" style="gap: 5px;">
+      <a class="btn btn-success " href="/admin/portal/productitems/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
+      <button type="button" class="btn btn-danger" onclick="removeData(this, '/admin/portal/productitems?id=<%= result._id; %>')"><i class="bi bi-trash"></i></button>
+    </div>
+  </td>
+
+</tr>

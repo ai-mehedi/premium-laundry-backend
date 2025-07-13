@@ -15,8 +15,11 @@ mongoose.Schema.Types.String.set('trim', true);
 export class Contact {
   @ApiProperty()
   @Prop({ type: String, required: true })
-  name: string;
+  firstname: string;
 
+   @ApiProperty()
+  @Prop({ type: String, required: true })
+  lastname: string;
   @ApiProperty()
   @Prop({ type: String, required: true })
   email: string;
