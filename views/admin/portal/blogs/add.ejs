@@ -113,7 +113,7 @@
     rel_list: [{ title: 'External Link', value: 'external' }],
     images_upload_handler: (blobInfo, success, failure, progress) => {
         uploadHandleFile(blobInfo, progress, '/blog').then((result) => {
-          console.log(result);
+          
           
             success(result);
         }).catch((err) => {

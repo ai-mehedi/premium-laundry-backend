@@ -9,6 +9,9 @@ import { SpaceModule } from './space/space.module';
 import { BlogModule } from './blog/blog.module';
 import { CategoryModule } from './category/category.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
+import { CouponModule } from './coupon/coupon.module';
+import { ProductitemModule } from './productitem/productitem.module';
+import { SubserviceModule } from './subservice/subservice.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { TestimonialModule } from './testimonial/testimonial.module';
     BlogModule,
     CategoryModule,
     TestimonialModule,
+    CouponModule,
+    ProductitemModule,
+    SubserviceModule,
   ],
 })
 export class WebModule {}

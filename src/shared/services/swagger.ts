@@ -5,10 +5,14 @@ import { SignupModule } from 'src/modules/web/auth/signup/signup.module';
 import { BlogModule } from 'src/modules/web/blog/blog.module';
 import { CategoryModule } from 'src/modules/web/category/category.module';
 import { ContactModule } from 'src/modules/web/contact/contact.module';
+import { CouponModule } from 'src/modules/web/coupon/coupon.module';
+import { UpdateCouponDto } from 'src/modules/web/coupon/dto/update-dto';
 import { FaceModule } from 'src/modules/web/face/face.module';
 import { FaqModule } from 'src/modules/web/faq/faq.module';
 import { NewsletterModule } from 'src/modules/web/newsletter/newsletter.module';
+import { ProductitemModule } from 'src/modules/web/productitem/productitem.module';
 import { SpaceModule } from 'src/modules/web/space/space.module';
+import { SubserviceModule } from 'src/modules/web/subservice/subservice.module';
 import { TestimonialModule } from 'src/modules/web/testimonial/testimonial.module';
 import { MeModule } from 'src/modules/web/user/me/me.module';
 
@@ -33,7 +37,11 @@ export const setupSwagger = (app: INestApplication) => {
       SpaceModule,
       CategoryModule,
       BlogModule,
-      TestimonialModule
+      TestimonialModule,
+      CouponModule,
+      ProductitemModule,
+      SubserviceModule
+
 
     ],
   });

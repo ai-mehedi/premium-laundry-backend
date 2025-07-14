@@ -17,6 +17,7 @@ import { SubserviceModule } from './subservice/subservice.module';
 import { CategoryModule } from './category/category.module';
 import { ProductitemModule } from './productitem/productitem.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
+import { CouponModule } from './coupon/coupon.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TestimonialModule } from './testimonial/testimonial.module';
     CategoryModule,
     ProductitemModule,
     TestimonialModule,
+    CouponModule,
 
   ],
   providers: [CookieService],

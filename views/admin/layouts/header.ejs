@@ -413,6 +413,40 @@
                   </li>
                 </ul>
               </li>
+              <li
+                class="nav-item <% if(base_path[3] == 'coupons'){__append('menu-open active')} %>"
+              >
+                <a
+                  href="/admin/portal/coupons/list"
+                  class="nav-link <% if(base_path[3] == 'coupons'){__append('active')} %>"
+                >
+                  <i class="nav-icon fas fa-receipt"></i>
+                  <p>
+                    Coupons
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a
+                      href="/admin/portal/coupons/add"
+                      class="nav-link <% if(base_path[3] == 'coupons' && base_path[4] == 'add'){__append('active')} %>"
+                    >
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Add coupons</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="/admin/portal/coupons/list"
+                      class="nav-link <% if(base_path[3] == 'coupons' && base_path[4] == 'list'){__append('active')} %>"
+                    >
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>coupons</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
               <li
                 class="nav-item <% if(base_path[3] == 'faqs'){__append('menu-open active')} %>"
@@ -456,7 +490,7 @@
                   href="/admin/portal/testimonials/list"
                   class="nav-link <% if(base_path[3] == 'testimonials'){__append('active')} %>"
                 >
-                  <i class="nav-icon fas fa-question-circle"></i>
+                  <i class="nav-icon fas fa-comments"></i>
                   <p>
                     Testimonials
                     <i class="right fas fa-angle-left"></i>
