@@ -10,20 +10,20 @@ export type ServiceDocument = HydratedDocument<Service>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class Service {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    title: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  title: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    description: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  description: string;
 
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const ServiceSchema = SchemaFactory.createForClass(Service);

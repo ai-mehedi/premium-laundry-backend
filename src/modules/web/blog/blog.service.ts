@@ -11,7 +11,7 @@ export class BlogService {
     @InjectModel(Blog.name)
     private readonly blogModel: BlogModel,
     private readonly i18n: I18nService,
-  ) { }
+  ) {}
 
   async getAllBlogs() {
     return this.blogModel.find({ isActive: true }).lean();

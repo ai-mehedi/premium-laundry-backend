@@ -16,7 +16,7 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/productitems')
 export class ProductitemController {
-  constructor(private readonly productitemService: ProductitemService) { }
+  constructor(private readonly productitemService: ProductitemService) {}
 
   @Get('list')
   @Render('admin/portal/productitems/list')
@@ -78,7 +78,6 @@ export class ProductitemController {
 
   @Post('add')
   async addUpdatesubserviceSubmit(@Body() data: CreateProductitemDto) {
-
     await this.productitemService.addUpdateproductItem(data);
     return {
       message: data.action_id

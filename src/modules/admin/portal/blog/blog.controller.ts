@@ -14,12 +14,11 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/blogs')
 export class BlogController {
-  constructor(private readonly blogService: BlogService) { }
+  constructor(private readonly blogService: BlogService) {}
 
   @Get('list')
   @Render('admin/portal/blogs/list')
   blogsList() {
-
     return {
       title: 'Blogs',
     };

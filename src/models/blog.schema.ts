@@ -27,7 +27,11 @@ export class Blog {
   summary: string;
 
   @ApiProperty({ type: String })
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Category.name, required: true })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Category.name,
+    required: true,
+  })
   categoryId: mongoose.Types.ObjectId;
 
   @ApiProperty()

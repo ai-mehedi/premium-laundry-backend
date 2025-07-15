@@ -1,11 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/categories')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) { }
+  constructor(private readonly categoryService: CategoryService) {}
   @Get('list')
   @Render('admin/portal/categories/list')
   CategoriesList() {
@@ -59,5 +70,4 @@ export class CategoryController {
   async deleteService(@Query('id') id: string) {
     return await this.categoryService.deleteCategory(id);
   }
-
 }

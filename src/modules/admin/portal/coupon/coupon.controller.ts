@@ -1,12 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { CouponService } from './coupon.service';
 import { CreateCouponDto } from './dto/create-coupon.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/coupons')
 export class CouponController {
-
-  constructor(private readonly CouponService: CouponService) { }
+  constructor(private readonly CouponService: CouponService) {}
 
   @Get('list')
   @Render('admin/portal/coupons/list')
@@ -49,10 +59,11 @@ export class CouponController {
 
   @Post('add')
   async addUpdateCouponSubmit(@Body() data: CreateCouponDto) {
-
     await this.CouponService.addUpdateCoupon(data);
     return {
-      message: data.action_id ? 'Coupon has been updated' : 'Coupon has been added',
+      message: data.action_id
+        ? 'Coupon has been updated'
+        : 'Coupon has been added',
       redirect: '/admin/coupons/list',
     };
   }

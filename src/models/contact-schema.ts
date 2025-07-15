@@ -17,7 +17,7 @@ export class Contact {
   @Prop({ type: String, required: true })
   firstname: string;
 
-   @ApiProperty()
+  @ApiProperty()
   @Prop({ type: String, required: true })
   lastname: string;
   @ApiProperty()

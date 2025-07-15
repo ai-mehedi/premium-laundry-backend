@@ -11,25 +11,31 @@ export class CouponService {
     @InjectModel(Coupon.name)
     private readonly couponModel: CouponModel,
     private readonly i18n: I18nService,
-  ) { }
+  ) {}
 
   async findBySlug(discountCode: string) {
     const coupon = await this.couponModel.findOne({ discountCode });
     if (!coupon) {
-      throw new NotFoundException(`Coupon with slug "${discountCode}" not found`);
+      throw new NotFoundException(
+        `Coupon with slug "${discountCode}" not found`,
+      );
     }
     return coupon;
   }
 
   async updateBySlug(discountCode: string, dto: UpdateCouponDto) {
-    const updated = await this.couponModel.findOneAndUpdate({ discountCode }, dto, {
-      new: true,
-    });
+    const updated = await this.couponModel.findOneAndUpdate(
+      { discountCode },
+      dto,
+      {
+        new: true,
+      },
+    );
     if (!updated) {
-      throw new NotFoundException(`Coupon with slug "${discountCode}" not found`);
+      throw new NotFoundException(
+        `Coupon with slug "${discountCode}" not found`,
+      );
     }
     return updated;
   }
-
-
 }

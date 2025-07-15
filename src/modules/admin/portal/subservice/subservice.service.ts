@@ -19,16 +19,15 @@ export class SubserviceService {
     private readonly SubserviceModel: SubserviceModel,
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
-  ) { }
+  ) {}
 
   async findsubserviceById(_id: string) {
     return this.SubserviceModel.findById(_id);
   }
 
   async findServicesAll() {
-    return this.ServiceModel.find({ isActive: true })
+    return this.ServiceModel.find({ isActive: true });
   }
-
 
   async addUpdatesubservice(data: CreateSubserviceDto) {
     if (data.action_id) {
@@ -100,7 +99,6 @@ export class SubserviceService {
     };
 
     if (searchText) {
-
       options.search = {
         searchText,
         searchBy,
@@ -120,9 +118,9 @@ export class SubserviceService {
         $unwind: {
           path: '$serviceData',
           preserveNullAndEmptyArrays: true,
-        }
-      }
-    ]
+        },
+      },
+    ];
 
     const results = await this.SubserviceModel.paginate({}, options);
 
@@ -135,7 +133,6 @@ export class SubserviceService {
     let serial_number = offset;
 
     for (const result of results.records) {
-
       serial_number++;
       html_data += await RenderEjsFile(join(global.ROOT_DIR, renderPath), {
         result,

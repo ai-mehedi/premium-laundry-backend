@@ -10,36 +10,36 @@ export type CouponDocument = HydratedDocument<Coupon>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class Coupon {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    title: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  title: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    discountCode: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  discountCode: string;
 
-    @ApiProperty()
-    @Prop({ type: Number, required: true })
-    percentage: number;
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  percentage: number;
 
-    @ApiProperty()
-    @Prop({ type: Number, required: true })
-    maximumAttendeeCapacity: number;
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  maximumAttendeeCapacity: number;
 
-    @ApiProperty()
-    @Prop({ type: Number, })
-    totalamount: number;
+  @ApiProperty()
+  @Prop({ type: Number })
+  totalamount: number;
 
-    @ApiProperty()
-    @Prop({ type: Date, required: true })
-    expierationDate: Date;
+  @ApiProperty()
+  @Prop({ type: Date, required: true })
+  expierationDate: Date;
 
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const CouponSchema = SchemaFactory.createForClass(Coupon);

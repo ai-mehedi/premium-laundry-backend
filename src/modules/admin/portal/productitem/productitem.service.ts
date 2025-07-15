@@ -1,15 +1,21 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductitemDto } from './dto/create-productitem.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Subservice, SubserviceModel } from 'src/models/subservice-schema';
 import { Service, ServiceModel } from 'src/models/Service-schema';
-import { ProductItems, ProductItemsModel } from 'src/models/productitems-schema';
+import {
+  ProductItems,
+  ProductItemsModel,
+} from 'src/models/productitems-schema';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination/types';
 import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
-
 
 @Injectable()
 export class ProductitemService {
@@ -20,18 +26,19 @@ export class ProductitemService {
     private readonly ServiceModel: ServiceModel,
     @InjectModel(ProductItems.name)
     private readonly ProductItemsModel: ProductItemsModel,
-  ) { }
+  ) {}
 
   async findServicesAll() {
-    return this.ServiceModel.find({ isActive: true })
+    return this.ServiceModel.find({ isActive: true });
   }
   async findsubServicesAll() {
-    return this.SubserviceModel.find({ isActive: true })
+    return this.SubserviceModel.find({ isActive: true });
   }
 
-
   async findsubproductItemById(_id: string) {
-    return await this.ProductItemsModel.findById(_id).populate('subserviceId').populate('serviceId');
+    return await this.ProductItemsModel.findById(_id)
+      .populate('subserviceId')
+      .populate('serviceId');
   }
 
   async findproductItemsAll() {
@@ -40,7 +47,6 @@ export class ProductitemService {
       .populate('serviceId')
       .lean();
   }
-
 
   async addUpdateproductItem(data: CreateProductitemDto) {
     interface ServicePrice {
@@ -53,12 +59,12 @@ export class ProductitemService {
       washAndIron: data.pwashAndIron,
       drycleaning: data.pedrycleaning,
       iron: data.piron,
-    }
+    };
     const vendorPrice: ServicePrice = {
       washAndIron: data.vwashAndIron,
       drycleaning: data.vdrycleaning,
       iron: data.viron,
-    }
+    };
     if (data.action_id) {
       const checksubservice = await this.SubserviceModel.findOne({
         _id: data.action_id,
@@ -71,11 +77,10 @@ export class ProductitemService {
         });
       }
 
-
-      const isActive = (typeof data.isActive === 'string' ? data.isActive === 'true' : data.isActive === true);
-
-
-
+      const isActive =
+        typeof data.isActive === 'string'
+          ? data.isActive === 'true'
+          : data.isActive === true;
 
       await this.ProductItemsModel.updateOne(
         {
@@ -90,14 +95,10 @@ export class ProductitemService {
             title: data.title,
             price: price,
             vendorPrice: vendorPrice,
-
-
           },
         },
       );
     }
-
-
 
     if (!data.action_id) {
       const checkEmail = await this.ProductItemsModel.findOne({
@@ -117,13 +118,9 @@ export class ProductitemService {
         title: data.title,
         price: price,
         vendorPrice: vendorPrice,
-
-
       });
     }
   }
-
-
 
   async getPaginatedList({
     limit,
@@ -147,7 +144,6 @@ export class ProductitemService {
     };
 
     if (searchText) {
-
       options.search = {
         searchText,
         searchBy,
@@ -167,7 +163,7 @@ export class ProductitemService {
         $unwind: {
           path: '$serviceData',
           preserveNullAndEmptyArrays: true,
-        }
+        },
       },
       {
         $lookup: {
@@ -181,9 +177,9 @@ export class ProductitemService {
         $unwind: {
           path: '$subserviceData',
           preserveNullAndEmptyArrays: true,
-        }
-      }
-    ]
+        },
+      },
+    ];
 
     const results = await this.ProductItemsModel.paginate({}, options);
 
@@ -196,7 +192,6 @@ export class ProductitemService {
     let serial_number = offset;
 
     for (const result of results.records) {
-
       serial_number++;
       html_data += await RenderEjsFile(join(global.ROOT_DIR, renderPath), {
         result,
@@ -226,6 +221,4 @@ export class ProductitemService {
       message: 'Product item deleted successfully',
     };
   }
-
-
 }

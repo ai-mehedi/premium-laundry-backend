@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { Testimonial, TestimonialModel } from 'src/models/testimonial-schema';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,11 +17,13 @@ export class TestimonialService {
   constructor(
     @InjectModel(Testimonial.name)
     private readonly TestimonialModel: TestimonialModel,
-  ) { }
+  ) {}
 
   async addUpdateTestimonial(data: CreateTestimonialDto) {
     if (data.action_id) {
-      const checkService = await this.TestimonialModel.findOne({ _id: data.action_id });
+      const checkService = await this.TestimonialModel.findOne({
+        _id: data.action_id,
+      });
       if (!checkService) {
         throw new BadRequestException({
           message: 'Testimonial does not exist.',
@@ -131,5 +137,4 @@ export class TestimonialService {
       message: 'Testimonial deleted successfully',
     };
   }
-
 }

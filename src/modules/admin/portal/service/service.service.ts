@@ -17,11 +17,13 @@ export class ServiceService {
   constructor(
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
-  ) { }
+  ) {}
 
   async addUpdateServices(data: CreateServiceDto) {
     if (data.action_id) {
-      const checkService = await this.ServiceModel.findOne({ _id: data.action_id });
+      const checkService = await this.ServiceModel.findOne({
+        _id: data.action_id,
+      });
       if (!checkService) {
         throw new BadRequestException({
           message: 'Service does not exist.',

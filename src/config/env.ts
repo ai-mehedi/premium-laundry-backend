@@ -48,4 +48,13 @@ export class EnvironmentVariables {
 
   @IsString()
   WEB_BASE_URL!: string;
+
+  @IsString()
+  BULK_SMS_API_URL!: string;
+
+  @IsString()
+  BULK_SMS_API_KEY!: string;
+
+  @IsString()
+  BULK_SMS_SENDER_ID!: string;
 }

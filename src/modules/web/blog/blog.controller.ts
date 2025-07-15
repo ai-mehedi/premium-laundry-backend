@@ -6,7 +6,7 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 @ApiTags('Blogs')
 @Controller('web/blog')
 export class BlogController {
-  constructor(private readonly BlogService: BlogService) { }
+  constructor(private readonly BlogService: BlogService) {}
 
   @Get('list')
   findAllBlogs() {

@@ -16,4 +16,4 @@ import { Service, ServiceSchema } from 'src/models/Service-schema';
   controllers: [ServiceController],
   providers: [ServiceService],
 })
-export class ServiceModule { }
+export class ServiceModule {}

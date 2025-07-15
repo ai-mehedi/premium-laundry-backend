@@ -5,9 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Subservice, SubserviceSchema } from 'src/models/subservice-schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Subservice.name, schema: SubserviceSchema }])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Subservice.name, schema: SubserviceSchema },
+    ]),
+  ],
 
   controllers: [SubserviceController],
   providers: [SubserviceService],
 })
-export class SubserviceModule { }
+export class SubserviceModule {}

@@ -5,9 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Testimonial, TestimonialSchema } from 'src/models/testimonial-schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Testimonial.name, schema: TestimonialSchema }])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Testimonial.name, schema: TestimonialSchema },
+    ]),
+  ],
 
   controllers: [TestimonialController],
   providers: [TestimonialService],
 })
-export class TestimonialModule { }
+export class TestimonialModule {}

@@ -14,11 +14,13 @@ async function bootstrap() {
     bufferLogs: true,
     rawBody: true,
   });
-    app.useGlobalPipes(new ValidationPipe({
-    transform: true,          // Enable auto transformation
-    whitelist: true,          // Strip properties not in DTO
-     forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Enable auto transformation
+      whitelist: true, // Strip properties not in DTO
+      forbidNonWhitelisted: true,
+    }),
+  );
   global.ROOT_DIR = join(process.cwd());
   const appConfigService: AppConfigService = app.get(AppConfigService);
   const port = appConfigService.http.port;

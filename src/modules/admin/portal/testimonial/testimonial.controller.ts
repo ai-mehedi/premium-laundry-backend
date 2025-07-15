@@ -1,11 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { TestimonialService } from './testimonial.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/testimonials')
 export class TestimonialController {
-  constructor(private readonly TestimonialService: TestimonialService) { }
+  constructor(private readonly TestimonialService: TestimonialService) {}
   @Get('list')
   @Render('admin/portal/testimonials/list')
   CategoriesList() {

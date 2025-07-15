@@ -23,4 +23,4 @@ import { Service, ServiceSchema } from 'src/models/Service-schema';
   controllers: [SubserviceController],
   providers: [SubserviceService],
 })
-export class SubserviceModule { }
+export class SubserviceModule {}

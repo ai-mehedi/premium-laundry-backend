@@ -9,7 +9,6 @@ import { AdminsModule } from './admins/admins.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { ContactModule } from './contact/contact.module';
 import { FaqModule } from './faq/faq.module';
-import { MembershipModule } from './membership/membership.module';
 import { BlogModule } from './blog/blog.module';
 import { UserModule } from './user/user.module';
 import { ServiceModule } from './service/service.module';
@@ -28,7 +27,6 @@ import { CouponModule } from './coupon/coupon.module';
     NewsletterModule,
     ContactModule,
     FaqModule,
-    MembershipModule,
     BlogModule,
     UserModule,
     ServiceModule,
@@ -37,7 +35,6 @@ import { CouponModule } from './coupon/coupon.module';
     ProductitemModule,
     TestimonialModule,
     CouponModule,
-
   ],
   providers: [CookieService],
 })

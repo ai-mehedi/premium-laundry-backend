@@ -10,24 +10,24 @@ export type TestimonialDocument = HydratedDocument<Testimonial>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class Testimonial {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    name: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  name: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    description: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  description: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    thumbnail: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  thumbnail: string;
 
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const TestimonialSchema = SchemaFactory.createForClass(Testimonial);
@@ -35,4 +35,5 @@ export const TestimonialSchema = SchemaFactory.createForClass(Testimonial);
 TestimonialSchema.plugin(paginatePlugin);
 TestimonialSchema.plugin(softDeletePlugin);
 
-export type TestimonialModel = PaginateModel<Testimonial> & SoftDeleteModel<Testimonial>;
+export type TestimonialModel = PaginateModel<Testimonial> &
+  SoftDeleteModel<Testimonial>;

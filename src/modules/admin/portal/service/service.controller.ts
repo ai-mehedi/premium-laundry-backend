@@ -19,7 +19,7 @@ export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}
   @Get('list')
   @Render('admin/portal/services/list')
-SercvicesList() {
+  SercvicesList() {
     return {
       title: 'services',
     };

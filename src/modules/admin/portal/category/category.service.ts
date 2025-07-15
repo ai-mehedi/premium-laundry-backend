@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryModel } from 'src/models/category-schema';
@@ -13,11 +17,13 @@ export class CategoryService {
   constructor(
     @InjectModel(Category.name)
     private readonly CategoryModel: CategoryModel,
-  ) { }
+  ) {}
 
   async addUpdateCategory(data: CreateCategoryDto) {
     if (data.action_id) {
-      const checkService = await this.CategoryModel.findOne({ _id: data.action_id });
+      const checkService = await this.CategoryModel.findOne({
+        _id: data.action_id,
+      });
       if (!checkService) {
         throw new BadRequestException({
           message: 'Category does not exist.',

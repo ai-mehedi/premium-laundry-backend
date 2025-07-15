@@ -69,6 +69,14 @@ export class AppConfigService {
       base_url: this.configService.get('WEB_BASE_URL'),
     };
   }
+
+  get bulksmsbd() {
+    return {
+      base_url: this.configService.get('BULK_SMS_API_URL'),
+      api_key: this.configService.get('BULK_SMS_API_KEY'),
+      sender_id: this.configService.get('BULK_SMS_SENDER_ID'),
+    };
+  }
 }
 
 @Global()

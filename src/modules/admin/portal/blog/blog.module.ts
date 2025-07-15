@@ -3,7 +3,7 @@ import { BlogService } from './blog.service';
 import { BlogController } from './blog.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Blog, BlogSchema } from 'src/models/blog.schema';
-import { Category, CategorySchema, } from 'src/models/category-schema';
+import { Category, CategorySchema } from 'src/models/category-schema';
 
 @Module({
   imports: [
@@ -23,4 +23,4 @@ import { Category, CategorySchema, } from 'src/models/category-schema';
   controllers: [BlogController],
   providers: [BlogService],
 })
-export class BlogModule { }
+export class BlogModule {}

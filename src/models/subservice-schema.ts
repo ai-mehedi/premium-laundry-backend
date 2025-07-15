@@ -11,28 +11,32 @@ export type SubserviceDocument = HydratedDocument<Subservice>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class Subservice {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    title: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  title: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    thumbnail: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  thumbnail: string;
 
-    @ApiProperty()
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Service.name, required: true })
-    serviceId: string;
+  @ApiProperty()
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Service.name,
+    required: true,
+  })
+  serviceId: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    description: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  description: string;
 
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const SubserviceSchema = SchemaFactory.createForClass(Subservice);
@@ -40,4 +44,5 @@ export const SubserviceSchema = SchemaFactory.createForClass(Subservice);
 SubserviceSchema.plugin(paginatePlugin);
 SubserviceSchema.plugin(softDeletePlugin);
 
-export type SubserviceModel = PaginateModel<Subservice> & SoftDeleteModel<Subservice>;
+export type SubserviceModel = PaginateModel<Subservice> &
+  SoftDeleteModel<Subservice>;

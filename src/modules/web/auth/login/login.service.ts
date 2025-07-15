@@ -19,21 +19,21 @@ export class LoginService {
 
   async login(bodyDto: LoginDto) {
     const user = await this.userModel.findOne({
-      email: bodyDto.email,
+      phone: `+88${bodyDto.phone}`,
     });
 
     if (!user) {
       throw new NotFoundException({
         message: this.i18n.t('response-messages.field.not_found', {
-          args: { field: 'email' },
+          args: { field: 'phone' },
         }),
       });
     }
 
-    if (!user.isAccountVerified) {
+    if (!user.isActive) {
       throw new NotFoundException({
         message: this.i18n.t('response-messages.field.not_verified', {
-          args: { field: 'email' },
+          args: { field: 'phone' },
         }),
       });
     }
@@ -53,10 +53,10 @@ export class LoginService {
     const token = this.jwtService.sign(
       {
         userId: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        avatar: user.avatar,
+        name: user.name,
+        email: user?.email,
+        phone: user.phone,
+        avatar: user?.avatar,
       },
       {
         secret: this.appConfigService.jwt.secret,

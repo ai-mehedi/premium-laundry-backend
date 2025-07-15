@@ -4,7 +4,10 @@ import { ProductitemController } from './productitem.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Subservice, SubserviceSchema } from 'src/models/subservice-schema';
 import { Service, ServiceSchema } from 'src/models/Service-schema';
-import { ProductItems, ProductItemsSchema } from 'src/models/productitems-schema';
+import {
+  ProductItems,
+  ProductItemsSchema,
+} from 'src/models/productitems-schema';
 
 @Module({
   imports: [
@@ -30,4 +33,4 @@ import { ProductItems, ProductItemsSchema } from 'src/models/productitems-schema
   controllers: [ProductitemController],
   providers: [ProductitemService],
 })
-export class ProductitemModule { }
+export class ProductitemModule {}

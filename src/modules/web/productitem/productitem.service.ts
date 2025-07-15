@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { I18nService } from 'nestjs-i18n';
-import { ProductItems, ProductItemsModel } from 'src/models/productitems-schema';
-
+import {
+  ProductItems,
+  ProductItemsModel,
+} from 'src/models/productitems-schema';
 
 @Injectable()
 export class ProductitemService {
@@ -10,17 +12,14 @@ export class ProductitemService {
     @InjectModel(ProductItems.name)
     private readonly ProductItemsModel: ProductItemsModel,
     private readonly i18n: I18nService,
-  ) { }
+  ) {}
   async findAll() {
-    return await this.ProductItemsModel
-      .find({
-        isActive: true,
-      })
+    return await this.ProductItemsModel.find({
+      isActive: true,
+    })
       .populate('serviceId')
       .populate('subserviceId')
       .select('-__v -isDeleted -deletedAt')
       .lean();
-
   }
-
 }

@@ -6,26 +6,25 @@ import { SoftDeleteModel } from 'src/shared/plugins/mongoose-plugin/soft-delete/
 import { paginatePlugin } from 'src/shared/plugins/mongoose-plugin/pagination/plugin';
 import { softDeletePlugin } from 'src/shared/plugins/mongoose-plugin/soft-delete/plugin';
 
-
 export type CategoryDocument = HydratedDocument<Category>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class Category {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    title: string;
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    thumbnail: string;
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    description: string;
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  title: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  thumbnail: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  description: string;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

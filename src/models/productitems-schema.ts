@@ -12,59 +12,65 @@ export type ProductItemsDocument = HydratedDocument<ProductItems>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
 export class ProductItems {
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    title: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  title: string;
 
-    @ApiProperty()
-    @Prop({ type: String, required: true })
-    thumbnail: string;
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  thumbnail: string;
 
-    @ApiProperty()
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Service.name, required: true })
-    serviceId: string;
+  @ApiProperty()
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Service.name,
+    required: true,
+  })
+  serviceId: string;
 
-    @ApiProperty()
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Subservice.name, required: true })
-    subserviceId: string;
-    @ApiProperty()
-    @Prop({
-        type: {
-            washAndIron: { type: Number, default: 0 },
-            drycleaning: { type: Number, default: 0 },
-            iron: { type: Number, default: 0 },
-        },
-        required: true,
-    })
-    price: {
-        washAndIron: number;
-        drycleaning: number;
-        iron: number;
-    };
+  @ApiProperty()
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Subservice.name,
+    required: true,
+  })
+  subserviceId: string;
+  @ApiProperty()
+  @Prop({
+    type: {
+      washAndIron: { type: Number, default: 0 },
+      drycleaning: { type: Number, default: 0 },
+      iron: { type: Number, default: 0 },
+    },
+    required: true,
+  })
+  price: {
+    washAndIron: number;
+    drycleaning: number;
+    iron: number;
+  };
 
-    @ApiProperty()
-    @Prop({
-        type: {
-            washAndIron: { type: Number, default: 0 },
-            drycleaning: { type: Number, default: 0 },
-            iron: { type: Number, default: 0 },
-        },
-        required: true,
-    })
-    vendorPrice: {
-        washAndIron: number;
-        drycleaning: number;
-        iron: number;
-    };
+  @ApiProperty()
+  @Prop({
+    type: {
+      washAndIron: { type: Number, default: 0 },
+      drycleaning: { type: Number, default: 0 },
+      iron: { type: Number, default: 0 },
+    },
+    required: true,
+  })
+  vendorPrice: {
+    washAndIron: number;
+    drycleaning: number;
+    iron: number;
+  };
 
-
-
-    @ApiProperty()
-    @Prop({ type: Boolean, default: true })
-    isActive: boolean;
+  @ApiProperty()
+  @Prop({ type: Boolean, default: true })
+  isActive: boolean;
 }
 
 export const ProductItemsSchema = SchemaFactory.createForClass(ProductItems);
@@ -72,4 +78,5 @@ export const ProductItemsSchema = SchemaFactory.createForClass(ProductItems);
 ProductItemsSchema.plugin(paginatePlugin);
 ProductItemsSchema.plugin(softDeletePlugin);
 
-export type ProductItemsModel = PaginateModel<ProductItems> & SoftDeleteModel<ProductItems>;
+export type ProductItemsModel = PaginateModel<ProductItems> &
+  SoftDeleteModel<ProductItems>;

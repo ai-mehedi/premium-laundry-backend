@@ -1,12 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { SubserviceService } from './subservice.service';
 import { CreateSubserviceDto } from './dto/create-subservice.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/subservices')
 export class SubserviceController {
-  constructor(private readonly subserviceService: SubserviceService) { }
-
+  constructor(private readonly subserviceService: SubserviceService) {}
 
   @Get('list')
   @Render('admin/portal/subservices/list')
@@ -46,14 +56,13 @@ export class SubserviceController {
       title = 'Update Sub Service';
       is_update = true;
       action_data = checkAdmin.toObject();
-
     }
 
     return {
       title: title,
       is_update: is_update,
       action_data: action_data,
-      services: services
+      services: services,
     };
   }
 
@@ -61,7 +70,9 @@ export class SubserviceController {
   async addUpdatesubserviceSubmit(@Body() data: CreateSubserviceDto) {
     await this.subserviceService.addUpdatesubservice(data);
     return {
-      message: data.action_id ? 'Sub Service has been updated' : 'Sub Service has been added',
+      message: data.action_id
+        ? 'Sub Service has been updated'
+        : 'Sub Service has been added',
       redirect: '/admin/subservices/list',
     };
   }
@@ -70,5 +81,4 @@ export class SubserviceController {
   async deletesubservice(@Query('id') id: string) {
     return await this.subserviceService.deletesubservice(id);
   }
-
 }

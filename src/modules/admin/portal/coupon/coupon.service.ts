@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCouponDto } from './dto/create-coupon.dto';
 import { Coupon, CouponModel } from 'src/models/coupon-schema';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,17 +17,17 @@ export class CouponService {
   constructor(
     @InjectModel(Coupon.name)
     private readonly CouponModel: CouponModel,
-
-  ) { }
+  ) {}
 
   async findCouponById(_id: string) {
     return this.CouponModel.findById(_id);
   }
 
   async addUpdateCoupon(data: CreateCouponDto) {
-
     if (data.action_id) {
-      const checkCoupon = await this.CouponModel.findOne({ _id: data.action_id });
+      const checkCoupon = await this.CouponModel.findOne({
+        _id: data.action_id,
+      });
       if (!checkCoupon) {
         throw new BadRequestException({
           message: 'Coupon does not exist.',
@@ -43,14 +47,15 @@ export class CouponService {
             maximumAttendeeCapacity: Number(data.maximumAttendeeCapacity),
             expierationDate: data.expierationDate,
             isActive: data.isActive,
-
           },
         },
       );
     }
 
     if (!data.action_id) {
-      const checkEmail = await this.CouponModel.findOne({ _id: data.action_id });
+      const checkEmail = await this.CouponModel.findOne({
+        _id: data.action_id,
+      });
       if (checkEmail) {
         throw new BadRequestException({
           message: 'Coupon already exists.',
@@ -136,6 +141,4 @@ export class CouponService {
       message: 'Coupon deleted successfully',
     };
   }
-
 }
-

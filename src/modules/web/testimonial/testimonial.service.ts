@@ -5,19 +5,16 @@ import { Testimonial, TestimonialModel } from 'src/models/testimonial-schema';
 
 @Injectable()
 export class TestimonialService {
-
-
   constructor(
     @InjectModel(Testimonial.name)
     private readonly TestimonialModel: TestimonialModel,
     private readonly i18n: I18nService,
-  ) { }
+  ) {}
 
   async findAll() {
-    const testimonial = await this.TestimonialModel
-      .find({
-        isActive: true,
-      })
+    const testimonial = await this.TestimonialModel.find({
+      isActive: true,
+    })
       .select('-__v -isDeleted -deletedAt')
       .lean();
     return {
@@ -25,5 +22,4 @@ export class TestimonialService {
       testimonial,
     };
   }
-
 }
