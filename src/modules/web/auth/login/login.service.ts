@@ -15,7 +15,7 @@ export class LoginService {
     private readonly i18n: I18nService,
     private readonly jwtService: JwtService,
     private readonly appConfigService: AppConfigService,
-  ) {}
+  ) { }
 
   async login(bodyDto: LoginDto) {
     const user = await this.userModel.findOne({
@@ -50,6 +50,13 @@ export class LoginService {
       });
     }
 
+    const userres = {
+      userId: user._id,
+      name: user.name,
+      email: user?.email,
+      phone: user.phone,
+      avatar: user?.avatar,
+    }
     const token = this.jwtService.sign(
       {
         userId: user._id,
@@ -67,6 +74,7 @@ export class LoginService {
     return {
       message: this.i18n.t('response-messages.login.success'),
       token,
+      user: userres,
     };
   }
 }

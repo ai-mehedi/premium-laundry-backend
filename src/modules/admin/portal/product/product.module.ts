@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ProductitemService } from './productitem.service';
-import { ProductitemController } from './productitem.controller';
+import { Productervice } from './product.service';
+import { ProductitemController } from './product.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Subservice, SubserviceSchema } from 'src/models/subservice-schema';
 import { Service, ServiceSchema } from 'src/models/Service-schema';
 import {
-  ProductItems,
-  ProductItemsSchema,
-} from 'src/models/productitems-schema';
+  Product,
+  ProductSchema,
+} from 'src/models/product-schema';
 
 @Module({
   imports: [
@@ -25,12 +25,12 @@ import {
     ]),
     MongooseModule.forFeature([
       {
-        name: ProductItems.name,
-        schema: ProductItemsSchema,
+        name: Product.name,
+        schema: ProductSchema,
       },
     ]),
   ],
   controllers: [ProductitemController],
-  providers: [ProductitemService],
+  providers: [Productervice],
 })
 export class ProductitemModule {}

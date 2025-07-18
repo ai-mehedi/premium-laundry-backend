@@ -64,15 +64,15 @@ export class User {
   phone: string;
 
   @ApiProperty()
-  @Prop({ type: String, required: true })
-  fullAddress: string;
+  @Prop({ type: String, required: false })
+  fullAddress?: string;
 
   @ApiProperty()
-  @Prop({ type: UserAvatar, required: false })
+  @Prop({ type: UserAvatar, required: false, })
   avatar?: UserAvatar;
 
   @ApiProperty()
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, })
   password: string;
 
   @ApiProperty()

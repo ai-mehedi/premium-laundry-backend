@@ -8,13 +8,13 @@ import { softDeletePlugin } from 'src/shared/plugins/mongoose-plugin/soft-delete
 import { Service } from './Service-schema';
 import { Subservice } from './subservice-schema';
 
-export type ProductItemsDocument = HydratedDocument<ProductItems>;
+export type ProductDocument = HydratedDocument<Product>;
 mongoose.Schema.Types.String.set('trim', true);
 
 @Schema({
   timestamps: true,
 })
-export class ProductItems {
+export class Product {
   @ApiProperty()
   @Prop({ type: String, required: true })
   title: string;
@@ -73,10 +73,10 @@ export class ProductItems {
   isActive: boolean;
 }
 
-export const ProductItemsSchema = SchemaFactory.createForClass(ProductItems);
+export const ProductSchema = SchemaFactory.createForClass(Product);
 
-ProductItemsSchema.plugin(paginatePlugin);
-ProductItemsSchema.plugin(softDeletePlugin);
+ProductSchema.plugin(paginatePlugin);
+ProductSchema.plugin(softDeletePlugin);
 
-export type ProductItemsModel = PaginateModel<ProductItems> &
-  SoftDeleteModel<ProductItems>;
+export type ProductModel = PaginateModel<Product> &
+  SoftDeleteModel<Product>;

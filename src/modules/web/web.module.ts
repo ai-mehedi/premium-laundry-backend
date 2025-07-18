@@ -8,8 +8,9 @@ import { BlogModule } from './blog/blog.module';
 import { CategoryModule } from './category/category.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
 import { CouponModule } from './coupon/coupon.module';
-import { ProductitemModule } from './productitem/productitem.module';
+import { ProductModule } from './product/product.module';
 import { SubserviceModule } from './subservice/subservice.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { SubserviceModule } from './subservice/subservice.module';
     CategoryModule,
     TestimonialModule,
     CouponModule,
-    ProductitemModule,
+    ProductModule,
     SubserviceModule,
+    OrderModule,
   ],
 })
 export class WebModule {}

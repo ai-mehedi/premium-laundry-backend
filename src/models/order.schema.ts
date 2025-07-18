@@ -14,7 +14,14 @@ mongoose.Schema.Types.String.set('trim', true);
 export class OrderProductService {
   @ApiProperty({ type: String })
   @Prop({ type: String, required: true })
-  productId: string;
+  service: string;
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  price: number;
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  vendorPrice: number;
+
 }
 
 @Schema({ timestamps: true, _id: true })
@@ -22,6 +29,19 @@ export class OrderProduct {
   @ApiProperty({ type: String })
   @Prop({ type: String, required: true })
   productId: string;
+  @ApiProperty({ type: String })
+  @Prop({ type: String, required: true })
+  productName: string;
+
+  @ApiProperty({ type: Number })
+  @Prop({ type: Number, required: true })
+  quantity: number;
+  @ApiProperty({ type: Number })
+  @Prop({ type: Number, required: true })
+  subtotal: number;
+  @ApiProperty({ type: Number })
+  @Prop({ type: Number, required: true })
+  vendorSubtotal: number;
 
   @ApiProperty()
   @Prop({ type: [OrderProductService], required: true })
@@ -47,6 +67,11 @@ export class OrderStatus {
   timestamps: true,
 })
 export class Order {
+
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  orderId: string;
+
   @ApiProperty({ type: String })
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -58,6 +83,23 @@ export class Order {
   @ApiProperty()
   @Prop({ type: [OrderProduct], required: true })
   products: OrderProduct[];
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  shippingTime: string;
+
+  @ApiProperty()
+  @Prop({ type: String, })
+  promoCode: string;
+  @ApiProperty()
+  @Prop({ type: Number, })
+  promoOfferPrice: number;
+
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  subtotal: number;
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  total: number;
 
   @ApiProperty()
   @Prop({ type: [OrderStatus], required: true })

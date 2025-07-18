@@ -38,6 +38,13 @@ export class CreateCouponDto {
   @IsNumber()
   @IsOptional()
   @Transform(({ value }) => Number(value))
+  alocatedamount?: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  @IsOptional()
+  @Transform(({ value }) => Number(value))
   totalamount?: number;
 
   @ApiProperty()

@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ForgotPasswordModule } from 'src/modules/web/auth/forgot-password/forgot-password.module';
 import { LoginModule } from 'src/modules/web/auth/login/login.module';
 import { SignupModule } from 'src/modules/web/auth/signup/signup.module';
 import { BlogModule } from 'src/modules/web/blog/blog.module';
@@ -8,7 +9,8 @@ import { ContactModule } from 'src/modules/web/contact/contact.module';
 import { CouponModule } from 'src/modules/web/coupon/coupon.module';
 import { FaqModule } from 'src/modules/web/faq/faq.module';
 import { NewsletterModule } from 'src/modules/web/newsletter/newsletter.module';
-import { ProductitemModule } from 'src/modules/web/productitem/productitem.module';
+import { OrderModule } from 'src/modules/web/order/order.module';
+import { ProductModule } from 'src/modules/web/product/product.module';
 import { SubserviceModule } from 'src/modules/web/subservice/subservice.module';
 import { TestimonialModule } from 'src/modules/web/testimonial/testimonial.module';
 import { MeModule } from 'src/modules/web/user/me/me.module';
@@ -34,8 +36,10 @@ export const setupSwagger = (app: INestApplication) => {
       BlogModule,
       TestimonialModule,
       CouponModule,
-      ProductitemModule,
+      ProductModule,
       SubserviceModule,
+      OrderModule,
+      ForgotPasswordModule
     ],
   });
 

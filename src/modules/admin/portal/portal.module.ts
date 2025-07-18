@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module';
 import { ServiceModule } from './service/service.module';
 import { SubserviceModule } from './subservice/subservice.module';
 import { CategoryModule } from './category/category.module';
-import { ProductitemModule } from './productitem/productitem.module';
+import { ProductitemModule } from './product/product.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
 import { CouponModule } from './coupon/coupon.module';
 
