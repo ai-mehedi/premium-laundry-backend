@@ -30,8 +30,13 @@ export class Coupon {
   maximumAttendeeCapacity: number;
 
   @ApiProperty()
-  @Prop({ type: Number })
-  totalamount: number;
+  @Prop({ type: Number, required: true })
+  alocatedamount: number;
+
+  @ApiProperty()
+  @Prop({ type: Number, required: false, default: 0 })
+  usedAmount: number;
+
 
   @ApiProperty()
   @Prop({ type: Date, required: true })

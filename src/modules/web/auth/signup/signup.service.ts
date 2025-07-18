@@ -12,15 +12,17 @@ export class SignupService {
     @InjectModel(User.name)
     private readonly userModel: UserModel,
     private readonly i18n: I18nService,
-  ) {}
+  ) { }
 
   async signup(signupDto: SignupDto) {
+    const phonenumber = `+88${signupDto.phone}`;
+    console.log('Signup DTO:', signupDto);
     const existingUser = await this.userModel.findOne({
-      phone: signupDto.phone,
+      phone: phonenumber
     });
     if (existingUser) {
       throw new BadRequestException({
-        message: this.i18n.t('response-messages.field.already_exists', {
+        message: this.i18n.t('Phone number Already exist!', {
           args: {
             field: 'phone',
           },
@@ -29,8 +31,7 @@ export class SignupService {
       });
     }
 
-    const userPassword = RandomString(12);
-    const hashPass = await hashPassword(userPassword);
+    const hashPass = await hashPassword(signupDto.password);
 
     const user = new this.userModel({
       name: signupDto.name,

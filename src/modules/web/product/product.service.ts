@@ -2,19 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { I18nService } from 'nestjs-i18n';
 import {
-  ProductItems,
-  ProductItemsModel,
-} from 'src/models/productitems-schema';
+  Product,
+  ProductModel,
+} from 'src/models/product-schema';
 
 @Injectable()
-export class ProductitemService {
+export class Productervice {
   constructor(
-    @InjectModel(ProductItems.name)
-    private readonly ProductItemsModel: ProductItemsModel,
+    @InjectModel(Product.name)
+    private readonly ProductModel: ProductModel,
     private readonly i18n: I18nService,
-  ) {}
+  ) { }
   async findAll() {
-    return await this.ProductItemsModel.find({
+    return await this.ProductModel.find({
       isActive: true,
     })
       .populate('serviceId')

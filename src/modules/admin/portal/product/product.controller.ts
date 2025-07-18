@@ -10,16 +10,16 @@ import {
   Query,
   NotFoundException,
 } from '@nestjs/common';
-import { ProductitemService } from './productitem.service';
+import { Productervice } from './product.service';
 import { CreateProductitemDto } from './dto/create-productitem.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
-@Controller('admin/portal/productitems')
+@Controller('admin/portal/products')
 export class ProductitemController {
-  constructor(private readonly productitemService: ProductitemService) {}
+  constructor(private readonly Productervice: Productervice) {}
 
   @Get('list')
-  @Render('admin/portal/productitems/list')
+  @Render('admin/portal/products/list')
   subservicesList() {
     return {
       title: 'Product Item',
@@ -28,24 +28,24 @@ export class ProductitemController {
 
   @Post('list')
   async subserviceListPaginated(@Query() queryDto: PaginationQuery) {
-    const result = await this.productitemService.getPaginatedList(queryDto);
+    const result = await this.Productervice.getPaginatedList(queryDto);
     return result;
   }
 
   @Get('add')
-  @Render('admin/portal/productitems/add')
-  async addUpdateproductitems(@Query('id') id: string) {
+  @Render('admin/portal/products/add')
+  async addUpdateProduct(@Query('id') id: string) {
     let title = 'Add Product Item';
     let is_update = false;
     let action_data = {};
 
-    const services = await this.productitemService.findServicesAll();
+    const services = await this.Productervice.findServicesAll();
     if (!services || services.length === 0) {
       throw new NotFoundException({
         message: 'Service not found',
       });
     }
-    const subservices = await this.productitemService.findsubServicesAll();
+    const subservices = await this.Productervice.findsubServicesAll();
     if (!subservices || subservices.length === 0) {
       throw new NotFoundException({
         message: 'Sub Service not found',
@@ -55,7 +55,7 @@ export class ProductitemController {
     if (id) {
       console.log('ID:', id);
       const checkAdmin =
-        await this.productitemService.findsubproductItemById(id);
+        await this.Productervice.findsubproductItemById(id);
       if (!checkAdmin) {
         throw new NotFoundException({
           message: 'Product Item not found',
@@ -78,17 +78,17 @@ export class ProductitemController {
 
   @Post('add')
   async addUpdatesubserviceSubmit(@Body() data: CreateProductitemDto) {
-    await this.productitemService.addUpdateproductItem(data);
+    await this.Productervice.addUpdateproductItem(data);
     return {
       message: data.action_id
         ? 'Sub Service has been updated'
         : 'Sub Service has been added',
-      redirect: '/admin/productitems/list',
+      redirect: '/admin/products/list',
     };
   }
 
   @Delete()
   async deletesubservice(@Query('id') id: string) {
-    return await this.productitemService.deleteProductitem(id);
+    return await this.Productervice.deleteProductitem(id);
   }
 }

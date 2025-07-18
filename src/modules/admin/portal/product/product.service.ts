@@ -8,9 +8,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Subservice, SubserviceModel } from 'src/models/subservice-schema';
 import { Service, ServiceModel } from 'src/models/Service-schema';
 import {
-  ProductItems,
-  ProductItemsModel,
-} from 'src/models/productitems-schema';
+  Product,
+  ProductModel,
+} from 'src/models/product-schema';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination/types';
 import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
@@ -18,15 +18,15 @@ import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
 
 @Injectable()
-export class ProductitemService {
+export class Productervice {
   constructor(
     @InjectModel(Subservice.name)
     private readonly SubserviceModel: SubserviceModel,
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
-    @InjectModel(ProductItems.name)
-    private readonly ProductItemsModel: ProductItemsModel,
-  ) {}
+    @InjectModel(Product.name)
+    private readonly ProductModel: ProductModel,
+  ) { }
 
   async findServicesAll() {
     return this.ServiceModel.find({ isActive: true });
@@ -36,13 +36,13 @@ export class ProductitemService {
   }
 
   async findsubproductItemById(_id: string) {
-    return await this.ProductItemsModel.findById(_id)
+    return await this.ProductModel.findById(_id)
       .populate('subserviceId')
       .populate('serviceId');
   }
 
-  async findproductItemsAll() {
-    return this.ProductItemsModel.find({ isActive: true })
+  async findProductAll() {
+    return this.ProductModel.find({ isActive: true })
       .populate('subserviceId')
       .populate('serviceId')
       .lean();
@@ -82,7 +82,7 @@ export class ProductitemService {
           ? data.isActive === 'true'
           : data.isActive === true;
 
-      await this.ProductItemsModel.updateOne(
+      await this.ProductModel.updateOne(
         {
           _id: data.action_id,
         },
@@ -101,7 +101,7 @@ export class ProductitemService {
     }
 
     if (!data.action_id) {
-      const checkEmail = await this.ProductItemsModel.findOne({
+      const checkEmail = await this.ProductModel.findOne({
         _id: data.action_id,
       });
       if (checkEmail) {
@@ -110,7 +110,7 @@ export class ProductitemService {
           field: 'action_id',
         });
       }
-      await this.ProductItemsModel.create({
+      await this.ProductModel.create({
         thumbnail: data.thumbnail,
         isActive: data.isActive,
         serviceId: data.serviceId,
@@ -131,7 +131,7 @@ export class ProductitemService {
   }: PaginationQuery) {
     const options: PaginationOptions = { page, limit };
     const pagination = new PaginationUI();
-    const renderPath = 'views/admin/portal/productitems/widgets/list.ejs';
+    const renderPath = 'views/admin/portal/products/widgets/list.ejs';
     const searchBy = ['title'];
 
     limit = limit || 25;
@@ -181,7 +181,7 @@ export class ProductitemService {
       },
     ];
 
-    const results = await this.ProductItemsModel.paginate({}, options);
+    const results = await this.ProductModel.paginate({}, options);
 
     const paginate_ui = pagination.getAllPageLinks(
       Math.ceil(results.total / limit),
