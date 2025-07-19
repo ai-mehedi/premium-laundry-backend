@@ -10,6 +10,7 @@ import { CouponModule } from 'src/modules/web/coupon/coupon.module';
 import { FaqModule } from 'src/modules/web/faq/faq.module';
 import { NewsletterModule } from 'src/modules/web/newsletter/newsletter.module';
 import { OrderModule } from 'src/modules/web/order/order.module';
+import { PackagesModule } from 'src/modules/web/packages/packages.module';
 import { ProductModule } from 'src/modules/web/product/product.module';
 import { SubserviceModule } from 'src/modules/web/subservice/subservice.module';
 import { TestimonialModule } from 'src/modules/web/testimonial/testimonial.module';
@@ -39,7 +40,8 @@ export const setupSwagger = (app: INestApplication) => {
       ProductModule,
       SubserviceModule,
       OrderModule,
-      ForgotPasswordModule
+      ForgotPasswordModule,
+      PackagesModule
     ],
   });
 

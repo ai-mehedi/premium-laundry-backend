@@ -30,6 +30,8 @@ export class SMSService {
         },
       });
 
+      console.log('SMS response:', result);
+
       console.log('SMS sent successfully:', result.data);
       return result.data;
     } catch (err) {
