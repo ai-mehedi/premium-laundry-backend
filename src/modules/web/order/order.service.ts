@@ -7,6 +7,7 @@ import { User, UserModel } from 'src/models/user.schema';
 import { Order, OrderModel } from 'src/models/order.schema';
 import { RandomString } from 'src/common/helpers/utils/string.utils';
 import { hashPassword } from 'src/common/helpers/utils/password.utils';
+import { Coupon, CouponModel } from 'src/models/coupon-schema';
 
 @Injectable()
 export class OrderService {
@@ -18,6 +19,10 @@ export class OrderService {
     @InjectModel(Order.name)
     private readonly OrderModel: OrderModel,
 
+    @InjectModel(Coupon.name)
+    private readonly CouponModel: CouponModel,
+
+
   ) { }
 
   async create(createOrderDto: CreateOrderDto) {
@@ -28,6 +33,9 @@ export class OrderService {
     const hashPass = await hashPassword(userPaaword);
     // 1. Find or create user
     let user = await this.UserModel.findOne({ phone: createOrderDto.phone });
+
+
+
     if (!user) {
       user = await this.UserModel.create({
         name: createOrderDto.name,
@@ -37,6 +45,22 @@ export class OrderService {
         isActive: true,
       });
     }
+    if (createOrderDto.promoCode !== "") {
+      //     usedAmount:+promoOfferPrice ,
+      const coupon = await this.CouponModel.findOne({ discountCode: createOrderDto.promoCode });
+      if (coupon) {
+        await this.CouponModel.updateOne(
+          { _id: coupon._id },
+          {
+            $inc: {
+              usedAmount: +createOrderDto.promoOfferPrice,
+              maximumAttendeeCapacity: -1,
+            },
+          }
+        );
+      }
+    }
+
     userId = user._id.toString();
 
     // 2. Validate products and enrich product info

@@ -11,6 +11,7 @@ import { CouponModule } from './coupon/coupon.module';
 import { ProductModule } from './product/product.module';
 import { SubserviceModule } from './subservice/subservice.module';
 import { OrderModule } from './order/order.module';
+import { PackagesModule } from './packages/packages.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     SubserviceModule,
     OrderModule,
+    PackagesModule,
   ],
 })
 export class WebModule {}

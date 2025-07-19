@@ -13,7 +13,7 @@ export class ForgotPasswordService {
     @InjectModel(User.name)
     private readonly userModel: UserModel,
     private readonly smsService: SMSService,
-  ) {}
+  ) { }
 
   async create(createForgotPasswordDto: CreateForgotPasswordDto) {
     const user = await this.userModel.findOne({
@@ -26,9 +26,11 @@ export class ForgotPasswordService {
       });
     }
 
+    
+
     const otpCode = getRandomInt(100000, 999999);
     try {
-      await this.smsService.sendSMS({
+      const result = await this.smsService.sendSMS({
         template: SEND_SMS_TEMPLATE.FORGOT_PASSWORD,
         phone: user.phone.replace('+', ''),
         payload: {
@@ -36,6 +38,7 @@ export class ForgotPasswordService {
           code: otpCode,
         },
       });
+      console.log('route response:', result);
     } catch (error) {
       console.error('Error sending SMS:', error);
     }
