@@ -13,9 +13,9 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22  # Optional, default is 22; change if you use a custom SSH port
+          username: root                # root user
+          password: ${{ secrets.VPS_PASSWORD }}  # your root password stored in GitHub Secrets
+          port: 22                     # optional if default SSH port
           script: |
             cd /var/www/premium-laundry-backend
             git pull origin master
