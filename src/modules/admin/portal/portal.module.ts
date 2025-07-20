@@ -18,6 +18,8 @@ import { ProductitemModule } from './product/product.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
 import { CouponModule } from './coupon/coupon.module';
 import { PackageModule } from './package/package.module';
+import { OrderModule } from './order/order.module';
+import { VendorModule } from './vendor/vendor.module';
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { PackageModule } from './package/package.module';
     TestimonialModule,
     CouponModule,
     PackageModule,
+    OrderModule,
+    VendorModule,
   ],
   providers: [CookieService],
 })

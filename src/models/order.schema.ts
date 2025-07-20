@@ -6,6 +6,7 @@ import { SoftDeleteModel } from 'src/shared/plugins/mongoose-plugin/soft-delete/
 import { paginatePlugin } from 'src/shared/plugins/mongoose-plugin/pagination/plugin';
 import { softDeletePlugin } from 'src/shared/plugins/mongoose-plugin/soft-delete/plugin';
 import { User } from './user.schema';
+import { Admin } from './admin.schema';
 
 export type OrderDocument = HydratedDocument<Order>;
 mongoose.Schema.Types.String.set('trim', true);
@@ -104,6 +105,23 @@ export class Order {
   @ApiProperty()
   @Prop({ type: [OrderStatus], required: true })
   statuses: OrderStatus[];
+
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  orderstatus: string;
+
+  @ApiProperty()
+  @Prop({ type: String, })
+  note: string;
+
+  @ApiProperty({ type: String })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Admin.name,
+
+  })
+  supplier: mongoose.Types.ObjectId;
+
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

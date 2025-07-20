@@ -37,7 +37,7 @@ async function bootstrap() {
   setupSwagger(app);
 
   // Exception filter
-  app.useGlobalFilters(new GlobalExceptionFilter());
+  // app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new GlobalValidationPipe());
 
   await app.listen(port, () => {

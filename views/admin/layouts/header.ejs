@@ -276,48 +276,70 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item <% if(base_path[3] == 'memberships'){__append('menu-open active')} %>">
-              <a href="#" class="nav-link <% if(base_path[3] == 'memberships'){__append('active')} %>">
-                <i class="fas fa-calendar-check nav-icon"></i>
+            <li class="nav-item <% if(base_path[3] == 'packages'){__append('menu-open active')} %>">
+              <a href="#" class="nav-link <% if(base_path[3] == 'packages'){__append('active')} %>">
+                <i class="fas fa-list-ul nav-icon"></i>
                 <p>
-                  Memberships
+                  packages
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="/admin/portal/memberships/add" class="nav-link <% if(base_path[3] == 'memberships' && base_path[4] == 'add'){__append('active')} %>">
+                  <a href="/admin/portal/packages/add" class="nav-link <% if(base_path[3] == 'packages' && base_path[4] == 'add'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Add Membership</p>
+                    <p>Add packages</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="/admin/portal/memberships/list" class="nav-link <% if(base_path[3] == 'memberships' && base_path[4] == 'list'){__append('active')} %>">
+                  <a href="/admin/portal/packages/list" class="nav-link <% if(base_path[3] == 'packages' && base_path[4] == 'list'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Memberships</p>
+                    <p>Packages</p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-item <% if(base_path[3] == 'coupons'){__append('menu-open active')} %>">
-              <a href="/admin/portal/coupons/list" class="nav-link <% if(base_path[3] == 'coupons'){__append('active')} %>">
+
+
+            <li class="nav-item <% if(base_path[3] == 'orders'){__append('menu-open active')} %>">
+              <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders'){__append('active')} %>">
                 <i class="nav-icon fas fa-receipt"></i>
                 <p>
-                  Coupons
+                  orders
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="/admin/portal/coupons/add" class="nav-link <% if(base_path[3] == 'coupons' && base_path[4] == 'add'){__append('active')} %>">
+                  <a href="/admin/portal/orders/add" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'add'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Add coupons</p>
+                    <p>Add orders</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="/admin/portal/coupons/list" class="nav-link <% if(base_path[3] == 'coupons' && base_path[4] == 'list'){__append('active')} %>">
+                  <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'list'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>coupons</p>
+                    <p>orders</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="nav-item <% if(base_path[3] == 'vendors'){__append('menu-open active')} %>">
+              <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors'){__append('active')} %>">
+                <i class="nav-icon fas fa-receipt"></i>
+                <p>
+                  Vendors
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>orders</p>
                   </a>
                 </li>
               </ul>
