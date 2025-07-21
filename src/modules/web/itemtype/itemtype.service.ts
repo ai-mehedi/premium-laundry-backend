@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { I18nService } from 'nestjs-i18n';
-import { Subservice, SubserviceModel } from 'src/models/subservice-schema';
+import { Itemtype, ItemtypeModel } from 'src/models/itemtype-schema';
 
 @Injectable()
-export class SubserviceService {
+export class ItemtypeService {
   constructor(
-    @InjectModel(Subservice.name)
-    private readonly SubserviceModel: SubserviceModel,
+    @InjectModel(Itemtype.name)
+    private readonly ItemtypeModel: ItemtypeModel,
     private readonly i18n: I18nService,
   ) {}
 
   findAll() {
-    return this.SubserviceModel.find({
+    return this.ItemtypeModel.find({
       isActive: true,
     })
       .populate('serviceId')

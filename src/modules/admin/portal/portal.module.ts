@@ -12,7 +12,7 @@ import { FaqModule } from './faq/faq.module';
 import { BlogModule } from './blog/blog.module';
 import { UserModule } from './user/user.module';
 import { ServiceModule } from './service/service.module';
-import { SubserviceModule } from './subservice/subservice.module';
+import { SubserviceModule } from './itemtypes/itemtype.module';
 import { CategoryModule } from './category/category.module';
 import { ProductitemModule } from './product/product.module';
 import { TestimonialModule } from './testimonial/testimonial.module';

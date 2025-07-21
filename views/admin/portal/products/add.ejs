@@ -38,7 +38,7 @@
               </div>
               <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" name="title"  placeholder="Title" value="<% if(is_update == true){ %><%= action_data.title; %><% } %>" required>
+                <input type="text" class="form-control" name="title" placeholder="Title" value="<% if(is_update == true){ %><%= action_data.title; %><% } %>" required>
               </div>
 
               <div class="row">
@@ -59,7 +59,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Sub service</label>
-                    <select class="form-control" name="subserviceId" required>
+                    <select class="form-control" name="itemtypeID" required>
 
                       <% subservices.forEach(subservice => { %>
                       <option value="<%= subservice._id %>" <% if(is_update == true){ %><% if(action_data.subserviceId.toString() == subservice._id.toString()){__append('selected=""')}  %><% } %>>
@@ -80,20 +80,20 @@
                     <div class="col-3">
                       <div class="form-group">
                         <label>Wash & Iron </label>
-                        <input type="number" class="form-control" name="pwashAndIron"  placeholder="Wash & Iron Price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
+                        <input type="number" class="form-control" name="pwashAndIron" placeholder="Wash & Iron Price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="form-group">
                         <label>Dry Clean
                         </label>
-                        <input type="number" class="form-control" name="pedrycleaning"  placeholder="drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
+                        <input type="number" class="form-control" name="pedrycleaning" placeholder="drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-5">
                       <div class="form-group">
                         <label>Iron </label>
-                        <input type="number" class="form-control" name="piron"  placeholder="Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                        <input type="number" class="form-control" name="piron" placeholder="Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
                       </div>
                     </div>
                   </div>
@@ -111,19 +111,19 @@
                       <div class="form-group">
                         <label>Wash & Iron
                         </label>
-                        <input type="number" class="form-control" name="vwashAndIron"  placeholder="Vendor washAndIron price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
+                        <input type="number" class="form-control" name="vwashAndIron" placeholder="Vendor washAndIron price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="form-group">
                         <label>Dry Clean </label>
-                        <input type="number" class="form-control" name="vdrycleaning"  placeholder="Vendor Drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
+                        <input type="number" class="form-control" name="vdrycleaning" placeholder="Vendor Drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-5">
                       <div class="form-group">
                         <label>Iron </label>
-                        <input type="number" class="form-control" name="viron"  placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                        <input type="number" class="form-control" name="viron" placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
                       </div>
                     </div>
                   </div>

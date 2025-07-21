@@ -9,7 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { TestimonialModule } from './testimonial/testimonial.module';
 import { CouponModule } from './coupon/coupon.module';
 import { ProductModule } from './product/product.module';
-import { SubserviceModule } from './subservice/subservice.module';
+import { ItemtypeModule } from './itemtype/itemtype.module';
 import { OrderModule } from './order/order.module';
 import { PackagesModule } from './packages/packages.module';
 
@@ -25,7 +25,7 @@ import { PackagesModule } from './packages/packages.module';
     TestimonialModule,
     CouponModule,
     ProductModule,
-    SubserviceModule,
+    ItemtypeModule,
     OrderModule,
     PackagesModule,
   ],

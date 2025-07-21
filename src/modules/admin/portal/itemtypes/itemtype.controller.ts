@@ -10,16 +10,16 @@ import {
   Query,
   NotFoundException,
 } from '@nestjs/common';
-import { SubserviceService } from './subservice.service';
-import { CreateSubserviceDto } from './dto/create-subservice.dto';
+import { ItemtypeService } from './itemtype.service';
+import { CreateItemtypeDto } from './dto/create-itemtype.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
-@Controller('admin/portal/subservices')
-export class SubserviceController {
-  constructor(private readonly subserviceService: SubserviceService) {}
+@Controller('admin/portal/itemtypes')
+export class itemtypeController {
+  constructor(private readonly ItemtypeService: ItemtypeService) {}
 
   @Get('list')
-  @Render('admin/portal/subservices/list')
+  @Render('admin/portal/itemtypes/list')
   subservicesList() {
     return {
       title: 'Sub Service',
@@ -27,26 +27,26 @@ export class SubserviceController {
   }
 
   @Post('list')
-  async subserviceListPaginated(@Query() queryDto: PaginationQuery) {
-    const result = await this.subserviceService.getPaginatedList(queryDto);
-    console.log('Subservices route hit', result);
+  async itemtypeListPaginated(@Query() queryDto: PaginationQuery) {
+    const result = await this.ItemtypeService.getPaginatedList(queryDto);
+    
     return result;
   }
 
   @Get('add')
-  @Render('admin/portal/subservices/add')
-  async addUpdatesubservice(@Query('id') id: string) {
-    let title = 'Add Sub Service';
+  @Render('admin/portal/itemtypes/add')
+  async addUpdateitemtypes(@Query('id') id: string) {
+    let title = 'Add itemtype';
     let is_update = false;
     let action_data = {};
-    const services = await this.subserviceService.findServicesAll();
+    const services = await this.ItemtypeService.findServicesAll();
     if (!services || services.length === 0) {
       throw new NotFoundException({
         message: 'Service not found',
       });
     }
     if (id) {
-      const checkAdmin = await this.subserviceService.findsubserviceById(id);
+      const checkAdmin = await this.ItemtypeService.findItemtypeById(id);
       if (!checkAdmin) {
         throw new NotFoundException({
           message: 'Sub Service not found',
@@ -67,18 +67,18 @@ export class SubserviceController {
   }
 
   @Post('add')
-  async addUpdatesubserviceSubmit(@Body() data: CreateSubserviceDto) {
-    await this.subserviceService.addUpdatesubservice(data);
+  async addUpdatesubserviceSubmit(@Body() data: CreateItemtypeDto) {
+    await this.ItemtypeService.addUpdateItemtype(data);
     return {
       message: data.action_id
         ? 'Sub Service has been updated'
         : 'Sub Service has been added',
-      redirect: '/admin/subservices/list',
+      redirect: '/admin/itemtypes/list',
     };
   }
 
   @Delete()
   async deletesubservice(@Query('id') id: string) {
-    return await this.subserviceService.deletesubservice(id);
+    return await this.ItemtypeService.deleteItemtype(id);
   }
 }
