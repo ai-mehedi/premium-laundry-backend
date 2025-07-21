@@ -25,15 +25,15 @@
             <h4 class="card-title"><%= title; %></h4>
           </div>
           <div class="card-body">
-            <form method="POST" data-form="true" data-url="/admin/portal/subservices/add">
+            <form method="POST" data-form="true" data-url="/admin/portal/itemtypes/add">
               <% if(is_update == true){ %>
               <input type="hidden" name="action_id" value="<%= action_data._id; %>">
               <% } %>
               <input type="hidden" name="thumbnail" id="thumbnail" value="<%= is_update ? action_data?.thumbnail : ''; %>">
 
               <div class="form-group">
-                <div class="thumbnail-upload-section" data-input="#thumbnail" data-path="/subservices" onclick="uploadThumbnail(this)" style="margin: 0 auto;">
-                  <img src="<%= (is_update && action_data?.thumbnail) ? `${process.env.CDN_URL}/subservices/${action_data.thumbnail}` : '/images/thumbnail.png'; %>" width="120" />
+                <div class="thumbnail-upload-section" data-input="#thumbnail" data-path="/itemtypes" onclick="uploadThumbnail(this)" style="margin: 0 auto;">
+                  <img src="<%= (is_update && action_data?.thumbnail) ? `${process.env.CDN_URL}/itemtypes/${action_data.thumbnail}` : '/images/thumbnail.png'; %>" width="120" />
                 </div>
               </div>
               <div class="form-group">

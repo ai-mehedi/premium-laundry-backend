@@ -6,7 +6,7 @@ import { SoftDeleteModel } from 'src/shared/plugins/mongoose-plugin/soft-delete/
 import { paginatePlugin } from 'src/shared/plugins/mongoose-plugin/pagination/plugin';
 import { softDeletePlugin } from 'src/shared/plugins/mongoose-plugin/soft-delete/plugin';
 import { Service } from './Service-schema';
-import { Subservice } from './subservice-schema';
+import { Itemtype } from './itemtype-schema';
 
 export type ProductDocument = HydratedDocument<Product>;
 mongoose.Schema.Types.String.set('trim', true);
@@ -34,10 +34,10 @@ export class Product {
   @ApiProperty()
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: Subservice.name,
+    ref: Itemtype.name,
     required: true,
   })
-  subserviceId: string;
+  itemtypeID: string;
   @ApiProperty()
   @Prop({
     type: {

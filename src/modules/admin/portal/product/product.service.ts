@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateProductitemDto } from './dto/create-productitem.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Subservice, SubserviceModel } from 'src/models/subservice-schema';
+import { Itemtype, ItemtypeModel } from 'src/models/itemtype-schema';
 import { Service, ServiceModel } from 'src/models/Service-schema';
 import {
   Product,
@@ -20,8 +20,8 @@ import { join } from 'path';
 @Injectable()
 export class Productervice {
   constructor(
-    @InjectModel(Subservice.name)
-    private readonly SubserviceModel: SubserviceModel,
+    @InjectModel(Itemtype.name)
+    private readonly ItemtypeModel: ItemtypeModel,
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
     @InjectModel(Product.name)
@@ -32,18 +32,18 @@ export class Productervice {
     return this.ServiceModel.find({ isActive: true });
   }
   async findsubServicesAll() {
-    return this.SubserviceModel.find({ isActive: true });
+    return this.ItemtypeModel.find({ isActive: true });
   }
 
   async findsubproductItemById(_id: string) {
     return await this.ProductModel.findById(_id)
-      .populate('subserviceId')
+      .populate('itemtypeID')
       .populate('serviceId');
   }
 
   async findProductAll() {
     return this.ProductModel.find({ isActive: true })
-      .populate('subserviceId')
+      .populate('itemtypeID')
       .populate('serviceId')
       .lean();
   }
@@ -66,7 +66,7 @@ export class Productervice {
       iron: data.viron,
     };
     if (data.action_id) {
-      const checksubservice = await this.SubserviceModel.findOne({
+      const checksubservice = await this.ItemtypeModel.findOne({
         _id: data.action_id,
       });
 
@@ -91,7 +91,7 @@ export class Productervice {
             thumbnail: data.thumbnail,
             isActive: data.isActive,
             serviceId: data.serviceId,
-            subserviceId: data.subserviceId,
+            itemtypeID: data.itemtypeID,
             title: data.title,
             price: price,
             vendorPrice: vendorPrice,
@@ -114,7 +114,7 @@ export class Productervice {
         thumbnail: data.thumbnail,
         isActive: data.isActive,
         serviceId: data.serviceId,
-        subserviceId: data.subserviceId,
+        itemtypeID: data.itemtypeID,
         title: data.title,
         price: price,
         vendorPrice: vendorPrice,
@@ -208,7 +208,7 @@ export class Productervice {
   }
 
   async deleteProductitem(id: string) {
-    const result = await this.SubserviceModel.findOneAndDelete({
+    const result = await this.ItemtypeModel.findOneAndDelete({
       _id: id,
     });
 

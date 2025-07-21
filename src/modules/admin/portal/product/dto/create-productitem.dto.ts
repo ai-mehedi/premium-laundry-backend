@@ -27,7 +27,7 @@ export class CreateProductitemDto {
 
   @ApiProperty({ example: '64ef12ab9fc4e2d2f99c2222' })
   @IsMongoId()
-  subserviceId: string;
+  itemtypeID: string;
 
   @ApiProperty()
   @IsNotEmpty()

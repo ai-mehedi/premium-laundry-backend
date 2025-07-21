@@ -3,9 +3,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateSubserviceDto } from './dto/create-subservice.dto';
+import { CreateItemtypeDto } from './dto/create-itemtype.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Subservice, SubserviceModel } from 'src/models/subservice-schema';
+import { Itemtype, ItemtypeModel } from 'src/models/itemtype-schema';
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
 import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
@@ -13,35 +13,35 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination/types';
 import { Service, ServiceModel } from 'src/models/Service-schema';
 @Injectable()
-export class SubserviceService {
+export class ItemtypeService {
   constructor(
-    @InjectModel(Subservice.name)
-    private readonly SubserviceModel: SubserviceModel,
+    @InjectModel(Itemtype.name)
+    private readonly ItemtypeModel: ItemtypeModel,
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
   ) {}
 
-  async findsubserviceById(_id: string) {
-    return this.SubserviceModel.findById(_id);
+  async findItemtypeById(_id: string) {
+    return this.ItemtypeModel.findById(_id);
   }
 
   async findServicesAll() {
     return this.ServiceModel.find({ isActive: true });
   }
 
-  async addUpdatesubservice(data: CreateSubserviceDto) {
+  async addUpdateItemtype(data: CreateItemtypeDto) {
     if (data.action_id) {
-      const checksubservice = await this.SubserviceModel.findOne({
+      const checkItemtype = await this.ItemtypeModel.findOne({
         _id: data.action_id,
       });
-      if (!checksubservice) {
+      if (!checkItemtype) {
         throw new BadRequestException({
-          message: 'subservice does not exist.',
+          message: 'Itemtype does not exist.',
           field: 'action_id',
         });
       }
 
-      await this.SubserviceModel.updateOne(
+      await this.ItemtypeModel.updateOne(
         {
           _id: data.action_id,
         },
@@ -58,16 +58,16 @@ export class SubserviceService {
     }
 
     if (!data.action_id) {
-      const checkEmail = await this.SubserviceModel.findOne({
+      const checkEmail = await this.ItemtypeModel.findOne({
         _id: data.action_id,
       });
       if (checkEmail) {
         throw new BadRequestException({
-          message: 'subservice already exists.',
+          message: 'Itemtype already exists.',
           field: 'action_id',
         });
       }
-      await this.SubserviceModel.create({
+      await this.ItemtypeModel.create({
         thumbnail: data.thumbnail,
         isActive: data.isActive,
         serviceId: data.serviceId,
@@ -86,7 +86,7 @@ export class SubserviceService {
   }: PaginationQuery) {
     const options: PaginationOptions = { page, limit };
     const pagination = new PaginationUI();
-    const renderPath = 'views/admin/portal/subservices/widgets/list.ejs';
+    const renderPath = 'views/admin/portal/itemtypes/widgets/list.ejs';
     const searchBy = ['title'];
 
     limit = limit || 25;
@@ -122,7 +122,7 @@ export class SubserviceService {
       },
     ];
 
-    const results = await this.SubserviceModel.paginate({}, options);
+    const results = await this.ItemtypeModel.paginate({}, options);
 
     const paginate_ui = pagination.getAllPageLinks(
       Math.ceil(results.total / limit),
@@ -148,18 +148,18 @@ export class SubserviceService {
     };
   }
 
-  async deletesubservice(id: string) {
-    const result = await this.SubserviceModel.findOneAndDelete({
+  async deleteItemtype(id: string) {
+    const result = await this.ItemtypeModel.findOneAndDelete({
       _id: id,
     });
 
     if (!result) {
       throw new NotFoundException({
-        message: 'subservice not found',
+        message: 'Itemtype not found',
       });
     }
     return {
-      message: 'subservice deleted successfully',
+      message: 'Itemtype deleted successfully',
     };
   }
 }
