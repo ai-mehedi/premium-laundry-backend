@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: 🚀 Deploy NestJS Backend
 
 on:
   push:
@@ -7,18 +7,24 @@ on:
 
 jobs:
   deploy:
+    name: Deploy via SSH
     runs-on: ubuntu-latest
+
     steps:
-      - name: Connect and deploy via SSH
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
+
+      - name: 📦 Deploy to server
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root                # root user
-          password: ${{ secrets.VPS_PASSWORD }}  # your root password stored in GitHub Secrets
-          port: 22                     # optional if default SSH port
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
           script: |
             cd /var/www/premium-laundry-backend
-            git pull origin master
+            git pull origin main
             npm install
             npm run build
-            pm2 restart admin || pm2 start dist/main.js --name admin
+            pm2 restart admin
+            pm2 save
