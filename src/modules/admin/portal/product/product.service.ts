@@ -31,9 +31,11 @@ export class Productervice {
   async findServicesAll() {
     return this.ServiceModel.find({ isActive: true });
   }
-  async findsubServicesAll() {
+  async finditemtypeAll() {
     return this.ItemtypeModel.find({ isActive: true });
   }
+
+
 
   async findsubproductItemById(_id: string) {
     return await this.ProductModel.findById(_id)
@@ -53,20 +55,23 @@ export class Productervice {
       washAndIron: number | string;
       drycleaning: number | string;
       iron: number | string;
+      StainSpotRemoval: number | string;
     }
 
     const price: ServicePrice = {
       washAndIron: data.pwashAndIron,
       drycleaning: data.pedrycleaning,
       iron: data.piron,
+      StainSpotRemoval: data.pStainSpotRemoval,
     };
     const vendorPrice: ServicePrice = {
       washAndIron: data.vwashAndIron,
       drycleaning: data.vdrycleaning,
       iron: data.viron,
+      StainSpotRemoval: data.vStainSpotRemoval,
     };
     if (data.action_id) {
-      const checksubservice = await this.ItemtypeModel.findOne({
+      const checksubservice = await this.ProductModel.findOne({
         _id: data.action_id,
       });
 

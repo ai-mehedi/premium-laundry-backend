@@ -18,7 +18,7 @@ export class Productervice {
       isActive: true,
     })
       .populate('serviceId')
-      .populate('subserviceId')
+      .populate('itemtypeID')
       .select('-__v -isDeleted -deletedAt')
       .lean();
   }

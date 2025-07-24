@@ -14,6 +14,18 @@ export class VendorController {
     };
   }
 
+
+  @Get('invoice')
+  @Render('admin/portal/vendors/invoice')
+  async invoicechek(@Query('id') id: string) {
+   
+    return {
+
+       
+      title: 'FAQs',
+    };
+  }
+
   @Post('list')
   async faqsListPaginated(@Query() queryDto: PaginationQuery) {
     const result = await this.vendorService.getPaginatedList(queryDto);

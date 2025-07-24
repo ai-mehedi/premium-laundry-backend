@@ -60,13 +60,11 @@
                   <div class="form-group">
                     <label>Sub service</label>
                     <select class="form-control" name="itemtypeID" required>
-
-                      <% subservices.forEach(subservice => { %>
-                      <option value="<%= subservice._id %>" <% if(is_update == true){ %><% if(action_data.subserviceId.toString() == subservice._id.toString()){__append('selected=""')}  %><% } %>>
-                        <%= subservice.title %>
+                      <% itemtype.forEach(type => { %>
+                      <option value="<%= type._id %>" <% if (is_update && action_data.serviceId?.toString() === type._id.toString()) { %> selected <% } %>>
+                        <%= type.title %>
                       </option>
-                      <% }) %>
-
+                      <% }); %>
                     </select>
                   </div>
                 </div>
@@ -94,6 +92,12 @@
                       <div class="form-group">
                         <label>Iron </label>
                         <input type="number" class="form-control" name="piron" placeholder="Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label>Stain/Spot Removal </label>
+                        <input type="number" class="form-control" name="pStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.price.StainSpotRemoval; %><% } %>" required>
                       </div>
                     </div>
                   </div>
@@ -124,6 +128,12 @@
                       <div class="form-group">
                         <label>Iron </label>
                         <input type="number" class="form-control" name="viron" placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label>Stain/Spot Removal </label>
+                        <input type="number" class="form-control" name="vStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.price.StainSpotRemoval; %><% } %>" required>
                       </div>
                     </div>
                   </div>

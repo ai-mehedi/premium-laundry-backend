@@ -2,7 +2,7 @@
   <td><%= serial_number; %></td>
   <td><%= result.orderId; %></td>
   <td><%= result.shippingTime; %></td>
- 
+
   <td>
     <% if (result.isActive) { %>
     <span class="badge badge-success">Active</span>
@@ -16,6 +16,9 @@
     <div class="d-flex align-items-center" style="gap: 5px;">
       <a class="btn btn-success " href="/admin/portal/vendors/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
       <button type="button" class="btn btn-danger" onclick="removeData(this, '/admin/portal/vendors?id=<%= result._id; %>')"><i class="bi bi-trash"></i></button>
+      <button class="btn btn-success" onclick="window.open('/admin/portal/vendors/invoice?id=<%= result._id.toString(); %>', '_blank', 'width=1024,height=800')">
+        Open Invoice
+      </button>
     </div>
   </td>
 

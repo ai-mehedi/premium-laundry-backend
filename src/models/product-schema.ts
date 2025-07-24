@@ -44,6 +44,7 @@ export class Product {
       washAndIron: { type: Number, default: 0 },
       drycleaning: { type: Number, default: 0 },
       iron: { type: Number, default: 0 },
+      StainSpotRemoval: { type: Number, default: 0 },
     },
     required: true,
   })
@@ -51,6 +52,7 @@ export class Product {
     washAndIron: number;
     drycleaning: number;
     iron: number;
+    StainSpotRemoval: Number
   };
 
   @ApiProperty()
@@ -59,6 +61,7 @@ export class Product {
       washAndIron: { type: Number, default: 0 },
       drycleaning: { type: Number, default: 0 },
       iron: { type: Number, default: 0 },
+      StainSpotRemoval: { type: Number, default: 0 },
     },
     required: true,
   })
@@ -66,6 +69,7 @@ export class Product {
     washAndIron: number;
     drycleaning: number;
     iron: number;
+    StainSpotRemoval: number;
   };
 
   @ApiProperty()

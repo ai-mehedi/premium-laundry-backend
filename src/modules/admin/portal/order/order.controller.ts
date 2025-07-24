@@ -17,10 +17,15 @@ export class OrderController {
       title: 'FAQs',
     };
   }
+  
   @Get('invoice')
   @Render('admin/portal/orders/invoice')
-  invoicechek() {
+  async invoicechek(@Query('id') id: string) {
+    const order =await  this.orderService.findAllOrdersById(id);
+    console.log(order);
     return {
+      order: order,
+       
       title: 'FAQs',
     };
   }
@@ -62,6 +67,7 @@ export class OrderController {
 
   @Post('add')
   async addUpdateFaqSubmit(@Body() data: CreateOrderDto) {
+    
     await this.orderService.addUpdateFaq(data);
     return {
       message: data.action_id ? 'orders has been updated' : 'orders has been added',

@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export enum SEND_SMS_TEMPLATE {
   FORGOT_PASSWORD = 'forgot-password',
+  ORDER_CONFIRMATION = 'order-confirmation',
 }
 
 interface SendSMSProps {
@@ -16,26 +17,31 @@ interface SendSMSProps {
 
 @Injectable()
 export class SMSService {
-  constructor(private readonly appConfigService: AppConfigService) {}
+  constructor(private readonly appConfigService: AppConfigService) { }
 
   async sendSMS({ template, payload, phone }: SendSMSProps) {
     try {
+      const message = this.getTemplateContent(template, payload)
+        .replace(/\r?\n/g, '\n') // Normalize newlines
+        .trim(); // Remove extra whitespace
+
+      console.log('Sending SMS:', message);
+
       const result = await axios.get(this.appConfigService.bulksmsbd.base_url, {
         params: {
           api_key: this.appConfigService.bulksmsbd.api_key,
           senderid: this.appConfigService.bulksmsbd.sender_id,
           type: 'text',
           number: phone,
-          messages: this.getTemplateContent(template, payload),
+          message: message, // plain text, not encoded
         },
       });
 
-      console.log('SMS response:', result);
-
-      console.log('SMS sent successfully:', result.data);
+      console.log('SMS response:', result.data);
       return result.data;
     } catch (err) {
       console.error('Error sending SMS:', err);
+      throw err;
     }
   }
 
@@ -47,13 +53,16 @@ export class SMSService {
       join(global.ROOT_DIR, 'views', 'sms-templates', `${template}.txt`),
       'utf-8',
     );
+
     if (payload) {
       Object.keys(payload).forEach((key) => {
-        content = content
-          .split(`{{${key.toUpperCase()}}}`)
-          .join(`${payload[key]}`);
+        content = content.replace(
+          new RegExp(`{${key.toUpperCase()}}`, 'g'),
+          String(payload[key])
+        );
       });
     }
-    return encodeURIComponent(content);
+
+    return content; // return plain text, not encoded
   }
 }

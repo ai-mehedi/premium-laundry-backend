@@ -1,0 +1,10 @@
+Hello {name},
+
+Thank you for your order at premiumlaundryx.com!
+
+Your order has been confirmed. Your Order ID is: {order_id}
+
+We appreciate your trust in our service. If you have any questions, feel free to contact us.
+
+Best regards,
+Premium Laundry Team

@@ -20,13 +20,14 @@ export class ForgotPasswordService {
       phone: `+88${createForgotPasswordDto.phone}`,
     });
 
+    console.log('User found:', user.name);
     if (!user) {
       throw new NotFoundException({
         message: 'User not found',
       });
     }
 
-    
+
 
     const otpCode = getRandomInt(100000, 999999);
     try {

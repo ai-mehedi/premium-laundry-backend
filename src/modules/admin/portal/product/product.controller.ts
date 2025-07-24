@@ -16,7 +16,7 @@ import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 
 @Controller('admin/portal/products')
 export class ProductitemController {
-  constructor(private readonly Productervice: Productervice) {}
+  constructor(private readonly Productervice: Productervice) { }
 
   @Get('list')
   @Render('admin/portal/products/list')
@@ -45,15 +45,17 @@ export class ProductitemController {
         message: 'Service not found',
       });
     }
-    const subservices = await this.Productervice.findsubServicesAll();
-    if (!subservices || subservices.length === 0) {
+    const itemtype = await this.Productervice.finditemtypeAll();
+
+    if (!itemtype || itemtype.length === 0) {
+    
       throw new NotFoundException({
         message: 'Sub Service not found',
       });
     }
 
     if (id) {
-      console.log('ID:', id);
+
       const checkAdmin =
         await this.Productervice.findsubproductItemById(id);
       if (!checkAdmin) {
@@ -67,12 +69,13 @@ export class ProductitemController {
       action_data = checkAdmin.toObject();
     }
 
+    console.log('action_data', action_data);
     return {
       title: title,
       is_update: is_update,
       action_data: action_data,
       services: services,
-      subservices: subservices,
+      itemtype: itemtype,
     };
   }
 

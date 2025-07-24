@@ -89,6 +89,10 @@ export class Order {
   shippingTime: string;
 
   @ApiProperty()
+  @Prop({ type: String, required: true })
+  pickupdate?: string;
+
+  @ApiProperty()
   @Prop({ type: String, })
   promoCode: string;
   @ApiProperty()
@@ -113,6 +117,14 @@ export class Order {
   @ApiProperty()
   @Prop({ type: String, })
   note: string;
+
+  @ApiProperty()
+  @Prop({ type: String, })
+  otpcode: string;
+
+  @ApiProperty()
+  @Prop({ type: String, })
+  paidamount: string;
 
   @ApiProperty({ type: String })
   @Prop({
