@@ -6,6 +6,7 @@ import { Product, ProductSchema } from 'src/models/product-schema';
 import { User, UserSchema } from 'src/models/user.schema';
 import { Order ,OrderSchema} from 'src/models/order.schema';
 import { Coupon, CouponSchema } from 'src/models/coupon-schema';
+import { SMSService } from 'src/shared/services/sms.service';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
@@ -16,6 +17,6 @@ import { Coupon, CouponSchema } from 'src/models/coupon-schema';
   ],
 
   controllers: [OrderController],
-  providers: [OrderService],
+  providers: [OrderService,SMSService],
 })
 export class OrderModule { }

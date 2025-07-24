@@ -62,6 +62,16 @@ export class CreateOrderDto {
   phone: string;
 
   @ApiProperty()
+  @IsOptional()
+  @IsString()
+  email: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  pickupdate?: string; // optional pick-up date
+
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   address: string;
@@ -99,4 +109,9 @@ export class CreateOrderDto {
   @ValidateNested({ each: true })
   @Type(() => OrderProductDto)
   products: OrderProductDto[];
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  OrderStatus?: string; 
 }

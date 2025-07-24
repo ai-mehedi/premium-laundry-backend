@@ -38,6 +38,13 @@ export class CreateProductitemDto {
   @ApiProperty()
   @IsNotEmpty()
   piron: number;
+
+
+  @ApiProperty()
+  @IsNotEmpty()
+pStainSpotRemoval: number;
+
+
   @ApiProperty()
   @IsNotEmpty()
   vwashAndIron: number;
@@ -47,6 +54,9 @@ export class CreateProductitemDto {
   @ApiProperty()
   @IsNotEmpty()
   viron: number;
+  @ApiProperty()
+  @IsNotEmpty()
+  vStainSpotRemoval: number;
 
   @ApiProperty({ example: true })
   @IsBoolean()

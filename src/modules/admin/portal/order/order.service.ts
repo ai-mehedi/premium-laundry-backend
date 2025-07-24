@@ -23,6 +23,12 @@ export class OrderService {
     return this.AdminModel.find({ isActive: true }).select('name email roles');
   }
 
+  async findAllOrdersById(id: string) {
+    return this.OrderModel.findById(id)
+      .populate('user');
+  }
+
+
   async findFaqById(_id: string) {
     return this.OrderModel.findById(_id);
   }
@@ -49,6 +55,21 @@ export class OrderService {
           },
         },
       );
+
+      await this.OrderModel.updateOne(
+        {
+          _id: data.action_id,
+        },
+        {
+          $push: {
+            statuses: {
+              status: data.orderstatus,
+              updatedBy: data.supplier,
+              note: data.note,
+            },
+          },
+        },
+      );
     }
 
 
@@ -65,7 +86,7 @@ export class OrderService {
     const options: PaginationOptions = { page, limit };
     const pagination = new PaginationUI();
     const renderPath = 'views/admin/portal/orders/widgets/list.ejs';
-    const searchBy = ['title'];
+    const searchBy = ['orderId'];
 
     limit = limit || 25;
     pagination.per_page = limit;

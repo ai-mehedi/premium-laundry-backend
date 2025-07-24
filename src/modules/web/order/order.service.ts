@@ -5,15 +5,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductModel } from 'src/models/product-schema';
 import { User, UserModel } from 'src/models/user.schema';
 import { Order, OrderModel } from 'src/models/order.schema';
-import { RandomString } from 'src/common/helpers/utils/string.utils';
 import { hashPassword } from 'src/common/helpers/utils/password.utils';
 import { Coupon, CouponModel } from 'src/models/coupon-schema';
+import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectModel(Product.name)
     private readonly ProductModel: ProductModel,
+    private readonly smsService: SMSService,
     @InjectModel(User.name)
     private readonly UserModel: UserModel,
     @InjectModel(Order.name)
@@ -90,12 +91,15 @@ export class OrderService {
       const enrichedServices = item.services.map((service: any) => {
         let vendorPrice = 0;
 
+
         if (service.service === 'Wash & Iron') {
           vendorPrice = matchedProduct.vendorPrice.washAndIron;
         } else if (service.service === 'Dry Clean') {
           vendorPrice = matchedProduct.vendorPrice.drycleaning;
         } else if (service.service === 'Iron') {
           vendorPrice = matchedProduct.vendorPrice.iron;
+        } else if (service.service === 'Stain/Spot Removal') {
+          vendorPrice = matchedProduct.vendorPrice.StainSpotRemoval;
         }
 
         vendorSubtotal += vendorPrice * item.quantity;
@@ -129,6 +133,8 @@ export class OrderService {
       phone: createOrderDto.phone,
       address: createOrderDto.address,
       shippingTime: createOrderDto.shippingTime,
+      pickupdate: createOrderDto.pickupdate,
+      email: createOrderDto.email,
       promoCode: createOrderDto.promoCode,
       promoOfferPrice: createOrderDto.promoOfferPrice,
       subtotal: createOrderDto.subtotal,
@@ -136,11 +142,27 @@ export class OrderService {
       products: enrichedProducts,
       statuses: OrderStatus,
       createdAt: new Date(),
+      orderstatus: createOrderDto.OrderStatus,
     };
 
 
     const order = await this.OrderModel.create(newOrder);
     order.save();
+
+
+    try {
+      const result = await this.smsService.sendSMS({
+        template: SEND_SMS_TEMPLATE.ORDER_CONFIRMATION,
+        phone: user.phone.replace('+', ''),
+        payload: {
+          name: createOrderDto.name,
+          code: order.orderId,
+        },
+      });
+      console.log('route response:', result);
+    } catch (error) {
+      console.error('Error sending SMS:', error);
+    }
 
 
 
