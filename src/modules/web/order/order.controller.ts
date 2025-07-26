@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { phoneDto } from './dto/order-get.dto'
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Order')
@@ -11,28 +12,11 @@ export class OrderController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-
-
     return this.orderService.create(createOrderDto);
   }
 
-  @Get()
-  findAll() {
-    return this.orderService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(+id);
+  @Post('by-phone')
+  findAll(@Body() phoneDto: phoneDto) {
+    return this.orderService.findorderbynumber(phoneDto);
   }
 }
