@@ -8,6 +8,7 @@ import { Order, OrderModel } from 'src/models/order.schema';
 import { hashPassword } from 'src/common/helpers/utils/password.utils';
 import { Coupon, CouponModel } from 'src/models/coupon-schema';
 import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
+import { phoneDto } from './dto/order-get.dto';
 
 @Injectable()
 export class OrderService {
@@ -35,12 +36,10 @@ export class OrderService {
     // 1. Find or create user
     let user = await this.UserModel.findOne({ phone: createOrderDto.phone });
 
-
-
     if (!user) {
       user = await this.UserModel.create({
         name: createOrderDto.name,
-        phone: `+88${createOrderDto.phone}`,
+        phone: `${createOrderDto.phone}`,
         fullAddress: createOrderDto.address,
         password: hashPass,
         isActive: true,
@@ -110,6 +109,7 @@ export class OrderService {
         };
       });
 
+
       return {
         productId: matchedProduct._id,
         productName: matchedProduct.title,
@@ -149,21 +149,14 @@ export class OrderService {
     const order = await this.OrderModel.create(newOrder);
     order.save();
 
-
-    try {
-      const result = await this.smsService.sendSMS({
-        template: SEND_SMS_TEMPLATE.ORDER_CONFIRMATION,
-        phone: user.phone.replace('+', ''),
-        payload: {
-          name: createOrderDto.name,
-          code: order.orderId,
-        },
-      });
-      console.log('route response:', result);
-    } catch (error) {
-      console.error('Error sending SMS:', error);
-    }
-
+    const result = await this.smsService.sendSMS({
+      template: SEND_SMS_TEMPLATE.ORDER_CONFIRMATION,
+      phone: user.phone.replace('+', ''),
+      payload: {
+        name: createOrderDto.name,
+        code: order.orderId,
+      },
+    });
 
 
     return {
@@ -172,8 +165,11 @@ export class OrderService {
     };
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findorderbynumber(phonedto: phoneDto) {
+    const user = await this.UserModel.findOne({ phone: phonedto.phone })
+    const allorder = await this.OrderModel.find({ user: user._id })
+
+    return allorder;
   }
 
   findOne(id: number) {

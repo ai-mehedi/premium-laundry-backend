@@ -17,7 +17,7 @@ export class MeService {
     @InjectModel(User.name)
     private readonly userModel: UserModel,
     private readonly i18n: I18nService,
-  ) {}
+  ) { }
 
   async getMe(user: UserAuth) {
     const userData = await this.userModel
@@ -27,6 +27,8 @@ export class MeService {
         name: 1,
         phone: 1,
         email: 1,
+        avatar: 1,
+        fullAddress: 1,
       })
       .exec();
     if (!userData) {
