@@ -56,6 +56,10 @@ export class User {
   name: string;
 
   @ApiProperty()
+  @Prop({ type: String, required: true, unique: true })
+  userId: string;
+
+  @ApiProperty()
   @Prop({ type: String, required: false })
   email?: string;
 

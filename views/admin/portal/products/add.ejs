@@ -115,25 +115,25 @@
                       <div class="form-group">
                         <label>Wash & Iron
                         </label>
-                        <input type="number" class="form-control" name="vwashAndIron" placeholder="Vendor washAndIron price" value="<% if(is_update == true){ %><%= action_data.price.washAndIron; %><% } %>" required>
+                        <input type="number" class="form-control" name="vwashAndIron" placeholder="Vendor washAndIron price" value="<% if(is_update == true){ %><%= action_data.vendorPrice.washAndIron; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="form-group">
                         <label>Dry Clean </label>
-                        <input type="number" class="form-control" name="vdrycleaning" placeholder="Vendor Drycleaning price" value="<% if(is_update == true){ %><%= action_data.price.drycleaning; %><% } %>" required>
+                        <input type="number" class="form-control" name="vdrycleaning" placeholder="Vendor Drycleaning price" value="<% if(is_update == true){ %><%= action_data.vendorPrice.drycleaning; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-5">
                       <div class="form-group">
                         <label>Iron </label>
-                        <input type="number" class="form-control" name="viron" placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.price.iron; %><% } %>" required>
+                        <input type="number" class="form-control" name="viron" placeholder="Vendor Iron price" value="<% if(is_update == true){ %><%= action_data.vendorPrice.iron; %><% } %>" required>
                       </div>
                     </div>
                     <div class="col-5">
                       <div class="form-group">
                         <label>Stain/Spot Removal </label>
-                        <input type="number" class="form-control" name="vStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.price.StainSpotRemoval; %><% } %>" required>
+                        <input type="number" class="form-control" name="vStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.vendorPrice.StainSpotRemoval; %><% } %>" required>
                       </div>
                     </div>
                   </div>

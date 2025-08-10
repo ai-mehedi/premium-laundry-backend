@@ -14,7 +14,12 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('Product ')
 @Controller('web/product')
 export class ProductController {
-  constructor(private readonly Productervice: Productervice) {}
+  constructor(private readonly Productervice: Productervice) { }
+
+  @Get('prices')
+  findProductPrices() {
+    return this.Productervice.findproductBytype();
+  }
 
   @Get()
   findAll() {

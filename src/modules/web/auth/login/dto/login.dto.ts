@@ -5,8 +5,6 @@ export class LoginDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @MinLength(11)
-  @MaxLength(11)
   phone: string;
 
   @ApiProperty()

@@ -18,9 +18,11 @@ export class LoginService {
   ) { }
 
   async login(bodyDto: LoginDto) {
+    console.log('User found:', bodyDto);
     const user = await this.userModel.findOne({
-      phone: `+88${bodyDto.phone}`,
+      userId: `${bodyDto.phone}`,
     });
+
 
     if (!user) {
       throw new NotFoundException({

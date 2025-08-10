@@ -6,14 +6,18 @@ import {
   Product,
   ProductSchema,
 } from 'src/models/product-schema';
+import { Itemtype, ItemtypeSchema, } from 'src/models/itemtype-schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Product.name, schema: ProductSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: Itemtype.name, schema: ItemtypeSchema },
+    ]),
   ],
   controllers: [ProductController],
   providers: [Productervice],
 })
-export class ProductModule {}
+export class ProductModule { }

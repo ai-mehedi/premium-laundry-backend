@@ -3,6 +3,7 @@ import { SignupController } from './signup.controller';
 import { SignupService } from './signup.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/models/user.schema';
+import { SMSService } from 'src/shared/services/sms.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { User, UserSchema } from 'src/models/user.schema';
     ]),
   ],
   controllers: [SignupController],
-  providers: [SignupService],
+  providers: [SignupService, SMSService],
 })
-export class SignupModule {}
+export class SignupModule { }
