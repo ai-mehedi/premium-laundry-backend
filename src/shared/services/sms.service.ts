@@ -7,6 +7,7 @@ import axios from 'axios';
 export enum SEND_SMS_TEMPLATE {
   FORGOT_PASSWORD = 'forgot-password',
   ORDER_CONFIRMATION = 'order-confirmation',
+  USER_CREATE = 'usercreate',
 }
 
 interface SendSMSProps {

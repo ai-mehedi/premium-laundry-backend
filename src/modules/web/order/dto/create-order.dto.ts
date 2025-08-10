@@ -50,11 +50,14 @@ class OrderProductDto {
   subtotal: number;
 }
 
+
 export class CreateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
   name: string;
+
+
 
   @ApiProperty()
   @IsNotEmpty()
@@ -113,5 +116,5 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  OrderStatus?: string; 
+  OrderStatus?: string;
 }

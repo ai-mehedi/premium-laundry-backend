@@ -11,12 +11,12 @@ export class PaginationUI {
           '<li class="page-item disabled"><a class="page-link">First</a></li>';
       } else {
         output +=
-          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="ite.get_paginate_result(this,1)">First</a></li>';
+          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="get_paginate_result(this,1)">First</a></li>';
       }
       if (current - 1 > 0) {
         const pr_page = current - 1;
         output +=
-          '<li><a class="page-link" href="javascript:;" onclick="ite.get_paginate_result(this,' +
+          '<li><a class="page-link" href="javascript:;" onclick="get_paginate_result(this,' +
           pr_page +
           ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
       }
@@ -33,7 +33,7 @@ export class PaginationUI {
             '</a></li>';
         } else {
           output +=
-            '<li class="page-item"><a class="page-link" href="javascript:;" onclick="ite.get_paginate_result(this,' +
+            '<li class="page-item"><a class="page-link" href="javascript:;" onclick="get_paginate_result(this,' +
             i +
             ')">' +
             i +
@@ -47,7 +47,7 @@ export class PaginationUI {
       if (pages >= current + 1) {
         const n_page = current + 1;
         output +=
-          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="ite.get_paginate_result(this,' +
+          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="get_paginate_result(this,' +
           n_page +
           ')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
       }
@@ -56,7 +56,7 @@ export class PaginationUI {
           '<li class="page-item disabled"><a class="page-link">Last</a></li>';
       } else {
         output +=
-          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="ite.get_paginate_result(this,' +
+          '<li class="page-item"><a class="page-link" href="javascript:;" onclick="get_paginate_result(this,' +
           pages +
           ')">Last</a></li>';
       }

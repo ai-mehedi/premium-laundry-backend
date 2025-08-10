@@ -242,6 +242,28 @@ function paginateResult() {
 }
 paginateResult();
 
+
+function get_paginate_result(e, page) {
+    const form = e.closest('form[data-paginate-form="true"]');
+    if (form) {
+        console.log(form)
+        form.setAttribute('data-page', page);
+        form.dispatchEvent(new Event('submit'));
+    }
+}
+
+const allFormElements = document.querySelectorAll('form[data-paginate-form="true"] input, form[data-paginate-form="true"] select');
+allFormElements.forEach((element) => {
+    element.addEventListener('change', (event) => {
+        event.preventDefault();
+        const form = event.target.closest('form[data-paginate-form="true"]');
+        if (form) {
+            form.setAttribute('data-page', 1);
+            form.dispatchEvent(new Event('submit'));
+        }
+    });
+});
+
 function removeData(e, url) {
     if (confirm('Are you sure you want to delete this data?')) {
         HttpRequest('DELETE', url).then((response) => {

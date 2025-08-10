@@ -1,0 +1,7 @@
+Hello {NAME},
+Your login details for PremiumLaundryx are:
+🆔 User ID: {USER_ID}
+🔑 Password: {PASSWORD}
+
+Need help? Visit 🌐 PremiumLaundryx.com
+🧺 PremiumLaundryx

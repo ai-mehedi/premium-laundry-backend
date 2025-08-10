@@ -9,6 +9,7 @@ import { hashPassword } from 'src/common/helpers/utils/password.utils';
 import { Coupon, CouponModel } from 'src/models/coupon-schema';
 import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
 import { phoneDto } from './dto/order-get.dto';
+import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
 
 @Injectable()
 export class OrderService {
@@ -28,10 +29,9 @@ export class OrderService {
   ) { }
 
   async create(createOrderDto: CreateOrderDto) {
-    let userId: string;
     let orderId = Math.floor(100000 + Math.random() * 900000).toString();
     const userPaaword = "12345678"; // Default password for new users
-
+    const useruniqueid = RandomNumberString(8);
     const hashPass = await hashPassword(userPaaword);
     // 1. Find or create user
     let user = await this.UserModel.findOne({ phone: createOrderDto.phone });
@@ -41,9 +41,23 @@ export class OrderService {
         name: createOrderDto.name,
         phone: `${createOrderDto.phone}`,
         fullAddress: createOrderDto.address,
+        userId: useruniqueid.toString(),
         password: hashPass,
         isActive: true,
       });
+
+
+      await this.smsService.sendSMS({
+        template: SEND_SMS_TEMPLATE.USER_CREATE,
+        phone: user.phone.replace('+', ''),
+        payload: {
+          NAME: user.name,
+          USER_ID: user.userId,
+          PASSWORD: userPaaword, // In production, avoid sending plain passwords
+        },
+      });
+
+
     }
     if (createOrderDto.promoCode !== "") {
       //     usedAmount:+promoOfferPrice ,
@@ -60,8 +74,8 @@ export class OrderService {
         );
       }
     }
-
-    userId = user._id.toString();
+    console.log('User found or created:', user);
+    const userId = user._id.toString();
 
     // 2. Validate products and enrich product info
     const productIds = createOrderDto.products.map((p) => p.id);
