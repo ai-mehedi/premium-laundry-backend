@@ -58,10 +58,10 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>Sub service</label>
+                    <label>itemtype</label>
                     <select class="form-control" name="itemtypeID" required>
                       <% itemtype.forEach(type => { %>
-                      <option value="<%= type._id %>" <% if (is_update && action_data.serviceId?.toString() === type._id.toString()) { %> selected <% } %>>
+                      <option value="<%= type._id %>" <% if (is_update && action_data.itemtypeID?._id.toString() === type._id.toString()) { %> selected <% } %>>
                         <%= type.title %>
                       </option>
                       <% }); %>
