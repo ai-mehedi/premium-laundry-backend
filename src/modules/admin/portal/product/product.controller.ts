@@ -92,6 +92,7 @@ export class ProductitemController {
 
   @Delete()
   async deletesubservice(@Query('id') id: string) {
+    
     return await this.Productervice.deleteProductitem(id);
   }
 }
