@@ -20,6 +20,7 @@ import { CouponModule } from './coupon/coupon.module';
 import { PackageModule } from './package/package.module';
 import { OrderModule } from './order/order.module';
 import { VendorModule } from './vendor/vendor.module';
+import { ShoecareModule } from './shoecare/shoecare.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { VendorModule } from './vendor/vendor.module';
     PackageModule,
     OrderModule,
     VendorModule,
+    ShoecareModule,
   ],
   providers: [CookieService],
 })

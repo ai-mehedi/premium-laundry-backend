@@ -1,10 +1,10 @@
 <tr>
   <td><%= serial_number; %></td>
   <td><%= result.orderId; %></td>
-  <td><%= result.orderstatus; %></td>
+  <td>In Process</td>
 
 
-  <td><%= new Date(result.createdAt).toLocaleString(); %></td>
+  <td><%= new Date(result.updatedAt).toLocaleString(); %></td>
 
   <td>
     <div class="d-flex align-items-center" style="gap: 5px;">

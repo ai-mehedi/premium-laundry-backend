@@ -212,6 +212,8 @@ export class Productervice {
     };
   }
 
+
+  
   async deleteProductitem(id: string) {
     const result = await this.ProductModel.findOneAndDelete({
       _id: id,
