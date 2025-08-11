@@ -8,6 +8,8 @@ export enum SEND_SMS_TEMPLATE {
   FORGOT_PASSWORD = 'forgot-password',
   ORDER_CONFIRMATION = 'order-confirmation',
   USER_CREATE = 'usercreate',
+  ORDER_DELIVERY_OTP = 'order-delivery-otp',
+  ORDER_DELIVERY_SUCCESS = 'order-delivery-success'
 }
 
 interface SendSMSProps {
@@ -26,7 +28,7 @@ export class SMSService {
         .replace(/\r?\n/g, '\n') // Normalize newlines
         .trim(); // Remove extra whitespace
 
-      console.log('Sending SMS:', message);
+
 
       const result = await axios.get(this.appConfigService.bulksmsbd.base_url, {
         params: {
@@ -38,7 +40,7 @@ export class SMSService {
         },
       });
 
-      console.log('SMS response:', result.data);
+
       return result.data;
     } catch (err) {
       console.error('Error sending SMS:', err);

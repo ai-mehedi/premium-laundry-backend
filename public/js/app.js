@@ -85,7 +85,7 @@ function postForm() {
 
             form.querySelectorAll('input[type="checkbox"][name]').forEach((input) => {
                 body[input.name] = formData.getAll(input.name);
-            
+
             });
 
             try {

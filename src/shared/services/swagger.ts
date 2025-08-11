@@ -48,7 +48,6 @@ export const setupSwagger = (app: INestApplication) => {
   SwaggerModule.setup(`/web-docs`, app, webDocument, {
     swaggerOptions: {
       requestInterceptor: (req) => {
-        console.log(req.headers);
         if (req.headers['Content-Type'] !== 'application/json') {
           req.headers['Content-type'] = 'application/json';
         }

@@ -1,0 +1,14 @@
+<tr>
+  <td><%= serial_number; %></td>
+  <td><%= result.orderId; %></td>
+  <td>৳ <%= result.total; %></td>
+  <td><%= result.shippingTime; %></td>
+  <td><%= result.user[0].fullAddress %></td>
+  <td><%= result.orderstatus; %></td>
+  <td>
+    <div class="d-flex align-items-center" style="gap: 5px;">
+      <a class="btn btn-success " href="/admin/portal/deliverypanel/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
+    </div>
+  </td>
+
+</tr>

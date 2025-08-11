@@ -1,0 +1,151 @@
+<%- include('../../layouts/header'); %>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Orders</li>
+          <li class="breadcrumb-item active"><%= title; %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card card-outline card-primary">
+          <div class="card-header">
+            <h4 class="card-title"><%= title; %></h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" data-form="true" data-url="/admin/portal/deliverypanel/add">
+              <% if(is_update == true){ %>
+              <input type="hidden" name="action_id" value="<%= action_data._id; %>">
+              <% } %>
+
+              <input type="hidden" name="name" value="<%=  auth_data.name;  %>">
+              <!-- Order Details -->
+              <div class="form-group">
+                <label>Order ID</label>
+                <input type="text" name="orderId" class="form-control" id="orderId" value="<%= action_data.orderId; %>">
+              </div>
+
+              <div class="form-group">
+                <label>Payable Amount</label>
+                <input type="text" name="total" class="form-control" value="<%= action_data.total; %>">
+              </div>
+
+              <div class="form-group">
+                <label>Customer Number</label>
+                <input type="text" class="form-control" name="phone" id="customerPhone" value="<%= action_data.user.phone; %>">
+              </div>
+
+              <!-- Send OTP -->
+
+
+              <!-- OTP Check Form (hidden initially) -->
+              <div id="otpSection" style="display:none;">
+                <div class="form-group">
+                  <label>OTP CODE</label>
+                  <div class="input-group">
+                    <input type="text" name="otpcode" class="form-control" id="otpCode" placeholder="OTP CODE" required>
+
+                  </div>
+                </div>
+
+                <!-- Delivery Status -->
+                <div class="form-group">
+                  <label>Delivery Status</label>
+                  <select class="form-control" name="orderstatus" required>
+                    <option value="Delivered" <% if(is_update && action_data.orderstatus === "Delivered"){ %>selected<% } %>>Delivered</option>
+                    <option value="Not Delivered" <% if(is_update && action_data.orderstatus === "Not Delivered"){ %>selected<% } %>>Not Delivered</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary"><%= title; %></button>
+                </div>
+              </div>
+
+            </form>
+            <div class="form-group">
+              <label>Send OTP</label>
+              <div class="input-group mb-2">
+                <button type="button" class="btn btn-success" id="sendOtpBtn">Send OTP</button>
+              </div>
+              <small id="countdownText" class="text-danger" style="display:none;"></small>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../../layouts/footer'); %>
+
+<script>
+  const sendOtpBtn = document.getElementById('sendOtpBtn');
+  const countdownText = document.getElementById('countdownText');
+  const otpSection = document.getElementById('otpSection');
+  const orderId = document.getElementById('orderId').value;
+  const customerPhone = document.getElementById('customerPhone').value;
+  const otpCodeInput = document.getElementById('otpCode');
+  const checkOtpBtn = document.getElementById('checkOtpBtn');
+
+  let countdownInterval;
+
+  // Send OTP
+  sendOtpBtn.addEventListener('click', async () => {
+    try {
+      // Call your backend API to send OTP
+      const res = await fetch('http://localhost:3001/web/order/orderotp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderId: orderId,
+          phone: customerPhone
+        })
+      });
+      const data = await res.json();
+      if (data.success === true) {
+
+        otpSection.style.display = 'block';
+        startCountdown();
+      } else {
+        alert(data.message || 'Failed to send OTP');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error sending OTP');
+    }
+  });
+
+  // Countdown logic
+  function startCountdown() {
+    let timeLeft = 90;
+    sendOtpBtn.disabled = true;
+    countdownText.style.display = 'block';
+    countdownText.textContent = `You can resend OTP in ${timeLeft} seconds`;
+
+    countdownInterval = setInterval(() => {
+      timeLeft--;
+      countdownText.textContent = `You can resend OTP in ${timeLeft} seconds`;
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        countdownText.style.display = 'none';
+        sendOtpBtn.disabled = false;
+      }
+    }, 1000);
+  }
+</script>

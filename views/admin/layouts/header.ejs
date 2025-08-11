@@ -208,6 +208,30 @@
               </ul>
             </li>
 
+            <li class="nav-item <% if(base_path[3] == 'deliverypanel'){__append('menu-open active')} %>">
+              <a href="#" class="nav-link <% if(base_path[3] == 'deliverypanel'){__append('active')} %>">
+                <i class="fa-solid fa-cart-shopping nav-icon"></i>
+                <p>
+                  delivery panel
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/deliverypanel/list" class="nav-link <% if(base_path[3] == 'deliverypanel' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>orders</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/deliverypanel/completed" class="nav-link <% if(base_path[3] == 'completed' && base_path[4] == 'completed'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Complete order</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <li class="nav-item <% if(base_path[3] == 'coupons'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'coupons'){__append('active')} %>">
                 <i class="fa-solid fa-receipt nav-icon"></i>

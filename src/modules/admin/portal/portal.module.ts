@@ -21,6 +21,7 @@ import { PackageModule } from './package/package.module';
 import { OrderModule } from './order/order.module';
 import { VendorModule } from './vendor/vendor.module';
 import { ShoecareModule } from './shoecare/shoecare.module';
+import { DeliverypanelModule } from './deliverypanel/deliverypanel.module';
 
 @Module({
   imports: [
@@ -43,6 +44,8 @@ import { ShoecareModule } from './shoecare/shoecare.module';
     OrderModule,
     VendorModule,
     ShoecareModule,
+    DeliverypanelModule,
+ 
   ],
   providers: [CookieService],
 })
