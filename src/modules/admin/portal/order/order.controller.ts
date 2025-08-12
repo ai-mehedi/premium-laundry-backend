@@ -22,7 +22,7 @@ export class OrderController {
   @Render('admin/portal/orders/invoice')
   async invoicechek(@Query('id') id: string) {
     const order =await  this.orderService.findAllOrdersById(id);
-    console.log(order);
+
     return {
       order: order,
        

@@ -57,7 +57,10 @@ pStainSpotRemoval: number;
   @ApiProperty()
   @IsNotEmpty()
   vStainSpotRemoval: number;
-
+ @ApiProperty()
+  @IsNotEmpty()
+  popular: boolean;
+  
   @ApiProperty({ example: true })
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)

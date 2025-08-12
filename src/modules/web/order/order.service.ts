@@ -10,6 +10,8 @@ import { Coupon, CouponModel } from 'src/models/coupon-schema';
 import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
 import { phoneDto } from './dto/order-get.dto';
 import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
+import { OTPdto } from './dto/otp.dto';
+import { OrderStatusDto } from './dto/orderstatuse.dto';
 
 @Injectable()
 export class OrderService {
@@ -74,7 +76,6 @@ export class OrderService {
         );
       }
     }
-    console.log('User found or created:', user);
     const userId = user._id.toString();
 
     // 2. Validate products and enrich product info
@@ -107,11 +108,11 @@ export class OrderService {
 
         if (service.service === 'Wash & Iron') {
           vendorPrice = matchedProduct.vendorPrice.washAndIron;
-        } else if (service.service === 'Dry Clean') {
+        } else if (service.service === 'Dry Cleaning') {
           vendorPrice = matchedProduct.vendorPrice.drycleaning;
         } else if (service.service === 'Iron') {
           vendorPrice = matchedProduct.vendorPrice.iron;
-        } else if (service.service === 'Stain/Spot Removal') {
+        } else if (service.service === 'Spot Removal') {
           vendorPrice = matchedProduct.vendorPrice.StainSpotRemoval;
         }
 
@@ -133,7 +134,11 @@ export class OrderService {
         vendorSubtotal: vendorSubtotal,     // calculated vendor price for this product
       };
     });
-    // console.log(JSON.stringify(enrichedProducts, null, 2));
+
+    const vendorCosts = enrichedProducts.map((item) => item.vendorSubtotal);
+    const totalVendorCost = vendorCosts.reduce((sum, cost) => sum + cost, 0);
+    console.log("vendorCosts", totalVendorCost);
+    console.log(JSON.stringify(enrichedProducts, null, 2));
     const OrderStatus = {
       status: 'Pending',
       updatedBy: user.name,
@@ -149,6 +154,7 @@ export class OrderService {
       shippingTime: createOrderDto.shippingTime,
       pickupdate: createOrderDto.pickupdate,
       email: createOrderDto.email,
+      vendorCosts: totalVendorCost,
       promoCode: createOrderDto.promoCode,
       promoOfferPrice: createOrderDto.promoOfferPrice,
       subtotal: createOrderDto.subtotal,
@@ -186,15 +192,44 @@ export class OrderService {
     return allorder;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async otpset(otpDTO: OTPdto) {
+    const otp = RandomNumberString(4);
+    await this.OrderModel.updateOne({ orderId: otpDTO.orderId }, { otpcode: otp });
+
+    const result = await this.smsService.sendSMS({
+      template: SEND_SMS_TEMPLATE.ORDER_DELIVERY_OTP,
+      phone: otpDTO.phone.replace('+', ''),
+      payload: {
+        ORDERID: otpDTO.orderId,
+        code: otp,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'OTP has been sent to your phone number',
+      otp: otp,
+      orderId: otpDTO.orderId,
+      phone: otpDTO.phone,
+
+    };
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+
+
+  async OrderTracking(orderstatus: OrderStatusDto) {
+
+
+    const order = await this.OrderModel.findOne({ orderId: orderstatus.orderId });
+
+    if (!order) {
+      throw new NotFoundException(`Order with ID ${orderstatus.orderId} not found`);
+    }
+    return {
+      success: true,
+      message: 'Order status updated successfully',
+      order,
+    };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
-  }
 }

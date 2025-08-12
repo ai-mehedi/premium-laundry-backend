@@ -20,7 +20,7 @@ export class BlogService {
     private readonly blogModel: BlogModel,
     @InjectModel(Category.name)
     private readonly categoryModel: CategoryModel,
-  ) {}
+  ) { }
 
   async findBlogById(_id: string) {
     return this.blogModel.findById(_id);

@@ -10,7 +10,7 @@ export class VendorController {
   @Render('admin/portal/vendors/list')
   faqsList() {
     return {
-      title: 'FAQs',
+      title: 'vendors',
     };
   }
 
@@ -29,6 +29,37 @@ export class VendorController {
   @Post('list')
   async faqsListPaginated(@Query() queryDto: PaginationQuery) {
     const result = await this.vendorService.getPaginatedList(queryDto);
+    return result;
+  }
+
+  @Get('complete')
+  @Render('admin/portal/vendors/complete')
+  vendordispatch() {
+    return {
+      title: 'vendors',
+    };
+  }
+
+
+  @Post('complete')
+  async vendorcomplte(@Query() queryDto: PaginationQuery) {
+    const result = await this.vendorService.getPaginatedcomplted(queryDto);
+    return result;
+  }
+  
+
+  @Get('process')
+  @Render('admin/portal/vendors/process')
+  vendorprocess() {
+    return {
+      title: 'vendors process',
+    };
+  }
+
+
+  @Post('process')
+  async vendorprocessorder(@Query() queryDto: PaginationQuery) {
+    const result = await this.vendorService.getPaginatedprocess(queryDto);
     return result;
   }
 
