@@ -20,6 +20,10 @@ export class Faq {
     @Prop({ type: String, required: true })
     phone: string;
 
+     @ApiProperty()
+    @Prop({ type: String, required: true })
+    address: string;
+
     @ApiProperty()
     @Prop({ type: String, required: true })
     pickupdate: string;

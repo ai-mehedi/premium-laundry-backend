@@ -31,6 +31,12 @@ export class Product {
   })
   serviceId: string;
 
+
+  @ApiProperty()
+  @Prop({ type: Boolean, default: false })
+  popular: boolean;
+
+
   @ApiProperty()
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

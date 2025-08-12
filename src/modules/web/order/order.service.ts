@@ -11,6 +11,7 @@ import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
 import { phoneDto } from './dto/order-get.dto';
 import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
 import { OTPdto } from './dto/otp.dto';
+import { OrderStatusDto } from './dto/orderstatuse.dto';
 
 @Injectable()
 export class OrderService {
@@ -214,5 +215,21 @@ export class OrderService {
     };
   }
 
+
+
+  async OrderTracking(orderstatus: OrderStatusDto) {
+
+
+    const order = await this.OrderModel.findOne({ orderId: orderstatus.orderId });
+
+    if (!order) {
+      throw new NotFoundException(`Order with ID ${orderstatus.orderId} not found`);
+    }
+    return {
+      success: true,
+      message: 'Order status updated successfully',
+      order,
+    };
+  }
 
 }

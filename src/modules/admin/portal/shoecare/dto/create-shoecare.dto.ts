@@ -1,1 +1,4 @@
-export class CreateShoecareDto {}
+export class CreateShoecareDto {
+
+    
+}

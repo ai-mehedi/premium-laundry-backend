@@ -6,6 +6,11 @@ export class CreateItemtypeDto {
   @IsNotEmpty()
   @IsString()
   title: string;
+  
+  
+  @ApiProperty()
+  @IsNotEmpty()
+  popular: boolean;
 
   @ApiProperty()
   @IsNotEmpty()

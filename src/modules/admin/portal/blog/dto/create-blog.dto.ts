@@ -18,6 +18,17 @@ export class CreateBlogDto {
   @IsString()
   slug: string;
 
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  url: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  button: string;
+
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

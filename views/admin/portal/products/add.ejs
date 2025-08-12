@@ -41,6 +41,15 @@
                 <input type="text" class="form-control" name="title" placeholder="Title" value="<% if(is_update == true){ %><%= action_data.title; %><% } %>" required>
               </div>
 
+
+              <div class="form-group">
+                <label>Service type</label>
+                <select class="form-control" name="popular" required>
+                  <option value="true" <% if(is_update == true){ %><% if(action_data.popular == true){__append('selected=""')}  %><% } %>>popular</option>
+                  <option value="false" <% if(is_update == true){ %><% if(action_data.popular == false){__append('selected=""')}  %><% } %>>premium</option>
+                </select>
+              </div>
+
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">

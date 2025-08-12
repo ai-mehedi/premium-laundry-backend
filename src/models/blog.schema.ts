@@ -43,6 +43,14 @@ export class Blog {
   description: string;
 
   @ApiProperty()
+  @Prop({ type: String, required: true })
+  url: string;
+
+  @ApiProperty()
+  @Prop({ type: String, required: true })
+  button: string;
+
+  @ApiProperty()
   @Prop({ type: Boolean, default: true })
   isActive: boolean;
 }

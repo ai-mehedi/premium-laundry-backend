@@ -45,17 +45,20 @@ export class DeliverypanelService {
         {
           _id: data.action_id,
         },
+
+        {
+          $push: {
+            statuses: {
+              status: data.orderstatus,
+              updatedBy: data.name,
+              note: data.orderstatus,
+            },
+          },
+        },
+
         {
           $set: {
             orderstatus: data.orderstatus,
-            statuses: [
-              {
-
-                status: data.orderstatus,
-                updatedBy: data.name,
-                note: data.orderstatus,
-              },
-            ],
           },
         },
       );

@@ -19,7 +19,7 @@ export class ItemtypeService {
     private readonly ItemtypeModel: ItemtypeModel,
     @InjectModel(Service.name)
     private readonly ServiceModel: ServiceModel,
-  ) {}
+  ) { }
 
   async findItemtypeById(_id: string) {
     return this.ItemtypeModel.findById(_id);
@@ -49,6 +49,7 @@ export class ItemtypeService {
           $set: {
             thumbnail: data.thumbnail,
             isActive: data.isActive,
+            popular: data.popular,
             serviceId: data.serviceId,
             title: data.title,
             description: data.description,
@@ -70,6 +71,7 @@ export class ItemtypeService {
       await this.ItemtypeModel.create({
         thumbnail: data.thumbnail,
         isActive: data.isActive,
+        popular: data.popular,
         serviceId: data.serviceId,
         title: data.title,
         description: data.description,

@@ -5,6 +5,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { OTPdto } from './dto/otp.dto';
 import { phoneDto } from './dto/order-get.dto'
 import { ApiTags } from '@nestjs/swagger';
+import { OrderStatusDto } from './dto/orderstatuse.dto';
 
 @ApiTags('Order')
 @Controller('web/order')
@@ -25,4 +26,11 @@ export class OrderController {
   otpset(@Body() otpDTO: OTPdto) {
     return this.orderService.otpset(otpDTO);
   }
+
+  @Post('orderstatus')
+  updateOrderStatus(@Body() orderstatus: OrderStatusDto) {
+    return this.orderService.OrderTracking(orderstatus);
+  }
+
+  
 }

@@ -34,6 +34,11 @@ export class Itemtype {
   @Prop({ type: String, required: true })
   description: string;
 
+
+  @ApiProperty()
+  @Prop({ type: Boolean, default: false })
+  popular: boolean;
+
   @ApiProperty()
   @Prop({ type: Boolean, default: true })
   isActive: boolean;

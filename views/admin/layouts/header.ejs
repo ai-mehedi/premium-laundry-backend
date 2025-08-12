@@ -328,6 +328,30 @@
             </li>
 
 
+               <li class="nav-item <% if(base_path[3] == 'payments'){__append('menu-open active')} %>">
+              <a href="#" class="nav-link <% if(base_path[3] == 'payments'){__append('active')} %>">
+                <i class="fa-solid fa-box-open nav-icon"></i>
+                <p>
+                  Payments
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/payments/add" class="nav-link <% if(base_path[3] == 'payments' && base_path[4] == 'add'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Payments</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/payments/list" class="nav-link <% if(base_path[3] == 'payments' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Payments</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <li class="nav-item <% if(base_path[3] == 'orders'){__append('menu-open active')} %>">
               <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders'){__append('active')} %>">
                 <i class="nav-icon fa-solid fa-cart-flatbed-suitcase"></i>
