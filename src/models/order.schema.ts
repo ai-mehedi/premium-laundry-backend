@@ -89,6 +89,10 @@ export class Order {
   shippingTime: string;
 
   @ApiProperty()
+  @Prop({ type: String, required: true })
+  delivery: string;
+
+  @ApiProperty()
   @Prop({ type: Number, required: true })
   vendorCosts: number;
 

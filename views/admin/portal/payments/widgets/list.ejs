@@ -1,21 +1,10 @@
 <tr>
   <td><%= serial_number; %></td>
-  <td><%= result.title; %></td>
-  <td>
-    <% if (result.serviceData) { %>
-    <span class="badge badge-info"><%= result.serviceData.title; %></span>
-    <% } else { %>
-    <span class="badge badge-secondary">No Service</span>
-    <% } %>
-  </td>
-  <td>
-    <% if (result.isActive) { %>
-    <span class="badge badge-success">Active</span>
-    <% } else { %>
-    <span class="badge badge-danger">Inactive</span>
-    <% } %>
-  </td>
-  <td><%= new Date(result.createdAt).toLocaleString(); %></td>
+  <td><%= result.invoice; %></td>
+  <td>৳ <%= result.amount; %></td>
+  <td><%= result.paymentMethod; %></td>
+  <td><%= result.transactionId; %></td>
+  <td><%= result.paymentDate; %></td>
 
   <td>
     <div class="d-flex align-items-center" style="gap: 5px;">

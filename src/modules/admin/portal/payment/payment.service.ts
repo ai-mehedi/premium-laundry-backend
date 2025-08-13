@@ -17,7 +17,7 @@ export class PaymentService {
     private readonly PaymentModel: PaymentModel,
   ) { }
 
-
+ 
   async addUpdatePayment(data: CreatePaymentDto) {
     console.log(data);
 

@@ -35,8 +35,7 @@
       <div class="mb-4">
         <h2 class="font-semibold text-slate-700">Bill To:</h2>
         <p class="text-slate-600"><%= order.user.name %></p>
-        <p class="text-sm"><%= order.user.phone %></p>
-        <p class="text-sm"><%= order.user.fullAddress %></p>
+        <p class="text-sm"> User Id <%= order.user.userId %></p>
       </div>
       <div class="mb-4 text-right flex-1">
         <p class="text-sm">Invoice #: <%= order.orderId %></p>
@@ -54,30 +53,26 @@
           <th class="px-4 py-2 text-left">Service</th>
           <th class="px-4 py-2 text-left">Service Price</th>
           <th class="px-4 py-2 text-left">Quantity</th>
-          <th class="px-4 py-2 text-right">Total</th>
+       
         </tr>
       </thead>
       <tbody>
         <% let subtotal = 0; %>
         <% order.products.forEach((product, index) => { 
-             const serviceDescriptions = product.services?.map(service => `${service.service} ($${service.price.toFixed(2)})`).join(', ') || '—'; 
+             const serviceDescriptions = product.services?.map(service => `${service.service} (৳ ${service.vendorPrice.toFixed(2)})`).join(', ') || '—'; 
              const serviceTotal = product.services?.reduce((sum, s) => sum + s.price, 0) || 0;
              const rowTotal = product.subtotal + serviceTotal;
              subtotal += rowTotal;
-        %>
+             %>
           <tr class="bg-white">
             <td class="border px-4 py-2"><%= index + 1 %></td>
             <td class="border px-4 py-2"><%= product.productName %></td>
             <td class="border px-4 py-2"><%= serviceDescriptions %></td>
             <td class="border px-4 py-2"><%= product.quantity %></td>
-            <td class="border px-4 py-2 text-right">$<%= rowTotal.toFixed(2) %></td>
           </tr>
         <% }); %>
 
-        <tr>
-          <td colspan="4" class="border px-4 py-2 text-right font-semibold">Subtotal</td>
-          <td class="border px-4 py-2 text-right">$<%= subtotal.toFixed(2) %></td>
-        </tr>
+       
 
         <% if (order.promoOfferPrice > 0) { %>
         <tr>
@@ -86,10 +81,7 @@
         </tr>
         <% } %>
 
-        <tr class="font-bold bg-gray-100">
-          <td colspan="4" class="border px-4 py-2 text-right">Total Due</td>
-          <td class="border px-4 py-2 text-right">$<%= order.total.toFixed(2) %></td>
-        </tr>
+        
       </tbody>
     </table>
   </div>

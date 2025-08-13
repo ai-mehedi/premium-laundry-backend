@@ -17,25 +17,52 @@ export class OrderController {
       title: 'FAQs',
     };
   }
-  
+
   @Get('invoice')
   @Render('admin/portal/orders/invoice')
   async invoicechek(@Query('id') id: string) {
-    const order =await  this.orderService.findAllOrdersById(id);
+    const order = await this.orderService.findAllOrdersById(id);
 
     return {
       order: order,
-       
+
       title: 'FAQs',
     };
   }
 
+
+  @Get('orderdetail')
+  @Render('admin/portal/vendors/invoice')
+  async ordercheck(@Query('id') id: string) {
+    const order = await this.orderService.findAllOrdersById(id);
+
+    return {
+      order: order,
+
+      title: 'FAQs',
+    };
+  }
 
   @Post('list')
   async faqsListPaginated(@Query() queryDto: PaginationQuery) {
     const result = await this.orderService.getPaginatedList(queryDto);
     return result;
   }
+
+  @Get('edit/:id')
+  @Render('admin/portal/orders/edit')
+  async editOrder(@Param('id') id: string) {
+    const order = await this.orderService.findAllOrdersById(id);
+    const allproducts = await this.orderService.findAllProducts();
+    console.log(order)
+    return {
+      order: order,
+      allproducts: allproducts,
+      title: 'Edit Order',
+    };
+  }
+
+
 
   @Get('add')
   @Render('admin/portal/orders/add')
@@ -67,7 +94,7 @@ export class OrderController {
 
   @Post('add')
   async addUpdateFaqSubmit(@Body() data: CreateOrderDto) {
-    
+
     await this.orderService.addUpdateFaq(data);
     return {
       message: data.action_id ? 'orders has been updated' : 'orders has been added',

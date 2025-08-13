@@ -85,6 +85,11 @@ export class CreateOrderDto {
   shippingTime: string;
 
   @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  delivery: string;
+
+  @ApiProperty()
   @IsOptional()
   @IsString()
   promoCode?: string;

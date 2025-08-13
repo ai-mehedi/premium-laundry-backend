@@ -8,7 +8,7 @@ import { DashboardService } from './dashboard.service';
 @UseGuards(AdminRolesGuard)
 @AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class DashboardController {
-  constructor(private readonly dashboardService: DashboardService) {}
+  constructor(private readonly dashboardService: DashboardService) { }
 
   @Get()
   @Render('admin/portal/dashboard/index')
@@ -17,8 +17,14 @@ export class DashboardController {
 
     return {
       title: 'Admin Dashboard',
-      dashboardCounts: {
-        totalAdmins,
+      data: {
+        totalorder: totalAdmins.totalorder,
+        completeordertotal: totalAdmins.completeordertotal,
+        totalamount: totalAdmins.totalamount,
+        Vendorcost: totalAdmins.Vendorcost,
+        revenue: totalAdmins.revenue,
+        totaluser: totalAdmins.totaluser,
+        totalpaymentamount: totalAdmins.totalpaymentamount
       },
     };
   }

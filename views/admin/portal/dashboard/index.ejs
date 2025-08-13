@@ -1,35 +1,122 @@
 <%- include('../../layouts/header'); %>
 <div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Dashboard</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/portal/dashboard">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/admin/portal/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </div>
     </div>
+  </div>
 </div>
 <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3><%= dashboardCounts.totalAdmins; %></h3>
-                        <p>Admins</p>
-                    </div>
-                    <div class="icon">
-                        <i class="far fa-user"></i>
-                    </div>
-                    <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3><%= data.totalorder; %></h3>
+            <p>Orders</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-navy">
+          <div class="inner">
+            <h3><%= data.completeordertotal; %></h3>
+            <p>Completed Orders</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>৳ <%= data.totalamount; %></h3>
+            <p>Total Amount</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>৳ <%= data.Vendorcost; %></h3>
+            <p>Vendor Cost</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>৳ <%= data.revenue; %></h3>
+            <p>Total Revenue</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3> <%= data.totaluser; %></h3>
+            <p>Total User</p>
+          </div>
+          <div class="icon">
+            <i class="far fa-user"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>৳ <%= data.totalpaymentamount; %></h3>
+            <p>Total Payment Amount</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>৳ <%=  data.Vendorcost-data.totalpaymentamount; %></h3>
+            <p>Total Vendor Payable Amount</p>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+    
     </div>
 </section>
 <%- include('../../layouts/footer'); %>
