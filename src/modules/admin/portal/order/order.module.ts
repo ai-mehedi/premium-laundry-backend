@@ -4,6 +4,7 @@ import { OrderController } from './order.controller';
 import { Order, OrderSchema } from 'src/models/order.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Admin, AdminSchema } from 'src/models/admin.schema';
+import { Product,ProductSchema } from 'src/models/product-schema';
 
 @Module({
   imports: [
@@ -13,10 +14,16 @@ import { Admin, AdminSchema } from 'src/models/admin.schema';
         schema: OrderSchema,
       },
     ]),
-    MongooseModule.forFeature([
+     MongooseModule.forFeature([
       {
         name: Admin.name,
         schema: AdminSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: Product.name,
+        schema: ProductSchema,
       },
     ]),
   ],

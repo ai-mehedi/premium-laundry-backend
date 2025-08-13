@@ -31,6 +31,7 @@ export class OrderService {
   ) { }
 
   async create(createOrderDto: CreateOrderDto) {
+
     let orderId = Math.floor(100000 + Math.random() * 900000).toString();
     const userPaaword = "12345678"; // Default password for new users
     const useruniqueid = RandomNumberString(8);
@@ -137,13 +138,16 @@ export class OrderService {
 
     const vendorCosts = enrichedProducts.map((item) => item.vendorSubtotal);
     const totalVendorCost = vendorCosts.reduce((sum, cost) => sum + cost, 0);
-    console.log("vendorCosts", totalVendorCost);
-    console.log(JSON.stringify(enrichedProducts, null, 2));
     const OrderStatus = {
       status: 'Pending',
       updatedBy: user.name,
       note: 'Order created successfully',
     }
+    let totalamount = createOrderDto.total;
+    if (createOrderDto.delivery === "Xpress Delivery (24 Hours)") {
+      totalamount += 100;
+    }
+
 
     const newOrder = {
       user: userId,
@@ -154,16 +158,18 @@ export class OrderService {
       shippingTime: createOrderDto.shippingTime,
       pickupdate: createOrderDto.pickupdate,
       email: createOrderDto.email,
+      delivery: createOrderDto.delivery,
       vendorCosts: totalVendorCost,
       promoCode: createOrderDto.promoCode,
       promoOfferPrice: createOrderDto.promoOfferPrice,
       subtotal: createOrderDto.subtotal,
-      total: createOrderDto.total,
+      total: totalamount,
       products: enrichedProducts,
       statuses: OrderStatus,
       createdAt: new Date(),
       orderstatus: createOrderDto.OrderStatus,
     };
+
 
 
     const order = await this.OrderModel.create(newOrder);

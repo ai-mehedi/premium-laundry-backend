@@ -8,6 +8,7 @@ import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
 import { Admin, AdminModel } from 'src/models/admin.schema';
+import { Product, ProductModel } from 'src/models/product-schema';
 
 
 @Injectable()
@@ -16,6 +17,8 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name)
     private readonly OrderModel: OrderModel,
+    @InjectModel(Product.name)
+    private readonly ProductModel: ProductModel,
     @InjectModel(Admin.name)
     private readonly AdminModel: AdminModel,
   ) { }
@@ -23,9 +26,14 @@ export class OrderService {
     return this.AdminModel.find({ isActive: true }).select('name email roles');
   }
 
+  async findAllProducts() {
+    return this.ProductModel.find();
+  }
+
   async findAllOrdersById(id: string) {
-    return this.OrderModel.findById(id)
+   return this.OrderModel.findById(id)
       .populate('user');
+   
   }
 
 

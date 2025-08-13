@@ -3,7 +3,6 @@ import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
-
 @Controller('admin/portal/payments')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) { }
@@ -19,6 +18,9 @@ export class PaymentController {
     const result = await this.paymentService.getPaginatedList(queryDto);
     return result;
   }
+
+
+  
 
   @Get('add')
   @Render('admin/portal/payments/add')
