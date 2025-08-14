@@ -42,11 +42,9 @@ export class DeliverypanelService {
       }
 
       await this.OrderModel.updateOne(
-        {
-          _id: data.action_id,
-        },
+        { _id: data.action_id }, // filter
 
-        {
+        { // update operators together
           $push: {
             statuses: {
               status: data.orderstatus,
@@ -54,13 +52,10 @@ export class DeliverypanelService {
               note: data.orderstatus,
             },
           },
-        },
-
-        {
           $set: {
             orderstatus: data.orderstatus,
           },
-        },
+        }
       );
 
       const result = await this.smsService.sendSMS({

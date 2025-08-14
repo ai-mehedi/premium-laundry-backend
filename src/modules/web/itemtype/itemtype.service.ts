@@ -9,14 +9,16 @@ export class ItemtypeService {
     @InjectModel(Itemtype.name)
     private readonly ItemtypeModel: ItemtypeModel,
     private readonly i18n: I18nService,
-  ) {}
+  ) { }
 
   findAll() {
     return this.ItemtypeModel.find({
       isActive: true,
     })
-      .populate('serviceId')
-      .select('-__v -isDeleted -deletedAt')
+      .populate({
+        path: 'serviceId',
+        match: { title: 'Laundry Service' } // filter populated docs
+      }).select('-__v -isDeleted -deletedAt')
       .lean();
   }
 }

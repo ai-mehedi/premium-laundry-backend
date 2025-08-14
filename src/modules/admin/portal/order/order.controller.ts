@@ -1,12 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 
 @Controller('admin/portal/orders')
-
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR, ADMIN_ROLE.SUPPLIER)
 export class OrderController {
   constructor(private readonly orderService: OrderService) { }
 

@@ -6,13 +6,19 @@ import {
   Delete,
   Render,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/blogs')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 

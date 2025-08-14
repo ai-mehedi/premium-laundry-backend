@@ -9,12 +9,18 @@ import {
   Render,
   Query,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { TestimonialService } from './testimonial.service';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/testimonials')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class TestimonialController {
   constructor(private readonly TestimonialService: TestimonialService) {}
   @Get('list')

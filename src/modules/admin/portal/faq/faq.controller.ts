@@ -7,12 +7,18 @@ import {
   Query,
   Render,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/faqs')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 

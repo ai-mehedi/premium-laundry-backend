@@ -109,6 +109,8 @@
                 </li>
               </ul>
             </li>
+            <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
+
             <li class="nav-item <% if(base_path[3] == 'admins'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'admins'){__append('active')} %>">
                 <i class="nav-icon fas fa-user"></i>
@@ -132,12 +134,15 @@
                 </li>
               </ul>
             </li>
+
+
             <li class="nav-item">
               <a href="/admin/portal/users/list" class="nav-link <% if(base_path[3] == 'users'){__append('active')} %>">
                 <i class="nav-icon fas fa-users"></i>
                 <p>Users</p>
               </a>
             </li>
+
             <li class="nav-item <% if(base_path[3] == 'services'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'services'){__append('active')} %>">
                 <i class="fa-brands fa-servicestack nav-icon"></i>
@@ -161,6 +166,7 @@
                 </li>
               </ul>
             </li>
+
             <li class="nav-item <% if(base_path[3] == 'itemtypes'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'itemtypes'){__append('active')} %>">
                 <i class="fa-solid fa-sitemap nav-icon"></i>
@@ -184,6 +190,8 @@
                 </li>
               </ul>
             </li>
+
+
             <li class="nav-item <% if(base_path[3] == 'products'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'products'){__append('active')} %>">
                 <i class="fa-solid fa-cart-shopping nav-icon"></i>
@@ -208,29 +216,7 @@
               </ul>
             </li>
 
-            <li class="nav-item <% if(base_path[3] == 'deliverypanel'){__append('menu-open active')} %>">
-              <a href="#" class="nav-link <% if(base_path[3] == 'deliverypanel'){__append('active')} %>">
-                <i class="fa-solid fa-cart-shopping nav-icon"></i>
-                <p>
-                  delivery panel
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/admin/portal/deliverypanel/list" class="nav-link <% if(base_path[3] == 'deliverypanel' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>orders</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/deliverypanel/completed" class="nav-link <% if(base_path[3] == 'completed' && base_path[4] == 'completed'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Complete order</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+
 
             <li class="nav-item <% if(base_path[3] == 'coupons'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'coupons'){__append('active')} %>">
@@ -257,6 +243,7 @@
               </ul>
             </li>
 
+
             <li class="nav-item <% if(base_path[3] == 'categories'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'categories'){__append('active')} %>">
                 <i class="fas fa-list-ul nav-icon"></i>
@@ -280,6 +267,8 @@
                 </li>
               </ul>
             </li>
+
+
             <li class="nav-item <% if(base_path[3] == 'blogs'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'blogs'){__append('active')} %>">
                 <i class="fa-solid fa-newspaper nav-icon"></i>
@@ -303,6 +292,7 @@
                 </li>
               </ul>
             </li>
+
             <li class="nav-item <% if(base_path[3] == 'packages'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'packages'){__append('active')} %>">
                 <i class="fa-solid fa-box-open nav-icon"></i>
@@ -328,7 +318,9 @@
             </li>
 
 
-               <li class="nav-item <% if(base_path[3] == 'payments'){__append('menu-open active')} %>">
+
+
+            <li class="nav-item <% if(base_path[3] == 'payments'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'payments'){__append('active')} %>">
                 <i class="fa-solid fa-box-open nav-icon"></i>
                 <p>
@@ -352,67 +344,7 @@
               </ul>
             </li>
 
-            <li class="nav-item <% if(base_path[3] == 'orders'){__append('menu-open active')} %>">
-              <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders'){__append('active')} %>">
-                <i class="nav-icon fa-solid fa-cart-flatbed-suitcase"></i>
-                <p>
-                  orders
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/admin/portal/orders/add" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'add'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add orders</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>orders</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
 
-
-            <li class="nav-item <% if(base_path[3] == 'vendors'){__append('menu-open active')} %>">
-              <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors'){__append('active')} %>">
-                <i class="nav-icon fa-solid fa-shop"></i>
-                <p>
-                  Vendors
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>orders</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/vendors/process" class="nav-link <% if(base_path[3] == 'process' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>In Process Order</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/vendors/complete" class="nav-link <% if(base_path[3] == 'complete' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Complete Order</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'Statment' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Statment</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
 
             <li class="nav-item <% if(base_path[3] == 'faqs'){__append('menu-open active')} %>">
               <a href="/admin/portal/faqs/list" class="nav-link <% if(base_path[3] == 'faqs'){__append('active')} %>">
@@ -433,6 +365,30 @@
                   <a href="/admin/portal/faqs/list" class="nav-link <% if(base_path[3] == 'faqs' && base_path[4] == 'list'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>FAQs</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item <% if(base_path[3] == 'shoecares'){__append('menu-open active')} %>">
+              <a href="/admin/portal/shoecares/list" class="nav-link <% if(base_path[3] == 'shoecares'){__append('active')} %>">
+                <i class="nav-icon fas fa-question-circle"></i>
+                <p>
+                  Shoecares
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/shoecares/add" class="nav-link <% if(base_path[3] == 'shoecares' && base_path[4] == 'add'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add shoecares</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/shoecares/list" class="nav-link <% if(base_path[3] == 'shoecares' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>shoecares</p>
                   </a>
                 </li>
               </ul>
@@ -473,6 +429,96 @@
                 <p>Contacts</p>
               </a>
             </li>
+            <% } %>
+            <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator') || auth_data.roles.includes('supplier')) { %>
+            <li class="nav-item <% if(base_path[3] == 'deliverypanel'){__append('menu-open active')} %>">
+              <a href="#" class="nav-link <% if(base_path[3] == 'deliverypanel'){__append('active')} %>">
+                <i class="fa-solid fa-cart-shopping nav-icon"></i>
+                <p>
+                  delivery panel
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/deliverypanel/list" class="nav-link <% if(base_path[3] == 'deliverypanel' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>orders</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/deliverypanel/completed" class="nav-link <% if(base_path[3] == 'completed' && base_path[4] == 'completed'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Complete order</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item <% if(base_path[3] == 'orders'){__append('menu-open active')} %>">
+              <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders'){__append('active')} %>">
+                <i class="nav-icon fa-solid fa-cart-flatbed-suitcase"></i>
+                <p>
+                  orders
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/orders/add" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'add'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add orders</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/orders/list" class="nav-link <% if(base_path[3] == 'orders' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>orders</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <% } %>
+            <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator') || auth_data.roles.includes('vendor')) { %>
+
+            <li class="nav-item <% if(base_path[3] == 'vendors'){__append('menu-open active')} %>">
+              <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors'){__append('active')} %>">
+                <i class="nav-icon fa-solid fa-shop"></i>
+                <p>
+                  Vendors
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'vendors' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>orders</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/vendors/process" class="nav-link <% if(base_path[3] == 'process' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>In Process Order</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/vendors/complete" class="nav-link <% if(base_path[3] == 'complete' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Complete Order</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'Statment' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Statment</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <% } %>
             <li class="nav-item">
               <a href="/admin/portal/profile/logout" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>

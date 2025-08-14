@@ -6,13 +6,31 @@ import { SoftDeleteModel } from 'src/shared/plugins/mongoose-plugin/soft-delete/
 import { paginatePlugin } from 'src/shared/plugins/mongoose-plugin/pagination/plugin';
 import { softDeletePlugin } from 'src/shared/plugins/mongoose-plugin/soft-delete/plugin';
 
-export type FaqDocument = HydratedDocument<Faq>;
+export type ShoecareDocument = HydratedDocument<Shoecare>;
 mongoose.Schema.Types.String.set('trim', true);
+
+@Schema({ timestamps: true, _id: true })
+export class ShoeProduct {
+    @ApiProperty({ type: String })
+    @Prop({ type: String, required: true })
+    name: string;
+
+    @ApiProperty()
+    @Prop({ type: String, required: true })
+    service: string;
+
+    @ApiProperty({ type: String })
+    @Prop({ type: String, required: true })
+    price: string;
+}
+
+
+
 
 @Schema({
     timestamps: true,
 })
-export class Faq {
+export class Shoecare {
     @ApiProperty()
     @Prop({ type: String, required: true })
     name: string;
@@ -20,7 +38,7 @@ export class Faq {
     @Prop({ type: String, required: true })
     phone: string;
 
-     @ApiProperty()
+    @ApiProperty()
     @Prop({ type: String, required: true })
     address: string;
 
@@ -38,13 +56,25 @@ export class Faq {
     description: string;
 
     @ApiProperty()
+    @Prop({ type: String, required: true ,default: 'pending' })
+    status: string;
+
+    @ApiProperty()
+    @Prop({ type: [ShoeProduct] })
+    services: ShoeProduct[];
+
+    @ApiProperty()
+    @Prop({ type: Number, required: true })
+    payableamount: number;
+
+    @ApiProperty()
     @Prop({ type: Boolean, default: true })
     isActive: boolean;
 }
 
-export const FaqSchema = SchemaFactory.createForClass(Faq);
+export const ShoecareSchema = SchemaFactory.createForClass(Shoecare);
 
-FaqSchema.plugin(paginatePlugin);
-FaqSchema.plugin(softDeletePlugin);
+ShoecareSchema.plugin(paginatePlugin);
+ShoecareSchema.plugin(softDeletePlugin);
 
-export type FaqModel = PaginateModel<Faq> & SoftDeleteModel<Faq>;
+export type ShoecareModel = PaginateModel<Shoecare> & SoftDeleteModel<Shoecare>;

@@ -21,7 +21,6 @@ import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 export class AdminsController {
   constructor(private readonly adminsService: AdminsService) {}
 
-  @AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.ADMINS_READ)
   @Get('list')
   @Render('admin/portal/admins/list')
   adminsList() {

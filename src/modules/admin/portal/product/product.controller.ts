@@ -9,12 +9,18 @@ import {
   Render,
   Query,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { Productervice } from './product.service';
 import { CreateProductitemDto } from './dto/create-productitem.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/products')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class ProductitemController {
   constructor(private readonly Productervice: Productervice) { }
 
@@ -48,7 +54,7 @@ export class ProductitemController {
     const itemtype = await this.Productervice.finditemtypeAll();
 
     if (!itemtype || itemtype.length === 0) {
-    
+
       throw new NotFoundException({
         message: 'Sub Service not found',
       });
@@ -92,7 +98,7 @@ export class ProductitemController {
 
   @Delete()
   async deletesubservice(@Query('id') id: string) {
-    
+
     return await this.Productervice.deleteProductitem(id);
   }
 }

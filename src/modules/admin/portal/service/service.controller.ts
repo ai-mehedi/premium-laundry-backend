@@ -9,12 +9,18 @@ import {
   Render,
   Query,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { ServiceService } from './service.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/services')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}
   @Get('list')

@@ -9,12 +9,18 @@ import {
   Render,
   Query,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemtypeService } from './itemtype.service';
 import { CreateItemtypeDto } from './dto/create-itemtype.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/itemtypes')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
 export class itemtypeController {
   constructor(private readonly ItemtypeService: ItemtypeService) {}
 
