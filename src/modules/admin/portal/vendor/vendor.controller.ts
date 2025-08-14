@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Query, NotFoundException, UseGuards } from '@nestjs/common';
 import { VendorService } from './vendor.service';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
+import { AdminRoles } from 'src/common/decorators/admin-roles.decorator';
+import { AdminRolesGuard } from 'src/common/guards/admin-roles.guard';
+import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/vendors')
+@UseGuards(AdminRolesGuard)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR, ADMIN_ROLE.VENDOR)
 export class VendorController {
   constructor(private readonly vendorService: VendorService) { }
   @Get('list')
@@ -18,10 +23,10 @@ export class VendorController {
   @Get('invoice')
   @Render('admin/portal/vendors/invoice')
   async invoicechek(@Query('id') id: string) {
-   
+
     return {
 
-       
+
       title: 'FAQs',
     };
   }
@@ -46,7 +51,7 @@ export class VendorController {
     const result = await this.vendorService.getPaginatedcomplted(queryDto);
     return result;
   }
-  
+
 
   @Get('process')
   @Render('admin/portal/vendors/process')

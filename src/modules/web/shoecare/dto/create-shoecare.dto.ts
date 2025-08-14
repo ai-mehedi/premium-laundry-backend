@@ -1,5 +1,7 @@
+
+
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateShoecareDto {
     @ApiProperty()
@@ -19,22 +21,16 @@ export class CreateShoecareDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    pickupdate: Date;
+    @IsString()
+    pickupdate: string;
 
     @ApiProperty()
     @IsNotEmpty()
+    @IsString()
     pickuptime: string;
 
     @ApiProperty()
     @IsNotEmpty()
+    @IsString()
     description: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    isActive: boolean;
-
-    @ApiProperty()
-    @IsOptional()
-    @IsMongoId()
-    readonly action_id?: string;
 }

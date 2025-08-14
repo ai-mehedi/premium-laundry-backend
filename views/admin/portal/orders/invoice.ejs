@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Premium Laundryx Invoice</title>
   <meta charset="UTF-8" />
@@ -60,35 +61,43 @@
       <tbody>
         <% let subtotal = 0; %>
         <% order.products.forEach((product, index) => { 
-             const serviceDescriptions = product.services?.map(service => `${service.service} ($${service.price.toFixed(2)})`).join(', ') || '—'; 
+             const serviceDescriptions = product.services?.map(service => `${service.service} (BDT ${service.price.toFixed(2)})`).join(', ') || '—'; 
              const serviceTotal = product.services?.reduce((sum, s) => sum + s.price, 0) || 0;
-             const rowTotal = product.subtotal + serviceTotal;
+             const rowTotal = product.subtotal ;
              subtotal += rowTotal;
         %>
-          <tr class="bg-white">
-            <td class="border px-4 py-2"><%= index + 1 %></td>
-            <td class="border px-4 py-2"><%= product.productName %></td>
-            <td class="border px-4 py-2"><%= serviceDescriptions %></td>
-            <td class="border px-4 py-2"><%= product.quantity %></td>
-            <td class="border px-4 py-2 text-right">$<%= rowTotal.toFixed(2) %></td>
-          </tr>
+        <tr class="bg-white">
+          <td class="border px-4 py-2"><%= index + 1 %></td>
+          <td class="border px-4 py-2"><%= product.productName %></td>
+          <td class="border px-4 py-2"><%= serviceDescriptions %></td>
+          <td class="border px-4 py-2"><%= product.quantity %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= rowTotal.toFixed(2) %></td>
+        </tr>
         <% }); %>
 
         <tr>
           <td colspan="4" class="border px-4 py-2 text-right font-semibold">Subtotal</td>
-          <td class="border px-4 py-2 text-right">$<%= subtotal.toFixed(2) %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= subtotal.toFixed(2) %></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="border px-4 py-2 text-right font-semibold"><%=order.delivery  %></td>
+          <% if(order.delivery==="Xpress Delivery (24 Hours)"){ %>
+          <td class="border px-4 py-2 text-right"> BDT <%= 100.00 %></td>
+          <% }else{ %>
+          <td class="border px-4 py-2 text-right"> BDT <%= 0.00 %></td>
+          <% } %>
         </tr>
 
         <% if (order.promoOfferPrice > 0) { %>
         <tr>
           <td colspan="4" class="border px-4 py-2 text-right font-semibold">Promo Code: <%= order.promoCode %></td>
-          <td class="border px-4 py-2 text-right text-green-600">- $<%= order.promoOfferPrice.toFixed(2) %></td>
+          <td class="border px-4 py-2 text-right text-green-600">- BDT<%= order.promoOfferPrice.toFixed(2) %></td>
         </tr>
         <% } %>
 
         <tr class="font-bold bg-gray-100">
           <td colspan="4" class="border px-4 py-2 text-right">Total Due</td>
-          <td class="border px-4 py-2 text-right">$<%= order.total.toFixed(2) %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= order.total.toFixed(2) %></td>
         </tr>
       </tbody>
     </table>
@@ -109,14 +118,24 @@
     function downloadPDF() {
       const element = document.getElementById('invoice');
       const opt = {
-        margin:       0.5,
-        filename:     'invoice_<%= order.orderId %>.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        margin: 0.5,
+        filename: 'invoice_<%= order.orderId %>.pdf',
+        image: {
+          type: 'jpeg',
+          quality: 0.98
+        },
+        html2canvas: {
+          scale: 2
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'letter',
+          orientation: 'portrait'
+        }
       };
       html2pdf().set(opt).from(element).save();
     }
   </script>
 </body>
+
 </html>

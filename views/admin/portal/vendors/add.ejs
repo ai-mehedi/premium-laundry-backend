@@ -41,10 +41,10 @@
                 <textarea class="form-control" name="note" placeholder="Description" required><% if(is_update == true){ %><%= action_data.description; %><% } %></textarea>
               </div>
               <div class="form-group">
-                <label>statuse</label>
+                <label>Status</label>
                 <select class="form-control" name="status" required>
                   <option value="Vendor Received Items" <% if(is_update == true){ %><% if(action_data.isActive == true){__append('selected=""')}  %><% } %>>Received by Vendor </option>
-                  <option value="Vendor Dispatched Items	" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>Dispatched to Vendor </option>
+                  <option value="Vendor Dispatched Items	" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>Delivery to premiumlaundry </option>
                 </select>
               </div>
               <input type="hidden" name="isActive" value="true">

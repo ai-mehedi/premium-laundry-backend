@@ -15,6 +15,7 @@ import { ProductModule } from 'src/modules/web/product/product.module';
 import { ItemtypeModule } from 'src/modules/web/itemtype/itemtype.module';
 import { TestimonialModule } from 'src/modules/web/testimonial/testimonial.module';
 import { MeModule } from 'src/modules/web/user/me/me.module';
+import { ShoecareModule } from 'src/modules/web/shoecare/shoecare.module';
 
 export const setupSwagger = (app: INestApplication) => {
   // Setting up swagger for admin web module
@@ -41,7 +42,8 @@ export const setupSwagger = (app: INestApplication) => {
       ItemtypeModule,
       OrderModule,
       ForgotPasswordModule,
-      PackagesModule
+      PackagesModule,
+      ShoecareModule
     ],
   });
 

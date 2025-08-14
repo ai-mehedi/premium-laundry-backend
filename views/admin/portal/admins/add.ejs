@@ -47,7 +47,8 @@
                                 <select id="select-roles" multiple required>
                                     <option value="admin" <% if(is_update == true){ %><% if(action_data.roles.includes('admin')){__append('selected=""')}  %><% } %>>Admin</option>
                                     <option value="moderator" <% if(is_update == true){ %><% if(action_data.roles.includes('moderator')){__append('selected=""')}  %><% } %>>Moderator</option>
-                                    <option value="admin:read" <% if(is_update == true){ %><% if(action_data.roles.includes('admin:read')){__append('selected=""')}  %><% } %>>Admin Read</option>
+                                    <option value="supplier" <% if(is_update == true){ %><% if(action_data.roles.includes('supplier')){__append('selected=""')}  %><% } %>>Supplier</option>
+                                    <option value="vendor" <% if(is_update == true){ %><% if(action_data.roles.includes('vendor')){__append('selected=""')}  %><% } %>>Vendor</option>
                                 </select>
                             </div>
                             <div class="form-group">

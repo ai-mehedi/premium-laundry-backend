@@ -17,6 +17,7 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
+      <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator') || auth_data.roles.includes('vendor') || auth_data.roles.includes('supplier')) { %>
       <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
           <div class="inner">
@@ -30,6 +31,9 @@
           <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
+      <% } %>
+      <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
+
       <div class="col-lg-3 col-6">
         <div class="small-box bg-navy">
           <div class="inner">
@@ -115,8 +119,8 @@
           <a href="/admin/portal/admins/list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
+      <% } %>
 
-    
     </div>
 </section>
 <%- include('../../layouts/footer'); %>

@@ -1,30 +1,11 @@
 <tr>
   <td><%= serial_number; %></td>
-  <td><%= result.firstName; %></td>
-  <td><%= result.lastName; %></td>
+  <td><%= result.name; %></td>
+  <td><%= result.userId; %></td>
   <td><%= result.email; %></td>
   <td><%= result?.phone || 'None'; %></td>
-  <td>
-    <% if (result.isAccountVerified) { %>
-    <span class="badge badge-success">Verified</span>
-    <% } else { %>
-    <span class="badge badge-danger">Not Verified</span>
-    <% } %>
-  </td>
-  <td>
-    <% if (result.profileStatus) { %>
-    <span class="badge badge-success">Visible</span>
-    <% } else { %>
-    <span class="badge badge-danger">Invisible</span>
-    <% } %>
-  </td>
-  <td>
-    <% if (result.listingStatus) { %>
-    <span class="badge badge-success">Visible</span>
-    <% } else { %>
-    <span class="badge badge-danger">Invisible</span>
-    <% } %>
-  </td>
+  <td><%= result?.fullAddress || 'None'; %></td>
+  
   <td><%= new Date(result.createdAt).toLocaleString(); %></td>
   <td></td>
 </tr>

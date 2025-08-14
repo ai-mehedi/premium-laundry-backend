@@ -19,7 +19,7 @@ import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/profile')
 @UseGuards(AdminRolesGuard)
-@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR,ADMIN_ROLE.VENDOR,ADMIN_ROLE.SUPPLIER)
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 

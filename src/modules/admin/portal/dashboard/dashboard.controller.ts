@@ -5,8 +5,9 @@ import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 import { DashboardService } from './dashboard.service';
 
 @Controller('admin/portal/dashboard')
+
 @UseGuards(AdminRolesGuard)
-@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
+@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR ,ADMIN_ROLE.VENDOR,ADMIN_ROLE.SUPPLIER)
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) { }
 

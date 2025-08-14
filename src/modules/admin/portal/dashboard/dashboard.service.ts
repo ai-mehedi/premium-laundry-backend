@@ -41,8 +41,6 @@ export class DashboardService {
         }
       }
     ]).exec();
-
-    console.log(totalpaymentamount[0]?.total)
     return {
       totalorder,
       completeordertotal,
