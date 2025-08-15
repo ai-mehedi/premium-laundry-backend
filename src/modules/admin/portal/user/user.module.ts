@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/models/user.schema';
+import { Order ,OrderSchema} from 'src/models/order.schema';
 
 @Module({
   imports: [
@@ -10,6 +11,12 @@ import { User, UserSchema } from 'src/models/user.schema';
       {
         name: User.name,
         schema: UserSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: Order.name,
+        schema: OrderSchema,
       },
     ]),
   ],

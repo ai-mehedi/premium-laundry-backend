@@ -56,7 +56,7 @@ export class Shoecare {
     description: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true ,default: 'pending' })
+    @Prop({ type: String, default: 'pending' })
     status: string;
 
     @ApiProperty()
@@ -64,7 +64,7 @@ export class Shoecare {
     services: ShoeProduct[];
 
     @ApiProperty()
-    @Prop({ type: Number, required: true })
+    @Prop({ type: Number, })
     payableamount: number;
 
     @ApiProperty()

@@ -10,6 +10,7 @@ export class ShoecareController {
   constructor(private readonly shoecareService: ShoecareService) { }
   @Post()
   shoecareCreate(@Body() createShoecareDto: CreateShoecareDto) {
+
     return this.shoecareService.create(createShoecareDto);
   }
 }

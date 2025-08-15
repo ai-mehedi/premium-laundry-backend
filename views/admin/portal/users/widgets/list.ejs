@@ -7,5 +7,7 @@
   <td><%= result?.fullAddress || 'None'; %></td>
   
   <td><%= new Date(result.createdAt).toLocaleString(); %></td>
-  <td></td>
+  <td>
+    <a href="/admin/portal/users/list/<%= result._id; %>" class="btn btn-info">View</a>
+  </td>
 </tr>

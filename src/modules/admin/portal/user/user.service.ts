@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { join } from 'path';
 import { PaginationUI } from 'src/common/helpers/utils/pagination-uri.utils';
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
+import { Order, OrderModel } from 'src/models/order.schema';
 import { User, UserModel } from 'src/models/user.schema';
 import { PaginationQuery } from 'src/shared/dto/pagination.dto';
 import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination/types';
@@ -12,7 +13,19 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: UserModel,
-  ) {}
+    @InjectModel(Order.name)
+    private readonly orderModel: OrderModel,
+  ) { }
+
+
+  async findUserById(id: string) {
+
+    const user = await this.userModel.findById(id);
+    const orders = await this.orderModel.find({ user: id });
+
+    return { user, orders };
+  }
+
 
   async getUserPaginatedList({
     limit,

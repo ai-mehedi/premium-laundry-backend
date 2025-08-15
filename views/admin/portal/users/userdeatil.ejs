@@ -1,0 +1,101 @@
+<%- include('../../layouts/header'); %>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Customer</li>
+          <li class="breadcrumb-item active"><%= title; %></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile">
+
+
+            <h3 class="profile-username text-center"><%= user.name %></h3>
+
+            <p class="text-muted text-center"><%= user.phone %></p>
+            <p class="text-muted text-center"><%= user.userId %></p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+              <li class="list-group-item">
+                <b>Address</b> <a class="float-right"><%= user.fullAddress %></a>
+              </li>
+
+            </ul>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Orders</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>order Id</th>
+                  <th>date</th>
+                  <th>cost</th>
+                  <th>order status</th>
+                  <th>option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% orders.forEach((order, index) => { %>
+                <tr>
+                  <td><%= index + 1 %>.</td>
+                  <td><%= order.orderId %></td>
+                  <td><%= order.createdAt %></td>
+                  <td><%= order.total %></td>
+                  <td><%= order.orderstatus %></td>
+                    <td>
+                        <div class="d-flex align-items-center" style="gap: 5px;">
+                        <button class="btn btn-success" onclick="window.open('/admin/portal/orders/invoice?id=<%= order._id.toString(); %>', '_blank', 'width=1024,height=800')">
+                            Open Invoice
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" href="#">«</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../../layouts/footer'); %>
+<script>
+  document
+    .querySelector('form[data-paginate-form="true"]')
+    .querySelector('button[type="submit"]')
+    .click();
+</script>
