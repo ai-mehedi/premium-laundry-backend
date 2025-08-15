@@ -3,6 +3,7 @@ import { ShoecareService } from './shoecare.service';
 import { ShoecareController } from './shoecare.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Shoecare,ShoecareSchema } from 'src/models/shoecare.schema';
+import { SMSService } from 'src/shared/services/sms.service';
 
 @Module({
    imports: [
@@ -11,6 +12,6 @@ import { Shoecare,ShoecareSchema } from 'src/models/shoecare.schema';
       ]),
     ],
   controllers: [ShoecareController],
-  providers: [ShoecareService],
+  providers: [ShoecareService,SMSService],
 })
 export class ShoecareModule {}

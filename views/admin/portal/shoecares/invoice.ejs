@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Premium Laundryx Invoice</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <div class="max-w-4xl mx-auto p-6 bg-white text-slate-500 shadow-md rounded mt-10 border font-sans" id="invoice">
+    <!-- Header -->
+    <div class="border-b pb-8 mb-8 flex items-center">
+      <div class="flex-1 text-left">
+        <img src="/images/logo.svg" alt="Company Logo" class="h-10 w-auto mr-4" />
+        <p class="text-sm">Basundhara Residential Area</p>
+        <p class="text-sm">Phone: +880 961 739 8555</p>
+        <p class="text-sm">Email: contact@premiumlaundry.com</p>
+      </div>
+      <h1 class="text-4xl font-bold text-slate-400 uppercase flex-1 text-right">Invoice</h1>
+    </div>
+
+    <!-- Bill To / Invoice Info -->
+    <div class="pb-4 mb-4 flex items-start">
+      <div class="mb-4">
+        <h2 class="font-semibold text-slate-700">Bill To:</h2>
+        <p class="text-slate-600"><%= invoice.name %></p>
+        <p class="text-sm"><%= invoice.phone %></p>
+        <p class="text-sm"><%= invoice.address %></p>
+      </div>
+      <div class="mb-4 text-right flex-1">
+        <p class="text-sm">Shipping Time: <%= invoice.pickuptime %></p>
+        <p class="text-sm">Status: <%= invoice.status %></p>
+      </div>
+    </div>
+
+    <!-- Invoice Table -->
+    <table class="min-w-full table-auto mb-24">
+      <thead>
+        <tr class="bg-slate-100">
+          <th class="px-4 py-2 text-left">Item</th>
+          <th class="px-4 py-2 text-left">name</th>
+          <th class="px-4 py-2 text-left">Service</th>
+          <th class="px-4 py-2 text-left">price</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% invoice.services.forEach((service, index) => { %>
+
+        <tr class="bg-white">
+          <td class="border px-4 py-2"><%= index + 1 %></td>
+          <td class="border px-4 py-2"><%= service.name %></td>
+          <td class="border px-4 py-2"><%= service.service %></td>
+          <td class="border px-4 py-2"><%= service.price %></td>
+
+        </tr>
+        <% }); %>
+
+        <tr>
+          <td colspan="3" class="border px-4 py-2 text-right font-semibold">Subtotal</td>
+          <td class="border px-4 py-2 text-right"> BDT <%= invoice.payableamount %></td>
+        </tr>
+
+
+
+        <tr class="font-bold bg-gray-100">
+          <td colspan="3" class="border px-4 py-2 text-right">Total Due</td>
+          <td class="border px-4 py-2 text-right"> BDT <%= invoice.payableamount %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Print / Download Buttons -->
+  <div class="text-center mt-6 no-print">
+    <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mr-4">
+      🖨️ Print Invoice
+    </button>
+    <button onclick="downloadPDF()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+      ⬇️ Download PDF
+    </button>
+  </div>
+
+  <!-- PDF Download Script -->
+  <script>
+    function downloadPDF() {
+      const element = document.getElementById('invoice');
+      const opt = {
+        margin: 0.5,
+        filename: 'invoice_.pdf',
+        image: {
+          type: 'jpeg',
+          quality: 0.98
+        },
+        html2canvas: {
+          scale: 2
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'letter',
+          orientation: 'portrait'
+        }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</body>
+
+</html>
