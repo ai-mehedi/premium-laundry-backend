@@ -9,7 +9,9 @@ export enum SEND_SMS_TEMPLATE {
   ORDER_CONFIRMATION = 'order-confirmation',
   USER_CREATE = 'usercreate',
   ORDER_DELIVERY_OTP = 'order-delivery-otp',
-  ORDER_DELIVERY_SUCCESS = 'order-delivery-success'
+  ORDER_DELIVERY_SUCCESS = 'order-delivery-success',
+  SHOECARE_ORDER_CONFIRMATION = 'shoecare-orderconfirm',
+  SHOECARE_ORDER_DELIVERY_SUCCESS = 'shoecare-orderdelivery-success'
 }
 
 interface SendSMSProps {

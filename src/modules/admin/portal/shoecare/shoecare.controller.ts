@@ -20,6 +20,18 @@ export class ShoecareController {
       title: 'categories',
     };
   }
+
+  @Get('invoice/:id')
+  @Render('admin/portal/shoecares/invoice')
+  async invoice(@Param('id') id: string) {
+    const invoiceData = await this.shoecareService.invoice(id);
+    console.log(invoiceData);
+    return {
+      title: 'Invoice',
+      invoice: invoiceData,
+    };
+  }
+
   @Post('list')
   async TestimonialListPaginated(@Query() queryDto: PaginationQuery) {
     const result = await this.shoecareService.getPaginatedList(queryDto);
@@ -53,6 +65,7 @@ export class ShoecareController {
 
   @Post('add')
   async addUpdateShoecareSubmit(@Body() data: CreateShoecareDto) {
+    console.log(data);
     await this.shoecareService.addUpdateShoecare(data);
     return {
       message: data.action_id

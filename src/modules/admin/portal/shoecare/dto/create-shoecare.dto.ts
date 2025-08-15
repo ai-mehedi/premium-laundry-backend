@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateShoecareDto {
@@ -28,6 +29,19 @@ export class CreateShoecareDto {
     @ApiProperty()
     @IsNotEmpty()
     description: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    services: string;
+    
+    @ApiProperty()
+    @IsNotEmpty()
+    status: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @Transform(({ value }) => parseFloat(value))
+    payableamount: string;
 
     @ApiProperty()
     @IsNotEmpty()

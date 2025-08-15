@@ -1,0 +1,13 @@
+Hello {NAME},
+
+Thank you for your order at premiumlaundryx.com!
+
+Your order has been confirmed. Here are your order details:
+Service: Shoe Care
+
+Total Price: BDT {TOTAL_PRICE}
+
+We appreciate your trust in our service. Sit back and relax — we're handling your laundry with care.
+
+Best regards,
+Premium Laundry Xpress
