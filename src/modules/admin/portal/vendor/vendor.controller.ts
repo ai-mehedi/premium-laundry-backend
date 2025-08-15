@@ -20,6 +20,20 @@ export class VendorController {
   }
 
 
+
+  @Get('orderdetail')
+  @Render('admin/portal/vendors/invoice')
+  async ordercheck(@Query('id') id: string) {
+    const order = await this.vendorService.findAllOrdersById(id);
+
+    return {
+      order: order,
+
+      title: 'FAQs',
+    };
+  }
+
+
   @Get('invoice')
   @Render('admin/portal/vendors/invoice')
   async invoicechek(@Query('id') id: string) {

@@ -54,6 +54,13 @@ export class VendorService {
   }
 
 
+  
+  async findAllOrdersById(id: string) {
+   return this.OrderModel.findById(id)
+      .populate('user');
+  }
+
+
   async getPaginatedList({
     limit,
     page,
