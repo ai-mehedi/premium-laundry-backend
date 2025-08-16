@@ -12,19 +12,19 @@ mongoose.Schema.Types.String.set('trim', true);
 @Schema({ timestamps: true, _id: true })
 export class ShoeProduct {
     @ApiProperty({ type: String })
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     name: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     service: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     note: string;
 
     @ApiProperty({ type: String })
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     price: string;
 }
 
@@ -36,33 +36,33 @@ export class ShoeProduct {
 })
 export class Shoecare {
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     name: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     orderid: string;
 
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     phone: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     address: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     pickupdate: string;
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     pickuptime: string;
 
 
     @ApiProperty()
-    @Prop({ type: String, required: true })
+    @Prop({ type: String, })
     description: string;
 
     @ApiProperty()
