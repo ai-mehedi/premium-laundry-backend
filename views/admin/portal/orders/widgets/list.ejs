@@ -3,19 +3,18 @@
   <td><%= result.orderId; %></td>
   <td><%= result.orderstatus; %></td>
   <td><%= result.shippingTime; %></td>
-  <td><%= result.createdAt; %></td>
-
   <td>
-    <% if (result.isActive) { %>
-    <span class="badge badge-success">Active</span>
-    <% } else { %>
-    <span class="badge badge-danger">Inactive</span>
-    <% } %>
+    <%= new Date(result.createdAt).toLocaleString("en-US", {
+        timeZone: "Asia/Dhaka",  // <-- Change to your desired timezone
+        hour12: true,            // <-- 12-hour format
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      }) %>
   </td>
-
-  <td>
- 
-  <td><%= new Date(result.createdAt).toLocaleString(); %></td>
 
   <td>
     <div class="d-flex align-items-center" style="gap: 5px;">

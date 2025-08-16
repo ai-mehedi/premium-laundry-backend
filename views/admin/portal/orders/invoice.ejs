@@ -41,8 +41,17 @@
       </div>
       <div class="mb-4 text-right flex-1">
         <p class="text-sm">Invoice #: <%= order.orderId %></p>
-        <p class="text-sm">Date: <%= new Date(order.createdAt).toLocaleString() %></p>
-        <p class="text-sm">Shipping Time: <%= order.shippingTime %></p>
+<p class="text-sm">
+  Date: <%= new Date(order.createdAt).toLocaleString("en-US", {
+        timeZone: "Asia/Dhaka",  // change as needed
+        hour12: true,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      }) %>
+</p>        <p class="text-sm">Shipping Time: <%= order.shippingTime %></p>
         <p class="text-sm">Status: <%= order.orderstatus %></p>
       </div>
     </div>

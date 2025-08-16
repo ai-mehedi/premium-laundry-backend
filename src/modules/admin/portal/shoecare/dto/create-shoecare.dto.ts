@@ -38,6 +38,11 @@ export class CreateShoecareDto {
     @IsNotEmpty()
     status: string;
 
+
+    @ApiProperty()
+    @IsNotEmpty()
+    orderid: string;
+
     @ApiProperty()
     @IsNotEmpty()
     @Transform(({ value }) => parseFloat(value))

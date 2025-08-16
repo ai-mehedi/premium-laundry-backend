@@ -1,13 +1,12 @@
+
 Hello {NAME},
 
-Thank you for your order at premiumlaundryx.com!
+​Your order for Shoe Care from premiumlaundryx.com has been confirmed! We'll handle your shoes with great care.
 
-Your order has been confirmed. Here are your order details:
-Service: Shoe Care
+​Order ID: {ORDERID}
+Total Price: ৳{TOTAL_PRICE}
+​Feel free to call us at +8809666 722 734 if you have any questions.
 
-Total Price: BDT {TOTAL_PRICE}
+​Best regards,
+Glaze
 
-We appreciate your trust in our service. Sit back and relax — we're handling your laundry with care.
-
-Best regards,
-Premium Laundry Xpress
