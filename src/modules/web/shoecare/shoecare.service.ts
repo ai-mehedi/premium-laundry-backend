@@ -4,6 +4,7 @@ import { UpdateShoecareDto } from './dto/update-shoecare.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Shoecare, ShoecareModel } from 'src/models/shoecare.schema';
 import { I18nService } from 'nestjs-i18n';
+import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
 
 @Injectable()
 export class ShoecareService {
@@ -12,8 +13,9 @@ export class ShoecareService {
     private readonly i18n: I18nService,
   ) { }
   async create(createShoecareDto: CreateShoecareDto) {
-console.log('createShoecareDto', createShoecareDto);
-    const createdShoecare = new this.shoecareModel(createShoecareDto);
+    const orderidgenrate = RandomNumberString(8);
+
+    const createdShoecare = new this.shoecareModel({ ...createShoecareDto, orderid: orderidgenrate });
 
     await createdShoecare.save();
     return {
