@@ -19,6 +19,10 @@ export class ShoeProduct {
     @Prop({ type: String, required: true })
     service: string;
 
+    @ApiProperty()
+    @Prop({ type: String, required: true })
+    note: string;
+
     @ApiProperty({ type: String })
     @Prop({ type: String, required: true })
     price: string;
@@ -34,6 +38,12 @@ export class Shoecare {
     @ApiProperty()
     @Prop({ type: String, required: true })
     name: string;
+
+    @ApiProperty()
+    @Prop({ type: String, required: true })
+    orderid: string;
+
+
     @ApiProperty()
     @Prop({ type: String, required: true })
     phone: string;

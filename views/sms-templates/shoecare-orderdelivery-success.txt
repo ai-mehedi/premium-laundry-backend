@@ -1,6 +1,6 @@
 Hello {NAME},
 
-Your order from premiumlaundryx.com has been successfully delivered!
+​Your order for Shoe Care from premiumlaundryx.com has been confirmed! We'll handle your shoes with great care.
 
 Here are your order details:
 Service: Shoe Care
@@ -10,4 +10,4 @@ Total Price: BDT {TOTAL_PRICE}
 Thank you for choosing Premium Laundry Xpress. We hope you enjoyed our service!
 
 Best regards,
-Premium Laundry Xpress
+Glaze

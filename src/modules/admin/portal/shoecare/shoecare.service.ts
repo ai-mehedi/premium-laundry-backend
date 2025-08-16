@@ -9,6 +9,7 @@ import { PaginationOptions } from 'src/shared/plugins/mongoose-plugin/pagination
 import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
 import { SEND_SMS_TEMPLATE, SMSService } from 'src/shared/services/sms.service';
+import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
 
 @Injectable()
 export class ShoecareService {
@@ -19,16 +20,16 @@ export class ShoecareService {
   ) { }
 
 
-async invoice(id: string) {
-  const invoiceData = await this.ShoecareModel.findById(id);
-  if (!invoiceData) {
-    throw new NotFoundException({
-      message: 'Invoice not found',
-      field: 'id',
-    });
+  async invoice(id: string) {
+    const invoiceData = await this.ShoecareModel.findById(id);
+    if (!invoiceData) {
+      throw new NotFoundException({
+        message: 'Invoice not found',
+        field: 'id',
+      });
+    }
+    return invoiceData;
   }
-  return invoiceData;
-}
 
   async addUpdateShoecare(data: CreateShoecareDto) {
 
@@ -43,11 +44,12 @@ async invoice(id: string) {
         phone: data.phone.replace('+', ''),
         payload: {
           NAME: data.name,
+          ORDERID: data.orderid,
           TOTAL_PRICE: data.payableamount,
         },
       });
 
-    }else if(data.status === "delivered") {
+    } else if (data.status === "delivered") {
       const result = await this.smsService.sendSMS({
         template: SEND_SMS_TEMPLATE.SHOECARE_ORDER_DELIVERY_SUCCESS,
         phone: data.phone.replace('+', ''),
@@ -100,7 +102,12 @@ async invoice(id: string) {
           field: 'action_id',
         });
       }
+
+
+      const orderidgenrate = RandomNumberString(8);
+
       await this.ShoecareModel.create({
+        orderid: orderidgenrate,
         name: data.name,
         phone: data.phone,
         address: data.address,

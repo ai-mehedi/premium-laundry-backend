@@ -25,7 +25,7 @@ export class ShoecareController {
   @Render('admin/portal/shoecares/invoice')
   async invoice(@Param('id') id: string) {
     const invoiceData = await this.shoecareService.invoice(id);
-    console.log(invoiceData);
+ 
     return {
       title: 'Invoice',
       invoice: invoiceData,
@@ -65,7 +65,7 @@ export class ShoecareController {
 
   @Post('add')
   async addUpdateShoecareSubmit(@Body() data: CreateShoecareDto) {
-    console.log(data);
+   
     await this.shoecareService.addUpdateShoecare(data);
     return {
       message: data.action_id
