@@ -83,15 +83,17 @@
               </thead>
               <tbody>
                 <% order.products.forEach(product => { %>
-                <tr>
+                <tr data-product-id="<%= product._id; %>">
                   <td>
 
-                    <select class="form-control" name="product" required="">
-                      <option value="<%= product.productId %>" selected><%= product.productName %></option>
+                    <select class="form-control" name="product" onchange="initUpdatePrices()" required="">
+                      <% allproducts.forEach(prod => { %>
+                        <option value="<%= prod.id %>" data-price-washAndIron="<%= prod.price.washAndIron %>" data-price-drycleaning="<%= prod.price.drycleaning %>" data-price-iron="<%= prod.price.iron %>" data-price-StainSpotRemoval="<%= prod.price.StainSpotRemoval %>" <%= prod.id === product.productId ? "selected" : "" %>><%= prod.title %></option>
+                      <% }); %>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control" name="isActive" required="">
+                    <select class="form-control" name="service" onchange="initUpdatePrices()" required="">
                       <option value="washAndIron" <%= product.services[0].service === "washAndIron" ? "selected" : "" %>>Wash And Iron</option>
                       <option value="drycleaning" <%= product.services[0].service === "drycleaning" ? "selected" : "" %>>drycleaning</option>
                       <option value="iron" <%= product.services[0].service === "iron" ? "selected" : "" %>>iron</option>
@@ -99,13 +101,13 @@
                     </select>
                   </td>
                   <td>
-                    <input type="number" class="form-control" value="<%= product.quantity %>" min="1">
+                    <input type="number" class="form-control" onchange="initUpdatePrices()" id="item-quantity" value="<%= product.quantity %>" min="1">
                   </td>
                   <td>
-                    <input type="text" class="form-control" value="<%= product.services[0].price %>" readonly>
+                    <input type="text" class="form-control" id="item-price" readonly>
                   </td>
                   <td>
-                    <input type="text" class="form-control" value="<%= product.subtotal %>" readonly>
+                    <input type="text" class="form-control" id="item-subtotal" readonly>
                   </td>
                 </tr>
                    <% }); %>
@@ -119,3 +121,24 @@
   </div>
 </section>
 <%- include('../../layouts/footer'); %>
+
+<script>
+  function initUpdatePrices() {
+    const orderItems = document.querySelectorAll('tr[data-product-id]');
+
+    for(let oItem of orderItems){
+      const selectedItem = oItem.querySelector('select[name="product"]');
+      const selectedService = oItem.querySelector('select[name="service"]');
+      const quantity = Number(oItem.querySelector('#item-quantity').value);
+
+      const selectedItemOption = selectedItem.options[selectedItem.selectedIndex];
+      const selectedServiceOption = selectedService.options[selectedService.selectedIndex];
+
+      const price = selectedItemOption.getAttribute(`data-price-${selectedServiceOption.value}`);
+
+      oItem.querySelector('#item-price').value = price;
+      oItem.querySelector('#item-subtotal').value = price * quantity;
+    }
+  }
+  initUpdatePrices();
+</script>
