@@ -217,6 +217,7 @@ export class OrderService {
         code: otp,
       },
     });
+    console.log("OTP sent result:", result);
 
     return {
       success: true,

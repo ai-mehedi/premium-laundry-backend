@@ -58,13 +58,17 @@ export class DeliverypanelService {
         }
       );
 
-      const result = await this.smsService.sendSMS({
-        template: SEND_SMS_TEMPLATE.ORDER_DELIVERY_SUCCESS,
-        phone: data.phone.replace('+', ''),
-        payload: {
-          ORDERID: data.orderId,
-        },
-      });
+      if (data.orderstatus === 'Delivered') {
+
+        const result = await this.smsService.sendSMS({
+          template: SEND_SMS_TEMPLATE.ORDER_DELIVERY_SUCCESS,
+          phone: data.phone.replace('+', ''),
+          payload: {
+            ORDERID: data.orderId,
+          },
+        });
+        console.log("SMS sent result:", result);
+      }
     }
 
     if (!data.action_id) {
