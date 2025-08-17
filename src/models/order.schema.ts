@@ -93,6 +93,10 @@ export class Order {
   delivery: string;
 
   @ApiProperty()
+  @Prop({ type: Number, required: true,default: 0 })
+  deliveryamount: number;
+
+  @ApiProperty()
   @Prop({ type: Number, required: true })
   vendorCosts: number;
 

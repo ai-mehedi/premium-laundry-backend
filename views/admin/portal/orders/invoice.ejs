@@ -91,9 +91,9 @@
         <tr>
           <td colspan="4" class="border px-4 py-2 text-right font-semibold"><%=order.delivery  %></td>
           <% if(order.delivery==="Xpress Delivery (24 Hours)"){ %>
-          <td class="border px-4 py-2 text-right"> BDT <%= 100.00 %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= order.deliveryamount %></td>
           <% }else{ %>
-          <td class="border px-4 py-2 text-right"> BDT <%= 0.00 %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= order.deliveryamount %></td>
           <% } %>
         </tr>
 
@@ -106,7 +106,7 @@
 
         <tr class="font-bold bg-gray-100">
           <td colspan="4" class="border px-4 py-2 text-right">Total Due</td>
-          <td class="border px-4 py-2 text-right"> BDT <%= order.total.toFixed(2) %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= ((Number(order.deliveryamount) || 0) + (Number(order.total) || 0)).toFixed(2) %></td>
         </tr>
       </tbody>
     </table>

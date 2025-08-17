@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Order, OrderModel } from 'src/models/order.schema';
@@ -9,6 +9,7 @@ import { RenderEjsFile } from 'src/common/helpers/utils/utils';
 import { join } from 'path';
 import { Admin, AdminModel } from 'src/models/admin.schema';
 import { Product, ProductModel } from 'src/models/product-schema';
+import { title } from 'process';
 
 
 @Injectable()
@@ -22,18 +23,76 @@ export class OrderService {
     @InjectModel(Admin.name)
     private readonly AdminModel: AdminModel,
   ) { }
+
+  async addOrderProduct(id: string) {
+
+    const order = await this.OrderModel.findById(id);
+    const product = await this.ProductModel.findOne({ title: "dummy" });
+    if (!order) {
+      throw new NotFoundException({
+        message: 'Order not found',
+      });
+    } else {
+      await this.OrderModel.findByIdAndUpdate(id,
+        {
+          $push: {
+            products: {
+              productId: product._id,
+              productName: product.title,
+              quantity: 1,
+              subtotal: 0,
+              vendorSubtotal: 0,
+              services: [
+                {
+                  service: "iron",
+                  price: 0,
+                  vendorPrice: 0,
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                },
+              ],
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          },
+        }
+      );
+    }
+  }
+
+  async deleteOrderProduct(id: string, productId: string) {
+    const order = await this.OrderModel.findById(id);
+    if (!order) {
+      throw new NotFoundException({
+        message: 'Order not found',
+      });
+    }
+
+    await this.OrderModel.findByIdAndUpdate(id, {
+      $pull: {
+        products: {
+          _id: productId,
+        },
+      },
+    });
+  }
+
   async findAllAdmins() {
     return this.AdminModel.find({ isActive: true }).select('name email roles');
   }
+
+
+
+
 
   async findAllProducts() {
     return this.ProductModel.find();
   }
 
   async findAllOrdersById(id: string) {
-   return this.OrderModel.findById(id)
+    return this.OrderModel.findById(id)
       .populate('user');
-   
+
   }
 
 

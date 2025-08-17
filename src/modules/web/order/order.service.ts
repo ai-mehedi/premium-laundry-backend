@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductModel } from 'src/models/product-schema';
 import { User, UserModel } from 'src/models/user.schema';
@@ -12,6 +11,7 @@ import { phoneDto } from './dto/order-get.dto';
 import { RandomNumberString } from 'src/common/helpers/utils/string.utils';
 import { OTPdto } from './dto/otp.dto';
 import { OrderStatusDto } from './dto/orderstatuse.dto';
+import { UpdateOrderDto } from './dto/update.dto';
 
 @Injectable()
 export class OrderService {
@@ -29,6 +29,11 @@ export class OrderService {
 
 
   ) { }
+
+
+  async updateorder(id: string, updateOrderDto: UpdateOrderDto) {
+    return this.OrderModel.findByIdAndUpdate(id, updateOrderDto, { new: true });
+  }
 
   async create(createOrderDto: CreateOrderDto) {
 
@@ -144,8 +149,9 @@ export class OrderService {
       note: 'Order created successfully',
     }
     let totalamount = createOrderDto.total;
+    let deliveryamount = 0;
     if (createOrderDto.delivery === "Xpress Delivery (24 Hours)") {
-      totalamount += 100;
+      deliveryamount = 100;
     }
 
 
@@ -165,6 +171,7 @@ export class OrderService {
       subtotal: createOrderDto.subtotal,
       total: totalamount,
       products: enrichedProducts,
+      deliveryamount: deliveryamount,
       statuses: OrderStatus,
       createdAt: new Date(),
       orderstatus: createOrderDto.OrderStatus,

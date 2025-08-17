@@ -34,8 +34,8 @@ export class ShoecareService {
   async addUpdateShoecare(data: CreateShoecareDto) {
 
 
-      const orderidgenrate = RandomNumberString(8);
-console.log('Order ID Generated:', orderidgenrate);
+    const orderidgenrate = RandomNumberString(8);
+    console.log('Order ID Generated:', orderidgenrate);
     const parsedServices =
       typeof data.services === 'string'
         ? JSON.parse(data.services)
@@ -52,6 +52,8 @@ console.log('Order ID Generated:', orderidgenrate);
         },
       });
 
+      console.log("confrimation", result)
+
     } else if (data.status === "Delivered") {
       const result = await this.smsService.sendSMS({
         template: SEND_SMS_TEMPLATE.SHOECARE_ORDER_DELIVERY_SUCCESS,
@@ -61,6 +63,7 @@ console.log('Order ID Generated:', orderidgenrate);
           TOTAL_PRICE: data.payableamount,
         },
       });
+      console.log("delivery", result)
     }
 
     if (data.action_id) {
@@ -107,7 +110,7 @@ console.log('Order ID Generated:', orderidgenrate);
       }
 
 
-    
+
       await this.ShoecareModel.create({
         orderid: orderidgenrate,
         name: data.name,

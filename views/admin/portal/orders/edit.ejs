@@ -23,42 +23,49 @@
           <div class="card-header">
             <h4 class="card-title">Order id #<%= order.orderId; %></h4>
           </div>
-
-
-
           <div class="card-body">
             <ul class="list-group list-group-unbordered mb-3">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Name</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.user.name %>" readonly>
+                <input type="text" class="form-control w-50 text-end" name="name" value="<%= order.user.name %>" readonly>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Phone</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.user.phone %>" readonly>
+                <input type="text" class="form-control w-50 text-end" name="phone" value="<%= order.user.phone %>" readonly>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Address</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.user.fullAddress %>" readonly>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <b>Shipping Time</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.shippingTime %>" readonly>
+                <input type="text" class="form-control w-50 text-end" name="address" value="<%= order.user.fullAddress %>" readonly>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Delivery</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.delivery %>" readonly>
+                <select id="deliverySelect" class="form-control w-50 text-end">
+                  <option value="Regular Delivery (48 Hours)">Regular Delivery (48 Hours)</option>
+                  <option value="Xpress Delivery (24 Hours)">Xpress Delivery (24 Hours)</option>
+                </select>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                <b>Promo Offer Price</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.promoOfferPrice %>" readonly>
+                <b>Promo Code</b>
+                <input type="text" name="promoCode" class="form-control w-50 text-end" value="<%= order.promoCode %>">
               </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <b>Otp Code</b>
+                <input type="text"  class="form-control w-50 text-end" value="<%= order.otpcode %>">
+              </li>
+
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Subtotal</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.subtotal %>" readonly>
+                <input type="text" class="form-control w-50 text-end" id="subtotalInput" value="<%= order.subtotal %>" readonly>
               </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <b>Total</b>
-                <input type="text" class="form-control w-50 text-end" value="<%= order.total %>" readonly>
+              <li class="list-group-item align-items-center">
+                <div class="form-group">
+                  <label>statuse</label>
+                  <select class="form-control" name="orderstatus" required>
+                    <option value="Order Confirmed" <%= order.orderstatus === "Order Confirmed" ? "selected" : "" %>>Order Confirmed</option>
+                    <option value="Order Canceled" <%= order.orderstatus === "Order Canceled" ? "selected" : "" %>>Order Canceled</option>
+                  </select>
+                </div>
               </li>
             </ul>
 
@@ -67,8 +74,10 @@
       </div>
       <div class="col-md-8">
         <div class="card card-outline card-primary">
-          <div class="card-header">
+          <div class="card-header w-full  d-flex justify-content-between">
             <h4 class="card-title"><%= title; %></h4>
+
+            <button class="btn btn-primary" onclick="addDummyProduct('<%= order._id %>')">Add product</button>
           </div>
           <div class="card-body">
             <table class="table table-bordered">
@@ -79,6 +88,7 @@
                   <th>Quantity</th>
                   <th>Price</th>
                   <th>Subtotal</th>
+                  <th>Option</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,11 +98,12 @@
 
                     <select class="form-control" name="product" onchange="initUpdatePrices()" required="">
                       <% allproducts.forEach(prod => { %>
-                        <option value="<%= prod.id %>" data-price-washAndIron="<%= prod.price.washAndIron %>" data-price-drycleaning="<%= prod.price.drycleaning %>" data-price-iron="<%= prod.price.iron %>" data-price-StainSpotRemoval="<%= prod.price.StainSpotRemoval %>" <%= prod.id === product.productId ? "selected" : "" %>><%= prod.title %></option>
+                      <option value="<%= prod.id %>" data-price-washAndIron="<%= prod.price.washAndIron %>" data-price-drycleaning="<%= prod.price.drycleaning %>" data-price-iron="<%= prod.price.iron %>" data-price-StainSpotRemoval="<%= prod.price.StainSpotRemoval %>" <%= prod.id === product.productId ? "selected" : "" %>><%= prod.title %></option>
                       <% }); %>
                     </select>
                   </td>
                   <td>
+
                     <select class="form-control" name="service" onchange="initUpdatePrices()" required="">
                       <option value="washAndIron" <%= product.services[0].service === "washAndIron" ? "selected" : "" %>>Wash And Iron</option>
                       <option value="drycleaning" <%= product.services[0].service === "drycleaning" ? "selected" : "" %>>drycleaning</option>
@@ -109,11 +120,16 @@
                   <td>
                     <input type="text" class="form-control" id="item-subtotal" readonly>
                   </td>
+                  <td>
+                    <button class="btn btn-danger" onclick="deleteProduct('<%= order._id %>', '<%= product._id %>')">Remove</button>
+                  </td>
                 </tr>
-                   <% }); %>
+
+                <% }); %>
                 <!-- Add more rows as needed -->
               </tbody>
             </table>
+            <button class="btn btn-primary mt-4" onclick="updateOrder()">Update order</button>
           </div>
         </div>
       </div>
@@ -123,22 +139,122 @@
 <%- include('../../layouts/footer'); %>
 
 <script>
+  let totalPrice = 0;
+  let deliver = document.getElementById('deliverySelect').value;
+  let product = [];
+
   function initUpdatePrices() {
     const orderItems = document.querySelectorAll('tr[data-product-id]');
+    totalPrice = 0; // Reset total price
+    product = []; // Reset product array
 
-    for(let oItem of orderItems){
+    for (let oItem of orderItems) {
       const selectedItem = oItem.querySelector('select[name="product"]');
       const selectedService = oItem.querySelector('select[name="service"]');
       const quantity = Number(oItem.querySelector('#item-quantity').value);
-
       const selectedItemOption = selectedItem.options[selectedItem.selectedIndex];
       const selectedServiceOption = selectedService.options[selectedService.selectedIndex];
 
-      const price = selectedItemOption.getAttribute(`data-price-${selectedServiceOption.value}`);
+      const price = Number(selectedItemOption.getAttribute(`data-price-${selectedServiceOption.value}`) || 0);
+      const subtotal = price * quantity;
 
+      // Update UI
       oItem.querySelector('#item-price').value = price;
-      oItem.querySelector('#item-subtotal').value = price * quantity;
+      oItem.querySelector('#item-subtotal').value = subtotal;
+      totalPrice += subtotal;
+      product.push({
+        productId: selectedItem.value,
+        productName: selectedItemOption.text,
+        service: selectedServiceOption.value,
+        quantity: quantity,
+        price: price,
+        subtotal: subtotal
+      });
+    }
+
+   document.getElementById('subtotalInput').value = totalPrice; 
+
+
+  }
+
+  initUpdatePrices();
+
+  function updateOrder() {
+
+    const orderStatus = document.querySelector('select[name="orderstatus"]').value;
+    const deliverySelect = document.getElementById('deliverySelect');
+    const promocode = document.querySelector('input[name="promoCode"]').value;
+
+
+    const orderData = {
+      orderId: '<%= order._id %>',
+      products: product,
+      totalPrice: totalPrice,
+      delivery: deliver
+    };
+
+    fetch(`/web/orderupdate/${orderData.orderId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Order updated successfully!");
+          window.location.reload();
+        } else {
+          alert("Failed to update order.");
+        }
+      })
+      .catch(error => {
+        console.error("❌ Error:", error);
+      });
+  }
+</script>
+
+<script>
+  async function addDummyProduct(orderId) {
+    try {
+      const response = await fetch(`/admin/portal/orders/orderproductadd/${orderId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: "68999999dd989d3303c6b999",
+          productName: "DUMMY PRODUCT",
+        }),
+      });
+
+      const data = await response.json();
+
+      window.location.reload();
+    } catch (error) {
+      console.error("❌ Error:", error);
     }
   }
-  initUpdatePrices();
+
+  async function deleteProduct(orderId, productId) {
+    if (!confirm("⚠️ Are you sure you want to delete this product?")) {
+      return; // if user clicks Cancel
+    }
+
+    try {
+      const response = await fetch(`/admin/portal/orders/orderproductdelete/${orderId}/${productId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      window.location.reload();
+    } catch (error) {
+      console.error("❌ Error:", error);
+    }
+  }
 </script>

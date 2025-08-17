@@ -58,7 +58,6 @@ export class OrderController {
   async editOrder(@Param('id') id: string) {
     const order = await this.orderService.findAllOrdersById(id);
     const allproducts = await this.orderService.findAllProducts();
-    console.log(order)
     return {
       order: order,
       allproducts: allproducts,
@@ -107,5 +106,20 @@ export class OrderController {
   }
 
 
+  @Post("orderproductadd/:id")
+  async addOrderProduct(@Param('id') id: string,) {
+    await this.orderService.addOrderProduct(id);
+    return {
+      message: 'Order product has been added',
+    };
+  }
+
+  @Post("orderproductdelete/:id/:productId")
+  async deleteOrderProduct(@Param('id') id: string, @Param('productId') productId: string) {
+    await this.orderService.deleteOrderProduct(id, productId);
+    return {
+      message: 'Order product has been deleted',
+    };
+  }
 
 }

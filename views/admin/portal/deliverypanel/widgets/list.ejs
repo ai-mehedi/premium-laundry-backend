@@ -1,7 +1,7 @@
 <tr>
   <td><%= serial_number; %></td>
   <td><%= result.orderId; %></td>
-  <td>৳ <%= result.total; %></td>
+<td>৳ <%= (Number(result.deliveryamount) || 0) + (Number(result.total) || 0) %></td>
   <td><%= result.shippingTime; %></td>
   <td><%= result.user[0].fullAddress %></td>
   <td><%= result.orderstatus; %></td>
