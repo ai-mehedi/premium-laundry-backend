@@ -25,7 +25,7 @@ export class VendorService {
 
     if (data.action_id) {
       const checkFaq = await this.OrderModel.findOne({ _id: data.action_id });
-      console.log('checkFaq', checkFaq);
+    
       if (!checkFaq) {
 
         throw new BadRequestException({

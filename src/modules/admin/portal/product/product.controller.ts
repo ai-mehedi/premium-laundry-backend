@@ -75,7 +75,7 @@ export class ProductitemController {
       action_data = checkAdmin.toObject();
     }
 
-    console.log('action_data', action_data);
+
     return {
       title: title,
       is_update: is_update,

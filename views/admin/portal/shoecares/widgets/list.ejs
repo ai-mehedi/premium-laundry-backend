@@ -1,5 +1,6 @@
 <tr>
   <td><%= serial_number; %></td>
+  <td><%= result.orderid; %></td>
   <td><%= result.name; %></td>
   <td><%= result.phone; %></td>
   <td><%= result.address; %></td>
@@ -11,7 +12,7 @@
     <div class="d-flex align-items-center" style="gap: 5px;">
       <a class="btn btn-success " href="/admin/portal/shoecares/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
        <button class="btn btn-success" onclick="window.open('/admin/portal/shoecares/invoice/<%= result._id.toString(); %>', '_blank', 'width=1024,height=800')">
-        Open Invoice
+        <i class="fa-solid fa-receipt"></i>
       </button>
       <button type="button" class="btn btn-danger" onclick="removeData(this, '/admin/portal/shoecares?id=<%= result._id; %>')"><i class="bi bi-trash"></i></button>
     </div>

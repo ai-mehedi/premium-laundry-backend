@@ -19,6 +19,8 @@ export class DashboardController {
     return {
       title: 'Admin Dashboard',
       data: {
+        totalshoecare: totalAdmins.totalshoecare,
+        totalshoecareamount: totalAdmins.totalshoecareamount,
         totalorder: totalAdmins.totalorder,
         completeordertotal: totalAdmins.completeordertotal,
         totalamount: totalAdmins.totalamount,

@@ -51,7 +51,7 @@
 
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Otp Code</b>
-                <input type="text"  class="form-control w-50 text-end" value="<%= order.otpcode %>">
+                <input type="text" class="form-control w-50 text-end" value="<%= order.otpcode %>">
               </li>
 
               <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -142,6 +142,7 @@
   let totalPrice = 0;
   let deliver = document.getElementById('deliverySelect').value;
   let product = [];
+  const orderstatus = document.querySelector('select[name="orderstatus"]').value;
 
   function initUpdatePrices() {
     const orderItems = document.querySelectorAll('tr[data-product-id]');
@@ -152,6 +153,7 @@
       const selectedItem = oItem.querySelector('select[name="product"]');
       const selectedService = oItem.querySelector('select[name="service"]');
       const quantity = Number(oItem.querySelector('#item-quantity').value);
+
       const selectedItemOption = selectedItem.options[selectedItem.selectedIndex];
       const selectedServiceOption = selectedService.options[selectedService.selectedIndex];
 
@@ -162,19 +164,20 @@
       oItem.querySelector('#item-price').value = price;
       oItem.querySelector('#item-subtotal').value = subtotal;
       totalPrice += subtotal;
+
       product.push({
         productId: selectedItem.value,
         productName: selectedItemOption.text,
-        service: selectedServiceOption.value,
+        services: [{
+          service: selectedServiceOption.value,
+          price: price
+        }],
         quantity: quantity,
-        price: price,
         subtotal: subtotal
       });
     }
 
-   document.getElementById('subtotalInput').value = totalPrice; 
-
-
+    document.getElementById('subtotalInput').value = totalPrice;
   }
 
   initUpdatePrices();
@@ -184,16 +187,17 @@
     const orderStatus = document.querySelector('select[name="orderstatus"]').value;
     const deliverySelect = document.getElementById('deliverySelect');
     const promocode = document.querySelector('input[name="promoCode"]').value;
-
-
+    const id = '<%= order._id %>';
     const orderData = {
-      orderId: '<%= order._id %>',
+      orderId: '<%= order.orderId %>',
       products: product,
-      totalPrice: totalPrice,
-      delivery: deliver
-    };
+      subtotal: totalPrice,
+      delivery: deliverySelect.value,
+      promoCode: promocode,
+      OrderStatus: orderStatus
 
-    fetch(`/web/orderupdate/${orderData.orderId}`, {
+    };
+    fetch(`/web/order/orderupdate/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -202,6 +206,7 @@
       })
       .then(response => response.json())
       .then(data => {
+    
         if (data.success) {
           alert("Order updated successfully!");
           window.location.reload();

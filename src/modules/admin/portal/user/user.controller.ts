@@ -15,7 +15,7 @@ export class UserController {
   @Render('admin/portal/users/userdeatil')
   async usersDetail(@Param('id') id: string) {
     const user = await this.UserService.findUserById(id);
-    console.log(user);
+   
     return {
       title: 'Users',
       user: user.user,

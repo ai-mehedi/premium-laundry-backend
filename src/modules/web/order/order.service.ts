@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductModel } from 'src/models/product-schema';
@@ -32,7 +32,131 @@ export class OrderService {
 
 
   async updateorder(id: string, updateOrderDto: UpdateOrderDto) {
-    return this.OrderModel.findByIdAndUpdate(id, updateOrderDto, { new: true });
+    let total = 0;
+    let promoOfferPrice = 0;
+    // 1. Check if order exists
+    const existingOrder = await this.OrderModel.findOne({ _id: id });
+    if (!existingOrder) {
+      throw new NotFoundException(`Order with ID ${id} not found`);
+    }
+
+    // 2. If promoCode used, update coupon usage
+    if (updateOrderDto.promoCode && updateOrderDto.promoCode !== "") {
+      const coupon = await this.CouponModel.findOne({
+        discountCode: updateOrderDto.promoCode,
+        isActive: true,
+        isDeleted: false,
+        expierationDate: { $gte: new Date() } // valid, not expired
+      });
+
+      if (coupon) {
+        // Calculate discount
+        const discountPercentage = coupon.percentage || 0;
+        const discountAmount = (updateOrderDto.subtotal * discountPercentage) / 100;
+
+        // Apply discount to total
+        promoOfferPrice = discountAmount;
+        total = updateOrderDto.subtotal - discountAmount;
+
+        // Update coupon usage
+        await this.CouponModel.updateOne(
+          { _id: coupon._id },
+          {
+            $inc: {
+              usedAmount: discountAmount,
+              maximumAttendeeCapacity: -1,
+            },
+            $set: {
+              updatedAt: new Date(),
+            }
+          }
+        );
+      } else {
+        throw new BadRequestException("❌ Invalid or expired promo code");
+      }
+    }
+
+    // 3. Validate products and fetch vendor info
+    const productIds = updateOrderDto.products.map((p) => p.productId);
+    const foundProducts = [];
+
+    for (const productId of productIds) {
+      const product = await this.ProductModel.findById(productId);
+      if (!product) {
+        throw new NotFoundException(`Product with ID ${productId} not found`);
+      }
+      foundProducts.push(product);
+    }
+
+    // 4. Enrich products with vendor costs
+    const enrichedProducts = updateOrderDto.products.map((item: any) => {
+      const matchedProduct = foundProducts.find(
+        (p) => p._id.toString() === item.productId
+      );
+
+      let vendorSubtotal = 0;
+
+      const enrichedServices = item.services.map((service: any) => {
+        let vendorPrice = 0;
+      
+        if (service.service === 'washAndIron') {
+          vendorPrice = matchedProduct.vendorPrice.washAndIron;
+        } else if (service.service === 'drycleaning') {
+          vendorPrice = matchedProduct.vendorPrice.drycleaning;
+        } else if (service.service === 'iron') {
+          vendorPrice = matchedProduct.vendorPrice.iron;
+        } else if (service.service === 'StainSpotRemoval') {
+          vendorPrice = matchedProduct.vendorPrice.StainSpotRemoval;
+        }
+
+        vendorSubtotal += vendorPrice * item.quantity;
+
+        return {
+          ...service,
+          vendorPrice,
+        };
+      });
+
+      return {
+        productId: matchedProduct._id,
+        productName: matchedProduct.title,
+        quantity: item.quantity,
+        services: enrichedServices,
+        subtotal: item.subtotal,        // customer subtotal
+        vendorSubtotal: vendorSubtotal, // vendor subtotal
+      };
+    });
+
+    const vendorCosts = enrichedProducts.map((item) => item.vendorSubtotal);
+    const totalVendorCost = vendorCosts.reduce((sum, cost) => sum + cost, 0);
+
+    let deliveryamount = 0;
+    if (updateOrderDto.delivery === "Xpress Delivery (24 Hours)") {
+      deliveryamount = 100;
+    }
+
+    // 5. Prepare update object
+    const updatedOrder = {
+      ...updateOrderDto,
+      total: total,
+      promoOfferPrice: promoOfferPrice,
+      subtotal: updateOrderDto.subtotal,
+      products: enrichedProducts,
+      vendorCosts: totalVendorCost,
+      deliveryamount: deliveryamount,
+      delivery: updateOrderDto.delivery,
+      orderstatus: updateOrderDto.OrderStatus,
+      updatedAt: new Date(),
+    };
+
+    // 6. Update order in DB
+    await this.OrderModel.updateOne({ _id: id }, { $set: updatedOrder });
+
+    return {
+      success: true,
+      message: '✅ Order updated successfully',
+      orderId: id,
+    };
   }
 
   async create(createOrderDto: CreateOrderDto) {
@@ -217,7 +341,7 @@ export class OrderService {
         code: otp,
       },
     });
-    console.log("OTP sent result:", result);
+  
 
     return {
       success: true,

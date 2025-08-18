@@ -70,7 +70,7 @@ export class DeliverypanelController {
 
   @Post('add')
   async addUpdateDeliverypanelSubmit(@Body() data: CreateDeliverypanelDto) {
-    console.log("Received data:", data);
+   
     await this.deliverypanelService.addUpdateDeliverypanel(data);
     return {
       redirect: '/admin/portal/deliverypanel/list',

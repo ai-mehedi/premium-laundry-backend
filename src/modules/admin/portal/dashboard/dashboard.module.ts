@@ -6,13 +6,20 @@ import { Admin, AdminSchema } from 'src/models/admin.schema';
 import { Order, OrderSchema } from 'src/models/order.schema';
 import { Payment, PaymentSchema } from 'src/models/payment-schema';
 import { User, UserSchema } from 'src/models/user.schema';
+import { Shoecare ,ShoecareSchema} from 'src/models/shoecare.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
+     MongooseModule.forFeature([
       {
         name: Admin.name,
         schema: AdminSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: Shoecare.name,
+        schema: ShoecareSchema,
       },
     ]),
     MongooseModule.forFeature([
