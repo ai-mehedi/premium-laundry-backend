@@ -55,7 +55,7 @@ export class PaymentController {
 
   @Post('add')
   async addUpdatePaymentSubmit(@Body() data: CreatePaymentDto) {
-    console.log(data);
+   
     await this.paymentService.addUpdatePayment(data);
     return {
       message: data.action_id

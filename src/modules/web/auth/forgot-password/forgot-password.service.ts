@@ -20,7 +20,7 @@ export class ForgotPasswordService {
       phone: `+88${createForgotPasswordDto.phone}`,
     });
 
-    console.log('User found:', user.name);
+   
     if (!user) {
       throw new NotFoundException({
         message: 'User not found',
@@ -39,7 +39,7 @@ export class ForgotPasswordService {
           code: otpCode,
         },
       });
-      console.log('route response:', result);
+
     } catch (error) {
       console.error('Error sending SMS:', error);
     }

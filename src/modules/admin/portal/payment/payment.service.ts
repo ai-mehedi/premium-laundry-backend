@@ -19,7 +19,7 @@ export class PaymentService {
 
  
   async addUpdatePayment(data: CreatePaymentDto) {
-    console.log(data);
+    
 
     if (data.action_id) {
       const checkService = await this.PaymentModel.findOne({
@@ -67,7 +67,7 @@ export class PaymentService {
           field: 'action_id',
         });
       }
-      console.log('Creating new payment with invoice id:', invoiceid);
+     
       await this.PaymentModel.create({
         title: data.title,
         invoice: invoiceid,

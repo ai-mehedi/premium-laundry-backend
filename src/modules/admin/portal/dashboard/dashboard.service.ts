@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Admin, AdminModel } from 'src/models/admin.schema';
 import { Order, OrderModel } from 'src/models/order.schema';
 import { Payment, PaymentModel } from 'src/models/payment-schema';
+import { Shoecare, ShoecareModel } from 'src/models/shoecare.schema';
 import { User, UserModel } from 'src/models/user.schema';
 
 @Injectable()
@@ -16,6 +17,8 @@ export class DashboardService {
     private readonly paymentModel: PaymentModel,
     @InjectModel(User.name)
     private readonly userModel: UserModel,
+    @InjectModel(Shoecare.name)
+    private readonly ShoecareModel: ShoecareModel,
   ) { }
 
   async getAdminCount() {
@@ -41,7 +44,21 @@ export class DashboardService {
         }
       }
     ]).exec();
+
+    const shoecare = await this.ShoecareModel.countDocuments().exec();
+    const totalshoecareamount = await this.ShoecareModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$payableamount' }
+        }
+      }
+    ]).exec();
+    
+
     return {
+      totalshoecare: shoecare,
+      totalshoecareamount: totalshoecareamount[0]?.total || 0,
       totalorder,
       completeordertotal,
       totalamount,

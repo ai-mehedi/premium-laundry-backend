@@ -53,7 +53,9 @@ export class DeliverypanelService {
             },
           },
           $set: {
+
             orderstatus: data.orderstatus,
+            total: data.total,
           },
         }
       );
@@ -67,7 +69,7 @@ export class DeliverypanelService {
             ORDERID: data.orderId,
           },
         });
-        console.log("SMS sent result:", result);
+        
       }
     }
 

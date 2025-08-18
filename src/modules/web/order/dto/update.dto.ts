@@ -26,7 +26,7 @@ class OrderProductDto {
     @ApiProperty()
     @IsString()
     @IsOptional()
-    id?: string; // optional _id of product (if exists)
+    productId?: string; // optional _id of product (if exists)
 
     @ApiProperty()
     @IsNotEmpty()
@@ -53,6 +53,10 @@ class OrderProductDto {
 
 export class UpdateOrderDto {
 
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    orderId: string;
 
     @ApiProperty()
     @IsNotEmpty()
@@ -70,12 +74,7 @@ export class UpdateOrderDto {
     @Transform(({ value }) => Number(value))
     subtotal: number;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsNumber()
-    @Transform(({ value }) => Number(value))
-    total: number;
-
+   
     @ApiProperty({ type: [OrderProductDto] })
     @IsArray()
     @ValidateNested({ each: true })

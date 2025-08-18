@@ -53,7 +53,7 @@
       <!-- Brand Logo -->
       <a href="/admin/portal/dashboard" class="brand-link text-center" style="padding: 0.7125rem 0.5rem">
         <span class="brand-text font-weight-light">
-          <img src="/images/logo.svg" alt="Gayroom8" style="width: 105px" />
+          <img src="/images/logo.svg" alt="premiumlaundry" style="width: 105px" />
         </span>
       </a>
 
@@ -322,7 +322,8 @@
 
             <li class="nav-item <% if(base_path[3] == 'payments'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'payments'){__append('active')} %>">
-                <i class="fa-solid fa-box-open nav-icon"></i>
+              
+                <i class="fa-solid fa-money-bill nav-icon"></i>
                 <p>
                   Payments
                   <i class="right fas fa-angle-left"></i>
@@ -372,7 +373,7 @@
 
             <li class="nav-item <% if(base_path[3] == 'shoecares'){__append('menu-open active')} %>">
               <a href="/admin/portal/shoecares/list" class="nav-link <% if(base_path[3] == 'shoecares'){__append('active')} %>">
-                <i class="nav-icon fas fa-question-circle"></i>
+                <i class="nav-icon fa-solid fa-shoe-prints"></i>
                 <p>
                   Shoecares
                   <i class="right fas fa-angle-left"></i>
@@ -508,12 +509,6 @@
                   <a href="/admin/portal/vendors/complete" class="nav-link <% if(base_path[3] == 'complete' && base_path[4] == 'list'){__append('active')} %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Complete Order</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/admin/portal/vendors/list" class="nav-link <% if(base_path[3] == 'Statment' && base_path[4] == 'list'){__append('active')} %>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Statment</p>
                   </a>
                 </li>
               </ul>

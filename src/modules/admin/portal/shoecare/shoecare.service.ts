@@ -35,7 +35,7 @@ export class ShoecareService {
 
 
     const orderidgenrate = RandomNumberString(8);
-    console.log('Order ID Generated:', orderidgenrate);
+   
     const parsedServices =
       typeof data.services === 'string'
         ? JSON.parse(data.services)
@@ -52,7 +52,7 @@ export class ShoecareService {
         },
       });
 
-      console.log("confrimation", result)
+
 
     } else if (data.status === "Delivered") {
       const result = await this.smsService.sendSMS({
@@ -63,7 +63,7 @@ export class ShoecareService {
           TOTAL_PRICE: data.payableamount,
         },
       });
-      console.log("delivery", result)
+      
     }
 
     if (data.action_id) {
