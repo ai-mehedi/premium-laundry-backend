@@ -72,8 +72,10 @@ export type SearchObject = {
     | string
     | number
     | Types.ObjectId
-    | { $regex: string; $options: string };
+    | { $regex: RegExp | string; $options?: string };
 };
+
+
 
 export type PaginateQuery = PipelineStage.Match['$match'];
 
