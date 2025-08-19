@@ -37,7 +37,7 @@ export class UserService {
     const options: PaginationOptions = { page, limit };
     const pagination = new PaginationUI();
     const renderPath = 'views/admin/portal/users/widgets/list.ejs';
-    const searchBy = ['name', 'email'];
+    const searchBy = ['name', 'email', 'phone', 'userId'];
 
     limit = limit || 25;
     pagination.per_page = limit;
