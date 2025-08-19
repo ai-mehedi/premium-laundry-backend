@@ -56,6 +56,9 @@ export class Productervice {
       drycleaning: number | string;
       iron: number | string;
       StainSpotRemoval: number | string;
+      vpopular?: number | string;
+      ppopular?: number | string;
+
     }
 
     const price: ServicePrice = {
@@ -63,12 +66,14 @@ export class Productervice {
       drycleaning: data.pedrycleaning,
       iron: data.piron,
       StainSpotRemoval: data.pStainSpotRemoval,
+      ppopular: data.ppopular,
     };
     const vendorPrice: ServicePrice = {
       washAndIron: data.vwashAndIron,
       drycleaning: data.vdrycleaning,
       iron: data.viron,
       StainSpotRemoval: data.vStainSpotRemoval,
+      vpopular: data.vpopular,
     };
     if (data.action_id) {
       const checksubservice = await this.ProductModel.findOne({

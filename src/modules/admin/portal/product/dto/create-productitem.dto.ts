@@ -39,10 +39,14 @@ export class CreateProductitemDto {
   @IsNotEmpty()
   piron: number;
 
+  @ApiProperty()
+  @IsNotEmpty()
+  ppopular: number;
+
 
   @ApiProperty()
   @IsNotEmpty()
-pStainSpotRemoval: number;
+  pStainSpotRemoval: number;
 
 
   @ApiProperty()
@@ -57,10 +61,13 @@ pStainSpotRemoval: number;
   @ApiProperty()
   @IsNotEmpty()
   vStainSpotRemoval: number;
- @ApiProperty()
+  @ApiProperty()
+  @IsNotEmpty()
+  vpopular: number;
+  @ApiProperty()
   @IsNotEmpty()
   popular: boolean;
-  
+
   @ApiProperty({ example: true })
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
