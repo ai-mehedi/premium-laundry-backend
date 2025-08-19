@@ -109,7 +109,7 @@
                 </li>
               </ul>
             </li>
-            <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
+            <% if(auth_data.roles.includes('admin')) { %>
 
             <li class="nav-item <% if(base_path[3] == 'admins'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'admins'){__append('active')} %>">
@@ -134,15 +134,16 @@
                 </li>
               </ul>
             </li>
-
-
+<% } %>
+  <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
             <li class="nav-item">
               <a href="/admin/portal/users/list" class="nav-link <% if(base_path[3] == 'users'){__append('active')} %>">
                 <i class="nav-icon fas fa-users"></i>
                 <p>Users</p>
               </a>
             </li>
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'services'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'services'){__append('active')} %>">
                 <i class="fa-brands fa-servicestack nav-icon"></i>
@@ -166,7 +167,8 @@
                 </li>
               </ul>
             </li>
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'itemtypes'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'itemtypes'){__append('active')} %>">
                 <i class="fa-solid fa-sitemap nav-icon"></i>
@@ -190,8 +192,9 @@
                 </li>
               </ul>
             </li>
+<% } %>
 
-
+<% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
             <li class="nav-item <% if(base_path[3] == 'products'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'products'){__append('active')} %>">
                 <i class="fa-solid fa-cart-shopping nav-icon"></i>
@@ -215,9 +218,10 @@
                 </li>
               </ul>
             </li>
+<% } %>
 
 
-
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'coupons'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'coupons'){__append('active')} %>">
                 <i class="fa-solid fa-receipt nav-icon"></i>
@@ -242,8 +246,9 @@
                 </li>
               </ul>
             </li>
+<% } %>
 
-
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'categories'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'categories'){__append('active')} %>">
                 <i class="fas fa-list-ul nav-icon"></i>
@@ -268,7 +273,8 @@
               </ul>
             </li>
 
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'blogs'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'blogs'){__append('active')} %>">
                 <i class="fa-solid fa-newspaper nav-icon"></i>
@@ -292,7 +298,8 @@
                 </li>
               </ul>
             </li>
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'packages'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'packages'){__append('active')} %>">
                 <i class="fa-solid fa-box-open nav-icon"></i>
@@ -316,9 +323,9 @@
                 </li>
               </ul>
             </li>
+<% } %>
 
-
-
+<% if(auth_data.roles.includes('admin') ) { %>
 
             <li class="nav-item <% if(base_path[3] == 'payments'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'payments'){__append('active')} %>">
@@ -345,8 +352,8 @@
               </ul>
             </li>
 
-
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'faqs'){__append('menu-open active')} %>">
               <a href="/admin/portal/faqs/list" class="nav-link <% if(base_path[3] == 'faqs'){__append('active')} %>">
                 <i class="nav-icon fas fa-question-circle"></i>
@@ -370,7 +377,8 @@
                 </li>
               </ul>
             </li>
-
+<% } %>
+<% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
             <li class="nav-item <% if(base_path[3] == 'shoecares'){__append('menu-open active')} %>">
               <a href="/admin/portal/shoecares/list" class="nav-link <% if(base_path[3] == 'shoecares'){__append('active')} %>">
                 <i class="nav-icon fa-solid fa-shoe-prints"></i>
@@ -394,7 +402,8 @@
                 </li>
               </ul>
             </li>
-
+<% } %>
+<% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'testimonials'){__append('menu-open active')} %>">
               <a href="/admin/portal/testimonials/list" class="nav-link <% if(base_path[3] == 'testimonials'){__append('active')} %>">
                 <i class="nav-icon fas fa-comments"></i>
@@ -418,12 +427,16 @@
                 </li>
               </ul>
             </li>
+            <% } %>
+           <% if(auth_data.roles.includes('admin') ) { %> 
             <li class="nav-item">
               <a href="/admin/portal/newsletters/list" class="nav-link <% if(base_path[3] == 'newsletters'){__append('active')} %>">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>Newsletters</p>
               </a>
             </li>
+ <% } %>
+       <% if(auth_data.roles.includes('admin') ) { %> 
             <li class="nav-item">
               <a href="/admin/portal/contacts/list" class="nav-link <% if(base_path[3] == 'contacts'){__append('active')} %>">
                 <i class="nav-icon fas fa-phone"></i>
