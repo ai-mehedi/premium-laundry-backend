@@ -109,6 +109,12 @@
                         <input type="number" class="form-control" name="pStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.price.StainSpotRemoval; %><% } %>" required>
                       </div>
                     </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label>Popular Price </label>
+                        <input type="number" class="form-control" name="ppopular" placeholder="popular price" value="<% if(is_update == true){ %><%= action_data.price.ppopular; %><% } %>" required>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -143,6 +149,12 @@
                       <div class="form-group">
                         <label>Stain/Spot Removal </label>
                         <input type="number" class="form-control" name="vStainSpotRemoval" placeholder="Stain/Spot Removal " value="<% if(is_update == true){ %><%= action_data.vendorPrice.StainSpotRemoval; %><% } %>" required>
+                      </div>
+                    </div>
+                      <div class="col-5">
+                      <div class="form-group">
+                        <label>Vendor Popular Price </label>
+                        <input type="number" class="form-control" name="vpopular" placeholder="vendor popular price" value="<% if(is_update == true){ %><%= action_data.vendorPrice.vpopular; %><% } %>" required>
                       </div>
                     </div>
                   </div>

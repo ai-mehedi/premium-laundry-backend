@@ -64,6 +64,8 @@
                   <select class="form-control" name="orderstatus" required>
                     <option value="Order Confirmed" <%= order.orderstatus === "Order Confirmed" ? "selected" : "" %>>Order Confirmed</option>
                     <option value="Order Canceled" <%= order.orderstatus === "Order Canceled" ? "selected" : "" %>>Order Canceled</option>
+                    <option value="Delivered" <%= order.orderstatus === "Delivered" ? "selected" : "" %>>Delivered</option>
+
                   </select>
                 </div>
               </li>
@@ -103,12 +105,11 @@
                     </select>
                   </td>
                   <td>
-
                     <select class="form-control" name="service" onchange="initUpdatePrices()" required="">
-                      <option value="washAndIron" <%= product.services[0].service === "washAndIron" ? "selected" : "" %>>Wash And Iron</option>
-                      <option value="drycleaning" <%= product.services[0].service === "drycleaning" ? "selected" : "" %>>drycleaning</option>
-                      <option value="iron" <%= product.services[0].service === "iron" ? "selected" : "" %>>iron</option>
-                      <option value="StainSpotRemoval" <%= product.services[0].service === "StainSpotRemoval" ? "selected" : "" %>>StainSpotRemoval</option>
+                      <option value="washAndIron" <%= product.services[0].service === "washAndIron" || product.services[0].service === "Wash & Iron" ? "selected" : "" %>>Wash And Iron</option>
+                      <option value="drycleaning" <%= product.services[0].service === "drycleaning" || product.services[0].service === "Dry Cleaning" ? "selected" : "" %>>drycleaning</option>
+                      <option value="iron" <%= product.services[0].service === "iron" || product.services[0].service === "Iron" ? "selected" : "" %>>iron</option>
+                      <option value="StainSpotRemoval" <%= product.services[0].service === "StainSpotRemoval" || product.services[0].service === "Spot Removal" ? "selected" : "" %>>StainSpotRemoval</option>
                     </select>
                   </td>
                   <td>
