@@ -1,7 +1,8 @@
 <tr>
   <td><%= serial_number; %></td>
   <td><%= result.orderId; %></td>
-  <td>৳ <%= result.total; %></td>
+<td>৳ <%= (result.total + (result.deliveryamount || 0)).toLocaleString() %></td>
+
   <td><%= result.shippingTime; %></td>
   <td><%= result.orderstatus; %></td>
   <td>

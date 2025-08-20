@@ -25,7 +25,7 @@ export class VendorService {
 
     if (data.action_id) {
       const checkFaq = await this.OrderModel.findOne({ _id: data.action_id });
-    
+
       if (!checkFaq) {
 
         throw new BadRequestException({
@@ -54,9 +54,9 @@ export class VendorService {
   }
 
 
-  
+
   async findAllOrdersById(id: string) {
-   return this.OrderModel.findById(id)
+    return this.OrderModel.findById(id)
       .populate('user');
   }
 
@@ -91,6 +91,18 @@ export class VendorService {
       };
     }
 
+    options.customFilters = [
+      {
+        $match: {
+          $expr: {
+            $ne: [
+              { $arrayElemAt: ["$statuses.status", -1] }, // last index of statuses.status
+              "Vendor Received Items"
+            ]
+          }
+        }
+      }
+    ];
 
     const results = await this.OrderModel.paginate({ orderstatus: "Order Confirmed" }, options);
 
@@ -143,6 +155,8 @@ export class VendorService {
       id: sortBy,
 
     };
+
+
 
 
     if (searchText) {
@@ -213,10 +227,21 @@ export class VendorService {
         searchBy,
       };
     }
+    options.customFilters = [
+      {
+        $match: {
+          $expr: {
+            $eq: [
+              { $arrayElemAt: ["$statuses.status", -1] }, // last element of statuses.status
+              "Vendor Received Items"
+            ]
+          }
+        }
+      }
+    ];
 
-
-    const results = await this.OrderModel.paginate({ "statuses.status": "Vendor Received Items" }, options);
-
+    const results = await this.OrderModel.paginate({}, options);
+    console.log(results);
 
     const paginate_ui = pagination.getAllPageLinks(
       Math.ceil(results.total / limit),

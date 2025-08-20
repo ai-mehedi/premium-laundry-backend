@@ -26,8 +26,16 @@ export class OrderService {
 
   async addOrderProduct(id: string) {
 
-    const order = await this.OrderModel.findById(id);
+    const order = await this.OrderModel.findById({ _id: id });
+    console.log('Order found:', order);
+    if (!order) {
+      throw new NotFoundException({
+        message: 'Order not found',
+      });
+    }
+
     const product = await this.ProductModel.findOne({ title: "dummy" });
+    console.log('Product found:', product);
     if (!order) {
       throw new NotFoundException({
         message: 'Order not found',
@@ -143,6 +151,116 @@ export class OrderService {
   }
 
 
+  async confirmPaginatedList({
+    limit,
+    page,
+    sortBy,
+    sortOrder,
+    searchText,
+  }: PaginationQuery) {
+    const options: PaginationOptions = { page, limit };
+    const pagination = new PaginationUI();
+    const renderPath = 'views/admin/portal/orders/widgets/confirmlist.ejs';
+    const searchBy = ['orderId'];
+
+    limit = limit || 25;
+    pagination.per_page = limit;
+    const offset = (page - 1) * limit;
+
+    options.sortOrder = {
+      direction: sortOrder,
+      id: sortBy,
+    };
+
+    if (searchText) {
+      options.search = {
+        searchText,
+        searchBy,
+      };
+    }
+    const results = await this.OrderModel.paginate({ orderstatus: 'Order Confirmed' }, options);
+
+    const paginate_ui = pagination.getAllPageLinks(
+      Math.ceil(results.total / limit),
+      Math.abs(results.page),
+    );
+
+    let html_data = '';
+    let serial_number = offset;
+
+    for (const result of results.records) {
+      serial_number++;
+      html_data += await RenderEjsFile(join(global.ROOT_DIR, renderPath), {
+        result,
+        serial_number,
+      });
+    }
+
+    return {
+      data_exist: results.total > 0,
+      data: html_data,
+      total_count: results.total,
+      pagination: paginate_ui,
+    };
+  }
+
+
+
+
+  async deliveryPaginatedList({
+    limit,
+    page,
+    sortBy,
+    sortOrder,
+    searchText,
+  }: PaginationQuery) {
+    const options: PaginationOptions = { page, limit };
+    const pagination = new PaginationUI();
+    const renderPath = 'views/admin/portal/orders/widgets/deliverylist.ejs';
+    const searchBy = ['orderId'];
+
+    limit = limit || 25;
+    pagination.per_page = limit;
+    const offset = (page - 1) * limit;
+
+    options.sortOrder = {
+      direction: sortOrder,
+      id: sortBy,
+    };
+
+    if (searchText) {
+      options.search = {
+        searchText,
+        searchBy,
+      };
+    }
+    const results = await this.OrderModel.paginate({ orderstatus: 'Delivered' }, options);
+
+    const paginate_ui = pagination.getAllPageLinks(
+      Math.ceil(results.total / limit),
+      Math.abs(results.page),
+    );
+
+    let html_data = '';
+    let serial_number = offset;
+
+    for (const result of results.records) {
+      serial_number++;
+      html_data += await RenderEjsFile(join(global.ROOT_DIR, renderPath), {
+        result,
+        serial_number,
+      });
+    }
+
+    return {
+      data_exist: results.total > 0,
+      data: html_data,
+      total_count: results.total,
+      pagination: paginate_ui,
+    };
+  }
+
+
   async getPaginatedList({
     limit,
     page,
@@ -170,8 +288,7 @@ export class OrderService {
         searchBy,
       };
     }
-
-    const results = await this.OrderModel.paginate({}, options);
+    const results = await this.OrderModel.paginate({ orderstatus: 'pending' }, options);
 
     const paginate_ui = pagination.getAllPageLinks(
       Math.ceil(results.total / limit),
