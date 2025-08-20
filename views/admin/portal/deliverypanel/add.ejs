@@ -39,7 +39,7 @@
 
               <div class="form-group">
                 <label>Payable Amount</label>
-                <input type="text" name="total" class="form-control" value="<%= action_data.deliveryamount + action_data.total; %>" readonly>
+                <input type="text" name="total" class="form-control" value="<%= ((action_data.total || 0) + (action_data.deliveryamount || 0)).toLocaleString() %>" readonly>
               </div>
               <div class="form-group">
                 <label>Delivery Amount</label>
