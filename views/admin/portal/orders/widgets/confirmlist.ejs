@@ -1,0 +1,33 @@
+<tr>
+  <td><%= serial_number; %></td>
+  <td><%= result.orderId; %></td>
+  <td><%= result.orderstatus; %></td>
+  <td><%= result.shippingTime; %></td>
+  <td>
+    <%= new Date(result.createdAt).toLocaleString("en-US", {
+        timeZone: "Asia/Dhaka",  // <-- Change to your desired timezone
+        hour12: true,            // <-- 12-hour format
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      }) %>
+  </td>
+
+  <td>
+    <div class="d-flex align-items-center" style="gap: 5px;">
+      <a class="btn btn-success " href="/admin/portal/orders/add?id=<%= result._id.toString(); %>"><i class="fas fa-pen"></i></a>
+
+      <a class="btn btn-success " href="/admin/portal/orders/edit/<%= result._id.toString(); %>"><i class="fa-solid fa-file-pen"></i></i></a>
+
+      <button class="btn btn-success" onclick="window.open('/admin/portal/orders/invoice?id=<%= result._id.toString(); %>', '_blank', 'width=1024,height=800')">
+       <i class="fa-solid fa-receipt"></i>
+      </button>
+            <button type="button" class="btn btn-danger" onclick="removeData(this, '/admin/portal/orders?id=<%= result._id; %>')"><i class="bi bi-trash"></i></button>
+
+    </div>
+  </td>
+
+</tr>

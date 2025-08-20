@@ -15,6 +15,8 @@ export class OrderController {
 
   @Post('orderupdate/:id')
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    console.log('updateOrderDto', updateOrderDto);
+    
     return this.orderService.updateorder(id, updateOrderDto);
   }
 

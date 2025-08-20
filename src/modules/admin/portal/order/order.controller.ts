@@ -22,6 +22,34 @@ export class OrderController {
     };
   }
 
+  @Get('confirmlist')
+  @Render('admin/portal/orders/confirmlist')
+  confirmorderList() {
+    return {
+      title: 'Confirm Orders',
+    };
+  }
+
+   @Post('confirmlist')
+  async confirmListPaginated(@Query() queryDto: PaginationQuery) {
+    const result = await this.orderService.confirmPaginatedList(queryDto);
+    return result;
+  }
+
+   @Get('deliverylist')
+  @Render('admin/portal/orders/deliverylist')
+  deliveryOrderList() {
+    return {
+      title: 'Delivery Orders',
+    };
+  }
+
+   @Post('deliverylist')
+  async deliveryListPaginated(@Query() queryDto: PaginationQuery) {
+    const result = await this.orderService.deliveryPaginatedList(queryDto);
+    return result;
+  }
+
   @Get('invoice')
   @Render('admin/portal/orders/invoice')
   async invoicechek(@Query('id') id: string) {
@@ -108,6 +136,7 @@ export class OrderController {
 
   @Post("orderproductadd/:id")
   async addOrderProduct(@Param('id') id: string,) {
+    console.log('Adding product to order:', id);
     await this.orderService.addOrderProduct(id);
     return {
       message: 'Order product has been added',
