@@ -48,13 +48,17 @@ export class DashboardService {
     const shoecare = await this.ShoecareModel.countDocuments().exec();
     const totalshoecareamount = await this.ShoecareModel.aggregate([
       {
+        $match: { status: "Delivered" }  // filter only Delivered items
+      },
+      {
         $group: {
           _id: null,
-          total: { $sum: '$payableamount' }
+          total: { $sum: "$payableamount" }  // sum payableamount
         }
       }
     ]).exec();
-    
+
+
 
     return {
       totalshoecare: shoecare,
