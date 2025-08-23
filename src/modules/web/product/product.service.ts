@@ -18,20 +18,34 @@ export class Productervice {
   ) { }
 
 
-async findproductBytype() {
-  const itemtypes = await this.ItemtypeModel.aggregate([
-    {
-      $lookup: {
-        from: "products", // must match your Mongo collection name
-        localField: "_id",
-        foreignField: "itemtypeID",
-        as: "products"
+  async findproductBytype() {
+    const itemtypes = await this.ItemtypeModel.aggregate([
+      {
+        $lookup: {
+          from: "products", // must match Mongo collection name
+          let: { itemtypeId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$itemtypeID", "$$itemtypeId"] },
+                    { $eq: ["$isActive", true] } // filter active products
+                  ]
+                }
+              }
+            }
+          ],
+          as: "products"
+        }
       }
-    }
-  ]);
+    ]);
 
-  return { itemtypes };
-}
+    console.log(itemtypes);
+
+    return { itemtypes };
+  }
+
 
   async findAll() {
     return await this.ProductModel.find({
