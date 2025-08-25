@@ -41,7 +41,6 @@ export class Productervice {
       }
     ]);
 
-    console.log(itemtypes);
 
     return { itemtypes };
   }
