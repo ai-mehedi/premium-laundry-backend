@@ -32,7 +32,7 @@
 
 
               <div class="form-group">
-                <label>supplier</label>
+                <label>Supplier</label>
 
                 <select class="form-control" name="supplier" required>
                   <% admins.forEach(function(admin) { %>
@@ -45,7 +45,7 @@
                 <textarea class="form-control" name="note" placeholder="Description" required><% if(is_update == true){ %><%= action_data.description; %><% } %></textarea>
               </div>
               <div class="form-group">
-                <label>statuse</label>
+                <label>Status</label>
                 <select class="form-control" name="orderstatus" required>
                   <option value="	Order Confirmed" <% if(is_update == true){ %><% if(action_data.isActive == true){__append('selected=""')}  %><% } %>>Order Confirmed</option>
                   <option value="Order Canceled" <% if(is_update == true){ %><% if(action_data.isActive == false){__append('selected=""')}  %><% } %>>Order Canceled </option>
