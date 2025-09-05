@@ -75,6 +75,10 @@ export class Shoecare {
 
     @ApiProperty()
     @Prop({ type: Number, })
+    PickupDeliveryCharge: number;
+
+    @ApiProperty()
+    @Prop({ type: Number, })
     payableamount: number;
 
     @ApiProperty()
