@@ -49,6 +49,7 @@ export class ShoecareService {
           NAME: data.name,
           ORDERID: data.orderid,
           TOTAL_PRICE: data.payableamount,
+
         },
       });
 
@@ -91,6 +92,7 @@ export class ShoecareService {
             services: parsedServices,
             payableamount: data.payableamount,
             description: data.description,
+            PickupDeliveryCharge: data.PickupDeliveryCharge,
             status: data.status,
             isActive: data.isActive,
           },

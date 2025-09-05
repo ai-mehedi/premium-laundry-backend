@@ -33,7 +33,7 @@ export class CreateShoecareDto {
     @ApiProperty()
     @IsNotEmpty()
     services: string;
-    
+
     @ApiProperty()
     @IsNotEmpty()
     status: string;
@@ -47,6 +47,14 @@ export class CreateShoecareDto {
     @IsNotEmpty()
     @Transform(({ value }) => parseFloat(value))
     payableamount: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    PickupDeliveryCharge?: string;
+
+
 
     @ApiProperty()
     @IsNotEmpty()

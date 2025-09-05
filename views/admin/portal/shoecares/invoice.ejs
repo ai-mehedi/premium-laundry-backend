@@ -73,11 +73,15 @@
           <td class="border px-4 py-2 text-right"> BDT <%= invoice.payableamount %></td>
         </tr>
 
+         <tr>
+          <td colspan="3" class="border px-4 py-2 text-right font-semibold">Pickup/Delivery Charge</td>
+          <td class="border px-4 py-2 text-right"> BDT <%= invoice.PickupDeliveryCharge %></td>
+        </tr>
 
 
         <tr class="font-bold bg-gray-100">
           <td colspan="3" class="border px-4 py-2 text-right">Total Due</td>
-          <td class="border px-4 py-2 text-right"> BDT <%= invoice.payableamount %></td>
+          <td class="border px-4 py-2 text-right"> BDT <%= invoice.payableamount + invoice.PickupDeliveryCharge %></td>
         </tr>
       </tbody>
     </table>

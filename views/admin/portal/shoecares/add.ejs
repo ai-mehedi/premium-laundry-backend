@@ -81,6 +81,14 @@
                         required><%= is_update ? action_data.description : '' %></textarea>
                     </div>
 
+
+                    <div class="form-group">
+                      <label>Pickup/Delivery Charge</label>
+                      <input type="number" id="PickupDeliveryCharge" class="form-control"
+                        placeholder="Pickup/Delivery Charge" name="PickupDeliveryCharge"
+                        value="<%= is_update ? action_data.PickupDeliveryCharge : '0' %>" required>
+                    </div>
+
                     <!-- Shoe Services -->
                     <div class="form-group">
                       <label class="font-weight-bold">Shoe Services</label>
@@ -139,8 +147,25 @@
 
                     <!-- Total -->
                     <div class="mt-2">
-                      <strong>Total Payable:</strong> <span id="totalPrice">
+                      <strong>Total Services Amount:</strong> <span id="totalPrice">
                         <%= action_data.payableamount || 0 %>
+                        
+                      </span>
+                    </div>
+
+                      <div class="mt-2">
+                      <strong>Pickup/Delivery Charge:</strong> <span>
+                        <%=  Number(action_data.PickupDeliveryCharge || 0) %>
+
+                        
+                      </span>
+                    </div>
+
+                     <div class="mt-2">
+                      <strong>Total:</strong> <span>
+                        <%= Number(action_data.payableamount || 0) + Number(action_data.PickupDeliveryCharge || 0) %>
+
+                        
                       </span>
                     </div>
 
