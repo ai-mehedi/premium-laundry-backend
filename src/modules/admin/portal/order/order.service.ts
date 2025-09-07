@@ -24,6 +24,11 @@ export class OrderService {
     private readonly AdminModel: AdminModel,
   ) { }
 
+  async getAllOrders() {
+    return this.OrderModel.find().populate('user').sort({ createdAt: -1 });
+  }
+
+
   async addOrderProduct(id: string) {
 
     const order = await this.OrderModel.findById({ _id: id });

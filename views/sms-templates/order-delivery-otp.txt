@@ -1,5 +1,5 @@
 Your PremiumLaundryx order {ORDERID} has arrived at your doorstep. 
 
 ​Please share this OTP code: {CODE} with our delivery specialist to confirm your delivery. For your security, please do not share this code with anyone else.
-​Need help? Visit 🌐 PremiumLaundryx.com
-🧺 PremiumLaundry
+​Need help? Visit  PremiumLaundryx.com
+ PremiumLaundry

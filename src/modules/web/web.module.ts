@@ -13,6 +13,7 @@ import { ItemtypeModule } from './itemtype/itemtype.module';
 import { OrderModule } from './order/order.module';
 import { PackagesModule } from './packages/packages.module';
 import { ShoecareModule } from './shoecare/shoecare.module';
+import { CampaignModule } from './campaign/campaign.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ShoecareModule } from './shoecare/shoecare.module';
     OrderModule,
     PackagesModule,
     ShoecareModule,
+    CampaignModule,
   ],
 })
 export class WebModule {}

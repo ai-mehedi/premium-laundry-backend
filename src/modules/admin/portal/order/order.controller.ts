@@ -19,6 +19,17 @@ export class OrderController {
   faqsList() {
     return {
       title: 'FAQs',
+      
+    };
+  }
+
+    @Get('statementlist')
+  @Render('admin/portal/orders/statementlist')
+  async statementList() {
+    const orders =await this.orderService.getAllOrders();
+    return {
+      title: 'Order Statements',
+      orders,
     };
   }
 
