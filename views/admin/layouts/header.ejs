@@ -135,6 +135,9 @@
               </ul>
             </li>
             <% } %>
+
+
+
             <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
             <li class="nav-item">
               <a href="/admin/portal/users/list" class="nav-link <% if(base_path[3] == 'users'){__append('active')} %>">
@@ -143,6 +146,33 @@
               </a>
             </li>
             <% } %>
+ <% if(auth_data.roles.includes('admin') ) { %>
+            <li class="nav-item <% if(base_path[3] == 'Statement'){__append('menu-open active')} %>">
+              <a href="/admin/portal/orders/statementlist" class="nav-link <% if(base_path[3] == 'Statement'){__append('active')} %>">
+                <i class="nav-icon fa-solid fa-file-invoice"></i>
+                <p>
+                  Statements
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/orders/statementlist" class="nav-link <% if(base_path[3] == 'Statement' && base_path[4] == 'add'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p> Order Statement</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/shoecares/statementlist" class="nav-link <% if(base_path[3] == 'shoecaress' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Shoe Cares Statements</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <% } %>
+
+
             <% if(auth_data.roles.includes('admin') ) { %>
             <li class="nav-item <% if(base_path[3] == 'services'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'services'){__append('active')} %>">
@@ -193,6 +223,35 @@
               </ul>
             </li>
             <% } %>
+
+              <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
+            <li class="nav-item <% if(base_path[3] == 'campaign'){__append('menu-open active')} %>">
+              <a href="#" class="nav-link <% if(base_path[3] == 'campaign'){__append('active')} %>">
+                <i class="fa-solid fa-regular fa-chess-queen"></i>
+            
+                <p>
+                  Campaign
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/portal/campaign/add" class="nav-link <% if(base_path[3] == 'campaign' && base_path[4] == 'add'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Campaign</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/portal/campaign/list" class="nav-link <% if(base_path[3] == 'campaign' && base_path[4] == 'list'){__append('active')} %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Campaigns</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <% } %>
+
+
 
             <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
             <li class="nav-item <% if(base_path[3] == 'products'){__append('menu-open active')} %>">

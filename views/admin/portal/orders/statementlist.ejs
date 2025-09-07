@@ -1,0 +1,200 @@
+<%- include('../../layouts/header'); %>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item">Statement</li>
+                    <li class="breadcrumb-item active"><%= title %></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Filters -->
+       
+        <!-- Orders Table -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap w-100">
+                        <h4 class="card-title">
+                            Orders <span class="badge badge-primary" ><%= orders.length %></span>
+                        </h4>
+ <div class="row mb-2">
+            <div class="col-md-3">
+                <input type="text" id="minDate" placeholder="From Date" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="text" id="maxDate" placeholder="To Date" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <select id="statusFilter" class="form-control">
+                    <option value="">All Status</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Order Confirmed">Order Confirmed</option>
+                </select>
+            </div>
+        </div>
+
+                    </div>
+                    <div class="card-body" style="overflow:auto;">
+                        <table id="ordersTable" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Order Status</th>
+                                    <th>Delivery Date</th>
+                                    <th>Order Date</th>
+                                    <th>Vendor Cost</th>
+                                    <th>Subtotal</th>
+                                    <th>Total</th>
+                                    <th>Offer Price</th>
+                                    <th>Delivery Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% orders.forEach((order, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= order.orderId %></td>
+                                    <td><%= order.user.name %></td>
+                                    <td><%= order.orderstatus %></td>
+                                    <td><%= new Date(order.updatedAt).toLocaleDateString('en-US') %></td>
+                                    <td><%= new Date(order.createdAt).toLocaleDateString('en-US') %></td>
+                                    <td><%= order.vendorCosts %></td>
+                                    <td><%= order.subtotal %></td>
+                                    <td><%= order.total %></td>
+                                    <td><%= order.promoOfferPrice %></td>
+                                    <td><%= order.deliveryamount %></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="6" style="text-align:right">Total:</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('../../layouts/footer'); %>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Initialize date pickers
+    $("#minDate, #maxDate").datepicker({ dateFormat: 'mm/dd/yy' });
+
+    // Custom filtering function for date range + status
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#minDate').val() ? new Date($('#minDate').val()) : null;
+            var max = $('#maxDate').val() ? new Date($('#maxDate').val()) : null;
+            var orderDate = new Date(data[5]); // Order Date column
+            var status = $('#statusFilter').val();
+            var orderStatus = data[3]; // Order Status column
+
+            var dateValid = (!min && !max) ||
+                            (!min && orderDate <= max) ||
+                            (min <= orderDate && !max) ||
+                            (min <= orderDate && orderDate <= max);
+
+            var statusValid = !status || orderStatus === status;
+
+            return dateValid && statusValid;
+        }
+    );
+
+    // Initialize DataTable
+    var table = $('#ordersTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            { extend: 'csvHtml5',
+                title: "Order Report", 
+                footer: true, text: 'Export CSV' },
+            { extend: 'excelHtml5',
+                title: "Order Report", 
+             
+            footer: true, text: 'Export Excel' },
+            { extend: 'print',
+                    title: '.', 
+                messageTop:  `<div style="border-bottom:2px solid #000; padding-bottom:10px; margin-bottom:20px;">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+        <!-- Logo -->
+        <div>
+            <img src="https://admin.premiumlaundryx.com/images/logo.svg" alt="PremiumLaundryX" style="height:80px;">
+        </div>
+        <!-- Company Info -->
+        <div style="text-align:right; width:400px;">
+            <p style="margin:2px 0; font-size:14px;">+880 9666-722 734</p>
+            <p style="margin:2px 0; font-size:14px;">info@premiumlaundryx.com</p>
+            <p style="margin:2px 0; font-size:14px;">
+                Ka-54/4, Madbor Bari Masjid Road, Jogonnathpur, Main Entrance Gate, Bashundhara R/A, Dhaka-1229.
+            </p>
+            <p style="margin:2px 0; font-size:14px;">Generated on: ${new Date().toLocaleDateString()}</p>
+        </div>
+    </div>
+
+    <!-- Order Report Title -->
+    <h1 style="margin-top:20px; font-size:30px; font-weight:bold; text-align:center;">Order Report</h1><p>Generated on: ${new Date().toLocaleDateString()}</p></div>`,
+            footer: true, text: 'Print' }
+        ],
+        "pageLength": 10,
+        "lengthChange": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api();
+            var parseValue = function(i){ return typeof i === 'string' ? i.replace(/[\$,]/g,'')*1 : typeof i === 'number' ? i : 0; };
+
+            // Columns 6-10 totals
+            for (var col = 6; col <= 10; col++){
+                var total = api.column(col, {search:'applied'}).data().reduce(function(a,b){ return parseValue(a)+parseValue(b); },0);
+                $(api.column(col).footer()).html(total.toFixed(2));
+            }
+        }
+    });
+
+    // Total orders badge
+    $('#total_data').text(table.data().count());
+
+    // Custom search
+    $('#customSearch').on('keyup', function(){ table.search(this.value).draw(); });
+
+    // Redraw table on date/status change
+    $('#minDate, #maxDate, #statusFilter').change(function(){ table.draw(); });
+});
+</script>

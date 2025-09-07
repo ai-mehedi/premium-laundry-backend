@@ -21,6 +21,16 @@ export class ShoecareController {
     };
   }
 
+   @Get('statementlist')
+  @Render('admin/portal/shoecares/statementlist')
+  async ShoecareStatements() {
+    const orders = await this.shoecareService.Statements();
+    return {
+      title: 'Shoe Cares Statements',
+      orders,
+    };
+  }
+
   @Get('invoice/:id')
   @Render('admin/portal/shoecares/invoice')
   async invoice(@Param('id') id: string) {

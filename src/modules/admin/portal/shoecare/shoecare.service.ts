@@ -19,6 +19,10 @@ export class ShoecareService {
     private readonly smsService: SMSService,
   ) { }
 
+async Statements() {
+    return await this.ShoecareModel.find();
+  }
+
 
   async invoice(id: string) {
     const invoiceData = await this.ShoecareModel.findById(id);
@@ -48,8 +52,7 @@ export class ShoecareService {
         payload: {
           NAME: data.name,
           ORDERID: data.orderid,
-          TOTAL_PRICE: data.payableamount,
-
+          TOTAL_PRICE: (parseFloat(data.payableamount) || 0) + (parseFloat(data.PickupDeliveryCharge) || 0),
         },
       });
 
