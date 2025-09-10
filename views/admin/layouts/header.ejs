@@ -253,7 +253,7 @@
 
 
 
-            <% if(auth_data.roles.includes('admin') || auth_data.roles.includes('moderator')) { %>
+            <% if(auth_data.roles.includes('admin')) { %>
             <li class="nav-item <% if(base_path[3] == 'products'){__append('menu-open active')} %>">
               <a href="#" class="nav-link <% if(base_path[3] == 'products'){__append('active')} %>">
                 <i class="fa-solid fa-cart-shopping nav-icon"></i>
