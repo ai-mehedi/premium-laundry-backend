@@ -20,7 +20,7 @@ import { ADMIN_ROLE } from 'src/common/types/admin-auth.types';
 
 @Controller('admin/portal/products')
 @UseGuards(AdminRolesGuard)
-@AdminRoles(ADMIN_ROLE.ADMIN, ADMIN_ROLE.MODERATOR)
+@AdminRoles(ADMIN_ROLE.ADMIN)
 export class ProductitemController {
   constructor(private readonly Productervice: Productervice) { }
 
