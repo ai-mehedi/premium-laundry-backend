@@ -95,12 +95,16 @@
                                             <td>
                                                 <%= order.status %>
                                             </td>
+
                                             <td>
-                                                <%= new Date(order.updatedAt).toLocaleDateString('en-US') %>
+                                                <%= new Date(order.updatedAt).toLocaleDateString('en-US', {
+                                                    day: '2-digit' , month: 'short' , year: 'numeric' }) %>
                                             </td>
-                                            <td>
-                                                <%= new Date(order.createdAt).toLocaleDateString('en-US') %>
+                                             <td>
+                                                <%= new Date(order.createdAt).toLocaleDateString('en-US', {
+                                                    day: '2-digit' , month: 'short' , year: 'numeric' }) %>
                                             </td>
+                                            
                                             <td>
                                                 <%= order.payableamount %>
                                             </td>
