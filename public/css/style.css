@@ -3,6 +3,10 @@
     --primary-hover-color: #043353;
 }
 
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
 .btn-primary {
     color: #fff;
     background-color: var(--primary-color);
