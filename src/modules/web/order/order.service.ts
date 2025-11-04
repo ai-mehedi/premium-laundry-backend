@@ -40,6 +40,8 @@ export class OrderService {
       throw new NotFoundException(`Order with ID ${id} not found`);
     }
 
+    total = updateOrderDto.subtotal;
+
     // 2. If promoCode used, update coupon usage
     if (updateOrderDto.promoCode && updateOrderDto.promoCode !== "") {
       const coupon = await this.CouponModel.findOne({
@@ -48,6 +50,7 @@ export class OrderService {
         isDeleted: false,
         expierationDate: { $gte: new Date() } // valid, not expired
       });
+
 
       if (coupon) {
         // Calculate discount
@@ -98,7 +101,7 @@ export class OrderService {
 
       const enrichedServices = item.services.map((service: any) => {
         let vendorPrice = 0;
-      
+
         if (service.service === 'washAndIron') {
           vendorPrice = matchedProduct.vendorPrice.washAndIron;
         } else if (service.service === 'drycleaning') {
@@ -149,6 +152,7 @@ export class OrderService {
       updatedAt: new Date(),
     };
 
+  
     // 6. Update order in DB
     await this.OrderModel.updateOne({ _id: id }, { $set: updatedOrder });
 
@@ -341,7 +345,7 @@ export class OrderService {
         code: otp,
       },
     });
-  
+
 
     return {
       success: true,
